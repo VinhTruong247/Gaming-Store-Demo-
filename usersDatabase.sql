@@ -4,7 +4,8 @@ CREATE TABLE [users](
 	[user_email] [varchar](50) NOT NULL,
 	[user_password] [char](64) NOT NULL,
 	[user_fullName] [nvarchar](50) NOT NULL,
-	[user_role] [varchar](20) NOT NULL
+	[user_role] [varchar](20) NOT NULL,
+	UNIQUE(user_userName)
 )
 
 SET IDENTITY_INSERT [dbo].[users] ON 
