@@ -48,6 +48,7 @@ public class UserFacade {
         stm.setString(2, Hasher.hash(password));
         ResultSet rs = stm.executeQuery();
         if(rs.next()){
+            user = new User();
             user.setId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));

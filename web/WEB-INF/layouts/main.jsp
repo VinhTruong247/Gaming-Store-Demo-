@@ -25,10 +25,11 @@
                     <a href="<c:url value="/" />">Discount</a> |
                     <a href="<c:url value="/home/aboutus.page" />">About Us</a> 
                     <span style="float:right;">
-                        <c:if test="${sessionScope.account==null}">
+                        <c:if test="${sessionScope.user==null}">
                             <a href="<c:url value="/user/login.page" />">Login</a>
                         </c:if>
-                        <c:if test="${sessionScope.account!=null}">
+                        <c:if test="${sessionScope.user!=null}">
+                            Welcome ${sessionScope.user.username} | 
                             <a href="<c:url value="/user/logout.page" />">Logout</a>
                         </c:if>
                             <a href="<c:url value="/user/userlist.page" />">User List</a>
