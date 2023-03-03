@@ -9,7 +9,7 @@
     <h2>About Us</h2>
     <div class="col">
         <p style="color: blue; font-style: italic">
-            We are a group of FBT University in Hanoi who sells mixed cream for dumbasses. :O
+            We are a group of FBT University from HCM city. Please ignore us! :O
         </p><br>
         <p>
             <a style="color: red; font-weight: bold; text-decoration: line-through;">

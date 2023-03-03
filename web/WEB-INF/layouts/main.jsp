@@ -24,6 +24,14 @@
                     <a href="<c:url value="/product/index.page" />">Product</a> |
                     <a href="<c:url value="/" />">Discount</a> |
                     <a href="<c:url value="/home/aboutus.page" />">About Us</a> 
+                    <span style="float:right;">
+                        <c:if test="${sessionScope.account==null}">
+                            <a href="<c:url value="/user/login.page" />">Login</a>
+                        </c:if>
+                        <c:if test="${sessionScope.account!=null}">
+                            <a href="<c:url value="/user/logout.page" />">Logout</a>
+                        </c:if>    
+                    </span>
                 </div>
             </div>
             <div class="row">

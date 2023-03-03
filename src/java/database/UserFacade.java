@@ -24,11 +24,14 @@ public class UserFacade {
         ResultSet rs = stm.executeQuery("select * from users");
         list = new ArrayList<>();
         while(rs.next()){
-            User u = new User();
-            u.setUsername(rs.getString("username"));
-            u.setPassword(rs.getString("password"));
-            u.setPrivilege(rs.getString("privilege"));
-            list.add(u);
+            User user = new User();
+            user.setId(rs.getInt("user_id"));
+            user.setUsername(rs.getString("user_userName"));
+            user.setPassword(rs.getString("user_password"));
+            user.setEmail(rs.getString("user_email"));
+            user.setFullName(rs.getString("user_fullName"));
+            user.setRole(rs.getString("user_role"));
+            list.add(user);
         }
         con.close();
         return list;
