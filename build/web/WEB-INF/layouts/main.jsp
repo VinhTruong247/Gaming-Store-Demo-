@@ -30,7 +30,8 @@
                         </c:if>
                         <c:if test="${sessionScope.account!=null}">
                             <a href="<c:url value="/user/logout.page" />">Logout</a>
-                        </c:if>    
+                        </c:if>
+                            <a href="<c:url value="/user/userlist.page" />">User List</a>
                     </span>
                 </div>
             </div>

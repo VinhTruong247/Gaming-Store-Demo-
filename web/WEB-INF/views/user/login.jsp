@@ -10,14 +10,14 @@
 <hr/>
 <div class="row">
     <div class="col">
-        <form action="<c:url value="/user/login_handler.do" />" method="get">
+        <form action="<c:url value="/user/login_handler.page" />" method="get">
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Your email" value="">
+                <label for="" class="form-label">Email or Username:</label>
+                <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Enter your email or username here" value="">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Your password" name="password" value="">
+                <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" value="">
             </div>            
             <button type="submit" class="btn btn-outline-success" name="op" value="login"><i class="bi bi-check-lg"></i> Login</button>
             <button type="submit" class="btn btn-outline-danger" name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
