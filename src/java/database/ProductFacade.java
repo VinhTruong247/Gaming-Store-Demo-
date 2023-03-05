@@ -6,6 +6,7 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,5 +37,45 @@ public class ProductFacade {
         }
         con.close();
         return list;
+    }
+    
+    public void delete(String productId) throws SQLException {
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("delete from products where product_id = ?");
+        stm.setString(1, productId);
+        int count = stm.executeUpdate();
+        con.close();
+    }
+    
+    public void update(Product product) throws SQLException {
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ? where product_id = ?");
+        stm.setString(1, product.getProductName());
+        stm.setString(2, product.getProductPublisher());
+        stm.setString(3, product.getCategory());
+        stm.setString(4, product.getDescription());
+        stm.setDouble(5, product.getPrice());
+        stm.setString(6, product.getProductId());
+        int count = stm.executeUpdate();
+        con.close();
+    }
+    
+    public Product read(String productId) throws SQLException {
+        Product product = null;
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from products where product_id = ?");
+        stm.setString(1, productId);
+        ResultSet rs = stm.executeQuery();
+        if(rs.next()){
+            product = new Product();
+            product.setProductId(rs.getString("product_id"));
+            product.setProductName(rs.getString("product_name"));
+            product.setProductPublisher(rs.getString("product_publisher"));
+            product.setCategory(rs.getString("product_category"));
+            product.setDescription(rs.getString("product_description"));
+            product.setPrice(rs.getDouble("price"));
+        }
+        con.close();
+        return product;
     }
 }
