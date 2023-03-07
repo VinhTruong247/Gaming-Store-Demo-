@@ -11,40 +11,39 @@ package database;
  */
 public class User {
 
-    private int id;
-    private String email;
+    private String role;
+    private String userId;
     private String username;
+    private String email;
     private String password;
     private String fullName;
-    private String role;
 
     public User() {
-
     }
 
-    public User(int id, String email, String username, String password, String fullName, String role) {
-        this.id = id;
-        this.email = email;
+    public User(String role, int id, String username, String email, String password, String fullName) {
+        this.role = role;
+        this.userId = role+"-"+id;
         this.username = username;
+        this.email = email;
         this.password = password;
         this.fullName = fullName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(int id) {
+        this.userId = role+"-"+id;
     }
 
     public String getUsername() {
@@ -53,6 +52,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -69,14 +76,6 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
 }

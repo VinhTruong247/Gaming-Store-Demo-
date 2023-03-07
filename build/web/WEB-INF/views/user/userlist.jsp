@@ -11,23 +11,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>Role</th>
             <th>ID</th>
             <th>Username</th>
             <th>Password</th>
             <th>Email</th>
             <th>Full Name</th>
-            <th>Role</th>
         </tr>
     </thead>
     <tbody>
         <c:forEach var="user" items="${list}" varStatus="loop">
             <tr>
-                <td>${user.id}</td>
+                <td>${user.role}</td>
+                <td>${user.userId}</td>
                 <td>${user.username}</td>
                 <td>${user.password}</td>
                 <td>${user.email}</td>
                 <td>${user.fullName}</td>
-                <td>${user.role}</td>
             </tr>
         </c:forEach>
     </tbody>

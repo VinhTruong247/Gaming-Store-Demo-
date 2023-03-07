@@ -31,8 +31,8 @@
                         <c:if test="${sessionScope.user!=null}">
                             Welcome ${sessionScope.user.username} | 
                             <a href="<c:url value="/user/logout.page" />">Logout</a>
-                        </c:if>
-                            <a href="<c:url value="/user/userlist.page" />">User List</a>
+                        </c:if> |
+                            <a href="<c:url value="/user/userlist.page" />">User List</a>|
                     </span>
                 </div>
             </div>

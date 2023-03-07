@@ -24,16 +24,16 @@ public class UserFacade {
         List<User> list = null;
         Connection con = Database.getConnection();
         Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("select * from users");
+        ResultSet rs = stm.executeQuery("select * from users u inner join user_roles r on u.role_id=r.id");
         list = new ArrayList<>();
         while(rs.next()){
             User user = new User();
-            user.setId(rs.getInt("user_id"));
+            user.setRole(rs.getString("role"));
+            user.setUserId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
-            user.setRole(rs.getString("user_role"));
             list.add(user);
         }
         con.close();
@@ -43,18 +43,18 @@ public class UserFacade {
     public User loginEmail(String email, String password) throws SQLException, NoSuchAlgorithmException{
         User user = null;
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from users where user_email=? and user_password=?");
+        PreparedStatement stm = con.prepareStatement("select * from users u inner join user_roles r on u.role_id=r.id where user_email=? and user_password=?");
         stm.setString(1, email);
         stm.setString(2, Hasher.hash(password));
         ResultSet rs = stm.executeQuery();
         if(rs.next()){
             user = new User();
-            user.setId(rs.getInt("user_id"));
+            user.setRole(rs.getString("role"));
+            user.setUserId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
-            user.setRole(rs.getString("user_role"));
         }
         con.close();
         return user;
@@ -63,17 +63,18 @@ public class UserFacade {
     public User loginUsername(String username, String password) throws SQLException, NoSuchAlgorithmException{
         User user = null;
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from users where user_username=? and user_password=?");
+        PreparedStatement stm = con.prepareStatement("select * from users u inner join user_roles r on u.role_id=r.id where user_username=? and user_password=?");
         stm.setString(1, username);
         stm.setString(2, Hasher.hash(password));
         ResultSet rs = stm.executeQuery();
         if(rs.next()){
-            user.setId(rs.getInt("user_id"));
+            user = new User();
+            user.setRole(rs.getString("role"));
+            user.setUserId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
-            user.setRole(rs.getString("user_role"));
         }
         con.close();
         return user;
