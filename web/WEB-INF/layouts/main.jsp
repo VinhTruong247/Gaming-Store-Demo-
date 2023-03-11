@@ -45,7 +45,7 @@
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
-                                <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.do"/>">About Us</a></li>
+                                <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
                                     <a href="<c:url value="#"/>">Games</a>
                                     <ul>
@@ -56,7 +56,7 @@
                                         <li><a href="<c:url value="#"/>">Features Page 5</a></li>
                                     </ul>
                                 </li>
-                                <li class="scroll-to-section"><a href="<c:url value="/user/login.do"/>">Login</a></li>
+                                <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
                             </ul>        
                             <a class='menu-trigger'>
                                 <span>Menu</span>
@@ -103,7 +103,7 @@
                         <h4>Useful Links</h4>
                         <ul>
                             <li><a href="<c:url value="#" />">Home</a></li>
-                            <li><a href="<c:url value="/home/aboutus.do" />">About Us</a></li>
+                            <li><a href="<c:url value="/home/aboutus.page" />">About Us</a></li>
                             <li><a href="<c:url value="#" />">Help</a></li>
                             <li><a href="<c:url value="#" />">Contact Us</a></li>
                         </ul>
@@ -120,9 +120,9 @@
                         <div class="under-footer">
                             <p>Copyright © 2023 Steam V2.0, Ltd. All Rights Reserved. 
 
-                                <br>Design: <a href="<c:url value="/home/aboutus.do"/>">SteamV2.0 Team</a>
+                                <br>Design: <a href="<c:url value="/home/aboutus.page"/>">SteamV2.0 Team</a>
 
-                                <br>Distributed By: <a href="<c:url value="/home/aboutus.do"/>">SteamV2.0 Team</a></p>
+                                <br>Distributed By: <a href="<c:url value="/home/aboutus.page"/>">SteamV2.0 Team</a></p>
                             <ul>
                                 <li><a href="<c:url value="#"/>"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="<c:url value="#"/>"><i class="fa fa-twitter"></i></a></li>
