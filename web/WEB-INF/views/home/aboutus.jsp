@@ -46,10 +46,10 @@
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
                     <ul>
-                        <li><a href="<c:url value="/"/>"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="<c:url value="/"/>"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="<c:url value="/"/>"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="<c:url value="/"/>"><i class="fa fa-github"></i></a></li>
+                        <li><a href="<c:url value="#"/>"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="<c:url value="#"/>"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="<c:url value="#"/>"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="<c:url value="#"/>"><i class="fa fa-github"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -76,10 +76,10 @@
                         <div class="hover-effect">
                             <div class="inner-content">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                    <li><a href="<c:url value="#"/>"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="<c:url value="#"/>"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="<c:url value="#"/>"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="<c:url value="#"/>"><i class="fa fa-github"></i></a></li>
                                 </ul>
                             </div>
                         </div>
