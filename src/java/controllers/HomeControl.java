@@ -36,7 +36,7 @@ public class HomeControl extends HttpServlet {
         String action = (String)request.getAttribute("action");
         
         switch(action){
-            case "home":
+            case "index":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
                 break;
             case "aboutus":

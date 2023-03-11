@@ -41,12 +41,6 @@ public class ProductControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user == null || !user.getRole().equals("ADMIN")) {
-            response.sendRedirect(request.getContextPath() + "/user/login.page");
-            return;
-        }
         switch (action) {
             case "index":
                 index(request, response);
