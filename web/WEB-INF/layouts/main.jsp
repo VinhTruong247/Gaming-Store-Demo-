@@ -102,7 +102,7 @@
                     <div class="col-lg-3">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><a href="<c:url value="#" />">Home</a></li>
+                            <li><a href="<c:url value="/" />">Home</a></li>
                             <li><a href="<c:url value="/home/aboutus.page" />">About Us</a></li>
                             <li><a href="<c:url value="#" />">Help</a></li>
                             <li><a href="<c:url value="#" />">Contact Us</a></li>
