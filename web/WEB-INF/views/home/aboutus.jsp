@@ -1,26 +1,188 @@
 <%-- 
     Document   : aboutus
-    Created on : Feb 20, 2023, 10:12:45 PM
-    Author     : VU HONG ANH
+    Created on : Mar 9, 2023, 10:08:57 AM
+    Author     : Admin
 --%>
 
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="row">
-    <h2>About Us</h2>
-    <div class="col">
-        <p style="color: blue; font-style: italic">
-            We are a group of FBT University from HCM city. Please ignore us! :O
-        </p><br>
-        <p>
-            <a style="color: red; font-weight: bold; text-decoration: line-through;">
-                DON'T
-            </a>
-            <a style="font-weight: bold; ">
-                BUY STUFF FROM US,
-            </a>
-            <a style="color: red; font-weight: bold; text-decoration: line-through;">
-                YOU'RE GONNA RUIN YOUR FACE 4 SURE.
-            </a>
-        </p>
+<fmt:setLocale value="en-US" scope="session" />
+
+<h2>About Us Page</h2>
+
+
+
+<div class="page-heading about-page-heading" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <h2>About Our Team</h2>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+<div class="about-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="left-image">
+                    <img src="<c:url value="/images/team.jpg"/>" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="right-content">
+                    <h4>About Us &amp; Our Skills</h4>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.</span>
+                    <div class="quote">
+                        <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod kon tempor incididunt ut labore.</p>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                    <ul>
+                        <li><a href="<c:url value="/"/>"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="<c:url value="/"/>"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="<c:url value="/"/>"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="<c:url value="/"/>"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ***** Our Team Area Starts ***** -->
+<section class="our-team">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Our Amazing Team</h2>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="team-item">
+                    <div class="thumb">
+                        <div class="hover-effect">
+                            <div class="inner-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/images/face.jpg"/>" alt="">
+                    </div>
+                    <div class="down-content">
+                        <h4>Zackie</h4>
+                        <span>Database Collector</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="team-item">
+                    <div class="thumb">
+                        <div class="hover-effect">
+                            <div class="inner-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/images/face.jpg"/>" alt="">
+                    </div>
+                    <div class="down-content">
+                        <h4>Tuna The Fish</h4>
+                        <span>Database Collector</span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg-4">
+                <div class="team-item">
+                    <div class="thumb">
+                        <div class="hover-effect">
+                            <div class="inner-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/images/face.jpg"/>" alt="">
+                    </div>
+                    <div class="down-content">
+                        <h4>Bucket</h4>
+                        <span>UX-UI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="col-lg-4">
+                <div class="team-item">
+                    <div class="thumb">
+                        <div class="hover-effect">
+                            <div class="inner-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/images/face.jpg"/>" alt="">
+                    </div>
+                    <div class="down-content">
+                        <h4>The Rock</h4>
+                        <span>Back-end</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="team-item">
+                    <div class="thumb">
+                        <div class="hover-effect">
+                            <div class="inner-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <img src="<c:url value="/images/face.jpg"/>" alt="">
+                    </div>
+                    <div class="down-content">
+                        <h4>StonkOverFlown</h4>
+                        <span>Back-end</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ***** Our Team Area Ends ***** -->
