@@ -52,40 +52,48 @@ public class UserControl extends HttpServlet {
             case "userlist":
                 userlist(request, response);
                 break;
+            case "signup":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "signup_handler":
+                signup_handler(request, response);
+                break;
         }
     }
 
     protected void login_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String op = request.getParameter("op");
-            switch (op) {
-                case "login":
+
+        String op = request.getParameter("op");
+        switch (op) {
+            case "login":
+                try {
                     String loginInput = request.getParameter("loginInput");
                     String password = request.getParameter("password");
                     UserFacade uf = new UserFacade();
-                    User user = new User();
-                    if (utils.Tools.verifyEmail(loginInput)) {
-                        user = uf.loginEmail(loginInput, password);
+                    if (uf.checkAccountExist(loginInput)) {
+                        User user = new User();
+                        user = uf.login(loginInput, password);
+                        if (user == null) {
+                            request.setAttribute("message", "Incorrect username/email or password.");
+                            request.getRequestDispatcher("/user/login.page").forward(request, response);
+                        } else {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("user", user);
+                            response.sendRedirect(request.getContextPath() + "/home/home.page");
+                        }
                     } else {
-                        user = uf.loginUsername(loginInput, password);
-                    }
-                    if (user == null) {
-                        request.setAttribute("message", "Incorrect username/email or password.");
+                        request.setAttribute("message", "Account doesn't exist. Create new Account?");
                         request.getRequestDispatcher("/user/login.page").forward(request, response);
-                    } else {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("user", user);
-                        response.sendRedirect(request.getContextPath() + "/home/home.page");
                     }
-                    break;
-                case "cancel":
-                    response.sendRedirect(request.getContextPath() + "/home/home.page");
-                    break;
-            }
-        } catch (Exception ex) {
-            request.setAttribute("message", ex.toString());
-            request.getRequestDispatcher("/user/login.page").forward(request, response);
+                } catch (Exception ex) {
+                    request.setAttribute("message", ex.toString());
+                    request.getRequestDispatcher("/user/login.page").forward(request, response);
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/home/home.page");
+                break;
         }
 
     }
@@ -103,12 +111,41 @@ public class UserControl extends HttpServlet {
             UserFacade uf = new UserFacade();
             List<User> list = uf.select();
             request.setAttribute("list", list);
-            request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("message", e.getMessage());
             request.setAttribute("controller", "error");
             request.setAttribute("action", "error");
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        }
+    }
+
+    protected void signup_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "signup":
+                try {
+                    UserFacade uf = new UserFacade();
+                    String role = request.getParameter("role");
+                    int id = uf.getNextId(role);
+                    String fullName = request.getParameter("fullName");
+                    String username = request.getParameter("username");
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    User user = new User(role, uf.getNextId(role), username, email, password, fullName);
+                    uf.create(user);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("user", user);
+                    request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                } catch (Exception ex) {
+                    request.setAttribute("message", ex.toString());
+                    request.getRequestDispatcher("/user/signup.page").forward(request, response);
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/user/login.page");
+                break;
         }
     }
 

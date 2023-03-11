@@ -12,7 +12,7 @@
     <div class="col">
         <form action="<c:url value="/user/login_handler.page" />" method="get">
             <div class="mb-3 mt-3">
-                <label for="" class="form-label">Email or Username:</label>
+                <label for="loginInput" class="form-label">Email or Username:</label>
                 <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Enter your email or username here" value="">
             </div>
             <div class="mb-3">
@@ -23,6 +23,11 @@
             <button type="submit" class="btn btn-outline-danger" name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
         </form>
         <i style="color:red;">${message}</i>
+        <hr/>
+        <div style="margin: 30px 0px;">
+        Doesn't have an account? 
+        <a href="<c:url value="/user/signup.page"/>" class="btn btn-outline-primary">Sign Up</a>
+        </div>
     </div>
     <div class="col">
         

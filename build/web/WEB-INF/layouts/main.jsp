@@ -33,6 +33,7 @@
                             <a href="<c:url value="/user/logout.page" />">Logout</a>
                         </c:if> |
                             <a href="<c:url value="/user/userlist.page" />">User List</a>|
+                            <a href="<c:url value="/product/purchase.page"/>">Test-Purchase</a>
                     </span>
                 </div>
             </div>
