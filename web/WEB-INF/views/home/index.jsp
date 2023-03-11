@@ -22,7 +22,7 @@
                             <h4>Steam V2.0</h4>
                             <span>We are more steamer than the original!</span>
                             <div class="main-border-button">
-                                <a href="<c:url value="#"/>">Find out more</a>
+                                <a href="<c:url value="/home/aboutus.do"/>">Find out more</a>
                             </div>
                         </div>
                         <img src="<c:url value="/images/out.jpg"/>" alt="">
