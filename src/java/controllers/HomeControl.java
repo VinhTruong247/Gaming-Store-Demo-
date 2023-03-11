@@ -45,7 +45,7 @@ public class HomeControl extends HttpServlet {
             default:
                 request.setAttribute("message", "Page not found");
                 request.setAttribute("controller", "error");
-                request.setAttribute("action", "arror");
+                request.setAttribute("action", "error");
                 request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
                 break;
         }
