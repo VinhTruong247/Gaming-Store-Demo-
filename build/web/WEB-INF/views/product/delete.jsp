@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en-US" scope="session" />
 <h2>Alert</h2>
 <form action="<c:url value="/product/delete_handler.page"/>">
     <input type="hidden" name="productId" value="${productId}"/>

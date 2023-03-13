@@ -80,7 +80,7 @@ public class UserControl extends HttpServlet {
                         } else {
                             HttpSession session = request.getSession();
                             session.setAttribute("user", user);
-                            response.sendRedirect(request.getContextPath() + "/home/home.page");
+                            response.sendRedirect(request.getContextPath() + "/home/index.page");
                         }
                     } else {
                         request.setAttribute("message", "Account doesn't exist. Create new Account?");
@@ -92,7 +92,7 @@ public class UserControl extends HttpServlet {
                 }
                 break;
             case "cancel":
-                response.sendRedirect(request.getContextPath() + "/home/home.page");
+                response.sendRedirect(request.getContextPath() + "/home/index.page");
                 break;
         }
 
@@ -102,7 +102,7 @@ public class UserControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect(request.getContextPath() + "/home/home.page");
+        response.sendRedirect(request.getContextPath() + "/home/index.page");
     }
 
     protected void userlist(HttpServletRequest request, HttpServletResponse response)

@@ -41,13 +41,15 @@
                             </a>
 
                             <!-- ***** Logo End ***** -->
-
+                            <c:if test="${sessionScope.user!=null}">
+                                <li class="scroll-to-section">Welcome ${user.fullName}</li>
+                                </c:if>
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
-                                    <a href="<c:url value="#"/>">Games</a>
+                                    <a href="<c:url value="/product/index.page"/>">Games</a>
                                     <ul>
                                         <li><a href="<c:url value="#"/>">Features Page 1</a></li>
                                         <li><a href="<c:url value="#"/>">Features Page 2</a></li>
@@ -56,7 +58,12 @@
                                         <li><a href="<c:url value="#"/>">Features Page 5</a></li>
                                     </ul>
                                 </li>
-                                <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
+                                <c:if test="${sessionScope.user==null}">
+                                    <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
+                                    </c:if>
+                                    <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section"><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
+                                    </c:if>
                             </ul>        
                             <a class='menu-trigger'>
                                 <span>Menu</span>
@@ -68,13 +75,13 @@
             </div>
         </header>            
 
-        
+
         <!-- ***** Detail ***** -->                    
         <div class="detail">
             <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />                        
         </div>                    
         <!-- ***** Detail ***** -->
-        
+
 
         <footer>
             <div class="container">

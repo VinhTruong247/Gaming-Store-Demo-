@@ -148,7 +148,7 @@ public class ProductControl extends HttpServlet {
                 ProductFacade pf = new ProductFacade();
                 try {
                     pf.delete(productId);
-                    response.sendRedirect(request.getContextPath() + "/toy/index.do");
+                    response.sendRedirect(request.getContextPath() + "/product/index.page");
                 } catch (SQLException ex) {
                     request.setAttribute("message", ex.getMessage());
                     request.setAttribute("controller", "error");
