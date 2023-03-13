@@ -10,7 +10,7 @@
 <fmt:setLocale value="en-US" scope="session" />
 
 
-<h2>Product Page 1</h2>
+<h2>Product Page 7</h2>
 
 <section class="section" id="products">
     <div class="container">
@@ -38,7 +38,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 1</h4>
+                        <h4>Product 37</h4>
                         <span>$120.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -63,7 +63,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 2</h4>
+                        <h4>Product 38</h4>
                         <span>$90.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -88,7 +88,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 3</h4>
+                        <h4>Product 39</h4>
                         <span>$150.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -113,7 +113,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 4</h4>
+                        <h4>Product 40</h4>
                         <span>$75.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -138,7 +138,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 5</h4>
+                        <h4>Product 41</h4>
                         <span>$45.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -163,7 +163,7 @@
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
                     </div>
                     <div class="down-content">
-                        <h4>Product 6</h4>
+                        <h4>Product 42</h4>
                         <span>$130.00</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
@@ -178,15 +178,15 @@
 
             <div class="pagination">
                 <ul>
-                    <li><a href="<c:url value="/product/page_1.page"/>">&laquo;</a></li>
-                    <li><a href="<c:url value="/product/page_1.page"/>" class="active">1</a></li>
+                    <li><a href="<c:url value="/product/page_6.page"/>">&laquo;</a></li>
+                    <li><a href="<c:url value="/product/page_1.page"/>">1</a></li>
                     <li><a href="<c:url value="/product/page_2.page"/>">2</a></li>
                     <li><a href="<c:url value="/product/page_3.page"/>">3</a></li>
                     <li><a href="<c:url value="/product/page_4.page"/>">4</a></li>
                     <li><a href="<c:url value="/product/page_5.page"/>">5</a></li>
                     <li><a href="<c:url value="/product/page_6.page"/>">6</a></li>
-                    <li><a href="<c:url value="/product/page_7.page"/>">7</a></li>
-                    <li><a href="<c:url value="/product/page_2.page"/>">&raquo;</a></li>
+                    <li><a href="<c:url value="/product/page_7.page"/>" class="active">7</a></li>
+                    <li><a href="<c:url value="/product/page_7.page"/>">&raquo;</a></li>
                 </ul>
             </div>
 

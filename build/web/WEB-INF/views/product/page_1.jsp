@@ -30,9 +30,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -55,9 +55,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -80,9 +80,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -105,9 +105,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -130,9 +130,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -155,9 +155,9 @@
                     <div class="thumb">
                         <div class="hover-content">
                             <ul>
-                                <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-eye"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a></li>
+                                <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <img src="<c:url value="/images/out1.jpg"/>" alt="">
@@ -175,6 +175,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="pagination">
+                <ul>
+                    <li><a href="<c:url value="/product/page_1.page"/>">&laquo;</a></li>
+                    <li><a href="<c:url value="/product/page_1.page"/>" class="active">1</a></li>
+                    <li><a href="<c:url value="/product/page_2.page"/>">2</a></li>
+                    <li><a href="<c:url value="/product/page_3.page"/>">3</a></li>
+                    <li><a href="<c:url value="/product/page_4.page"/>">4</a></li>
+                    <li><a href="<c:url value="/product/page_5.page"/>">5</a></li>
+                    <li><a href="<c:url value="/product/page_6.page"/>">6</a></li>
+                    <li><a href="<c:url value="/product/page_7.page"/>">7</a></li>
+                    <li><a href="<c:url value="/product/page_2.page"/>">&raquo;</a></li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </section>

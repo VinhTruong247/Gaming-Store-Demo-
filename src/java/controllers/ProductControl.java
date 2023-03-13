@@ -71,6 +71,20 @@ public class ProductControl extends HttpServlet {
                 break;
             case "single_product":
                 single_product(request, response);
+            case "page_3":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "page_4":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "page_5":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "page_6":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "page_7":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             default:
                 request.setAttribute("message", "Page not found");
