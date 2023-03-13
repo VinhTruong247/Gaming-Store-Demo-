@@ -45,7 +45,7 @@
                         <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" minlength="1" maxlength="4" required value="<%=pass%>">
                     </div>            
                     <div class="mb-3">
-                        <label for="remember" class="form-label">Password:</label><input type="checkbox" name="remember" value="on"
+                        <label for="remember" class="form-label">Remember password:</label><input type="checkbox" name="remember" value="on"
                                                                                          <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
                     </div>   
                     <button type="submit" class="btn btn-outline-success" name="op" value="login"><i class="bi bi-check-lg"></i> Login</button>
