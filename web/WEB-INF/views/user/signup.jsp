@@ -1,9 +1,8 @@
 <%-- 
     Document   : signup
-    Created on : Mar 7, 2023, 11:31:28 AM
-    Author     : binla
+    Created on : Mar 11, 2023, 5:44:06 PM
+    Author     : Admin
 --%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
