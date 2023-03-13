@@ -39,6 +39,20 @@ public class ProductFacade {
         return list;
     }
     
+    public void create(Product product) throws SQLException {
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?)");
+        stm.setString(1, product.getProductId());
+        stm.setString(2, product.getProductName());
+        stm.setString(3, product.getProductPublisher());
+        stm.setString(4, product.getCategory());
+        stm.setString(5, product.getDescription());
+        stm.setDouble(6, product.getPrice());
+        
+        int count = stm.executeUpdate();
+        con.close();
+    }
+    
     public void delete(String productId) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("delete from products where product_id = ?");
