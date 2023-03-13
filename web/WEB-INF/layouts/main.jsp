@@ -23,7 +23,6 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="<c:url value="/css/site.css" />" rel="stylesheet" type="text/css"/>
-        <link href="<c:url value="/css/product.css" />" rel="stylesheet" type="text/css"/>
         <link href="<c:url value="/css/font.css" />" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -51,8 +50,8 @@
                                 <li class="submenu">
                                     <a href="<c:url value="/product/page_1.page"/>">Games</a>
                                     <ul>
-                                        <li><a href="<c:url value="/product/page_1"/>">Features Page</a></li>
-                                        <li><a href="<c:url value="#"/>">Game List</a></li>
+                                        <li><a href="<c:url value="/product/page_1.page"/>">Features Page</a></li>
+                                        <li><a href="<c:url value="/product/page_1.page"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
                                             </c:if>
@@ -107,9 +106,9 @@
                     <div class="col-lg-3">
                         <h4>Games &amp; Categories</h4>
                         <ul>
-                            <li><a href="#">Feature Page 1</a></li>
-                            <li><a href="#">Feature Page 2</a></li>
-                            <li><a href="#">Feature Page 3</a></li>
+                            <li><a href="/product/page_1.page">Game</a></li>
+                            <li><a href="/product/page_1.page">Feature Page</a></li>
+                            <li><a href="/product/page_1.page">Game List</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
@@ -126,7 +125,7 @@
                         <ul>
                             <li><a href="#">Help</a></li>
                             <li><a href="#">FAQ's</a></li>
-                            <li><a href="#">Member</a></li>
+                            <li><a href="/user/login.page">Member</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-12">
