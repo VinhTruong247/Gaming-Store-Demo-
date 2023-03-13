@@ -974,8 +974,8 @@ Login Page
 }
 
 .login button {
-    width: 8rem;
-    height: 3.45rem;
+    width: 7rem;
+    height: 3.35rem;
     display: inline-block;
     text-align: center;
     line-height: 44px;
@@ -1003,7 +1003,7 @@ Login Page
     border: 1px solid transparent;
     color: #fff;
     transition: all 0.3s;
-    margin-left: 2rem;
+    margin-left: 0.5rem;
 }
 
 .login .btn-outline-primary:hover {
@@ -1071,8 +1071,8 @@ Sign Up Page
 }
 
 .signup button {
-    width: 8rem;
-    height: 3.45rem;
+    width: 7.5rem;
+    height: 3.35rem;
     display: inline-block;
     text-align: center;
     line-height: 44px;
