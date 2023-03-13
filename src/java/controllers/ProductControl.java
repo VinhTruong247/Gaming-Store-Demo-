@@ -42,8 +42,8 @@ public class ProductControl extends HttpServlet {
         String controller = (String) request.getAttribute("controller");
         String action = (String) request.getAttribute("action");
         switch (action) {
-            case "index":
-                index(request, response);
+            case "manager":
+                manager(request, response);
                 break;
             case "update":
                 update(request, response);
@@ -58,10 +58,10 @@ public class ProductControl extends HttpServlet {
                 delete_handler(request, response);
                 break;
             case "page_1":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "page_2":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             default:
                 request.setAttribute("message", "Page not found");
@@ -72,45 +72,60 @@ public class ProductControl extends HttpServlet {
         }
     }
 
-    protected void index(HttpServletRequest request, HttpServletResponse response)
+    protected void manager(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            ProductFacade pf = new ProductFacade();
-            List<Product> list = pf.select();
-            request.setAttribute("list", list);
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        } catch (SQLException e) {
-            request.setAttribute("message", e.getMessage());
-            request.setAttribute("controller", "error");
-            request.setAttribute("action", "error");
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null && user.getRole().equals("ADMIN")) {
+            try {
+                ProductFacade pf = new ProductFacade();
+                List<Product> list = pf.select();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            } catch (SQLException e) {
+                request.setAttribute("message", e.getMessage());
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/user/login.page");
         }
     }
 
     protected void update(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            String productId = request.getParameter("productId");
-            ProductFacade pf = new ProductFacade();
-            Product product = pf.read(productId);
-            if(product == null) System.out.println("error");
-            request.setAttribute("product", product);
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        } catch(SQLException e){
-            request.setAttribute("message", e.getMessage());
-            request.setAttribute("controller", "error");
-            request.setAttribute("action", "error");
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null && user.getRole().equals("ADMIN")) {
+            try {
+                String productId = request.getParameter("productId");
+                ProductFacade pf = new ProductFacade();
+                Product product = pf.read(productId);
+                if (product == null) {
+                    System.out.println("error");
+                }
+                request.setAttribute("product", product);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            } catch (SQLException e) {
+                request.setAttribute("message", e.getMessage());
+                request.setAttribute("controller", "error");
+                request.setAttribute("action", "error");
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/user/login.page");
         }
     }
-    
+
     protected void update_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String op = request.getParameter("op");
-        switch(op){
+        switch (op) {
             case "update":
-                try{
+                try {
                     String productId = request.getParameter("productId");
                     String productName = request.getParameter("productName");
                     String productPublisher = request.getParameter("productPublisher");
@@ -119,11 +134,11 @@ public class ProductControl extends HttpServlet {
                     double price = Double.parseDouble(request.getParameter("price"));
                     Product product = new Product(productId, productName, productPublisher, category, description, price);
                     request.setAttribute("product", product);
-                    
+
                     ProductFacade pf = new ProductFacade();
                     pf.update(product);
-                    
-                } catch (SQLException ex){
+
+                } catch (SQLException ex) {
                     ex.printStackTrace();
                     request.setAttribute("message", ex);
                     request.setAttribute("action", "update");
@@ -140,9 +155,15 @@ public class ProductControl extends HttpServlet {
 
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String productId = request.getParameter("productId");
-        request.setAttribute("productId", productId);
-        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null && user.getRole().equals("ADMIN")) {
+            String productId = request.getParameter("productId");
+            request.setAttribute("productId", productId);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/user/login.page");
+        }
     }
 
     protected void delete_handler(HttpServletRequest request, HttpServletResponse response)
