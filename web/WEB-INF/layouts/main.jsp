@@ -54,6 +54,7 @@
                                         <li><a href="<c:url value="/product/page_1.page"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
+                                            <li><a href="<c:url value="#"/>">Sale Data</a></li>
                                             </c:if>
                                     </ul>
                                 </li>
@@ -68,7 +69,8 @@
                                             <li><a href="<c:url value="/user/setting.page"/>">Setting</a></li>
                                             <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
                                         </ul>
-                                </c:if>
+                                    </c:if>
+                                <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>        
                             <a class='menu-trigger'>
                                 <span>Menu</span>
@@ -132,9 +134,9 @@
                         <div class="under-footer">
                             <p>Copyright © 2023 Steam V2.0, Ltd. All Rights Reserved. 
 
-                                <br>Design: <a href="<c:url value="/home/aboutus.page"/>">SteamV2.0 Team</a>
+                                <br>Design: <a href="<c:url value="/home/aboutus.page"/>">Steam V2.0 Team</a>
 
-                                <br>Distributed By: <a href="<c:url value="/home/aboutus.page"/>">SteamV2.0 Team</a></p>
+                                <br>Distributed By: <a href="<c:url value="/home/aboutus.page"/>">Steam V2.0 Team</a></p>
                             <ul>
                                 <li><a href="<c:url value="#"/>"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="<c:url value="#"/>"><i class="fa fa-twitter"></i></a></li>
