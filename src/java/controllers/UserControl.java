@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "UserControl", urlPatterns = {"/user"})
 public class UserControl extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+    private static final int REMEMBER_ME_EXPIRY = 90 * 24 * 60 * 60;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -78,6 +82,19 @@ public class UserControl extends HttpServlet {
                             request.setAttribute("message", "Incorrect username/email or password.");
                             request.getRequestDispatcher("/user/login.page").forward(request, response);
                         } else {
+                            String remember = request.getParameter("remember");
+                            System.out.println(remember);
+                            if (remember != null) {
+                                Cookie cookuser = new Cookie("cookuser", user.getUsername());
+                                Cookie cookpass = new Cookie("cookpass", password);
+                                Cookie cookremember = new Cookie("cookremember", remember);
+                                cookuser.setMaxAge(REMEMBER_ME_EXPIRY);
+                                cookpass.setMaxAge(REMEMBER_ME_EXPIRY);
+                                cookremember.setMaxAge(REMEMBER_ME_EXPIRY);
+                                response.addCookie(cookuser);
+                                response.addCookie(cookpass);
+                                response.addCookie(cookremember);
+                            }
                             HttpSession session = request.getSession();
                             session.setAttribute("user", user);
                             response.sendRedirect(request.getContextPath() + "/home/index.page");
@@ -100,6 +117,15 @@ public class UserControl extends HttpServlet {
 
     protected void logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Cookie cookuser = new Cookie("cookuser", null);
+        Cookie cookpass = new Cookie("cookpass", null);
+        Cookie cookremember = new Cookie("cookremember", null);
+        cookuser.setMaxAge(0);
+        cookpass.setMaxAge(0);
+        cookremember.setMaxAge(0);
+        response.addCookie(cookuser);
+        response.addCookie(cookpass);
+        response.addCookie(cookremember);
         HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect(request.getContextPath() + "/home/index.page");
