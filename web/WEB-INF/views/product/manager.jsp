@@ -20,6 +20,7 @@
         </c:if>
         <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
             <div class="row">
+                <a href="<c:url value="/product/create.page"/>">Create</a>
                 <table class="table table-striped">
                     <thead>
                         <tr>

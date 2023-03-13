@@ -52,7 +52,7 @@
                                 <li class="submenu">
                                     <a href="<c:url value="/product/page_1.page"/>">Games</a>
                                     <ul>
-                                        <li><a href="<c:url value="/product/page_1"/>">Features Page</a></li>
+                                        <li><a href="<c:url value="/product/page_1.page"/>">Features Page</a></li>
                                         <li><a href="<c:url value="#"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                                 <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>

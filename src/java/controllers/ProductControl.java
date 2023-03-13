@@ -45,6 +45,12 @@ public class ProductControl extends HttpServlet {
             case "manager":
                 manager(request, response);
                 break;
+            case "create":
+                create(request, response);
+                break;
+            case "create_handler":
+                create_handler(request, response);
+                break;
             case "update":
                 update(request, response);
                 break;
@@ -62,6 +68,9 @@ public class ProductControl extends HttpServlet {
                 break;
             case "page_2":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "single_product":
+                single_product(request, response);
                 break;
             default:
                 request.setAttribute("message", "Page not found");
@@ -90,7 +99,47 @@ public class ProductControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath() + "/user/login.page");
+            response.sendRedirect(request.getContextPath() + "/home/index.page");
+        }
+    }
+
+    protected void create(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user != null && user.getRole().equals("ADMIN")) {
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/home/index.page");
+        }
+    }
+
+    protected void create_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "create":
+                try {
+                    String productId = request.getParameter("productId");
+                    String productName = request.getParameter("productName");
+                    String productPublisher = request.getParameter("productPublisher");
+                    String category = request.getParameter("category");
+                    String description = request.getParameter("description");
+                    double price = Double.parseDouble(request.getParameter("price"));
+                    Product product = new Product(productId, productName, productPublisher, category, description, price);
+                    request.setAttribute("product", product);
+                    ProductFacade pf = new ProductFacade();
+                    pf.create(product);
+                    response.sendRedirect(request.getContextPath() + "/product/manager.page");
+                } catch (SQLException ex) {
+                    request.setAttribute("message", ex.getMessage());
+                    request.setAttribute("action", "create");
+                    request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/product/manager.page");
+                break;
         }
     }
 
@@ -116,7 +165,7 @@ public class ProductControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath() + "/user/login.page");
+            response.sendRedirect(request.getContextPath() + "/home/index.page");
         }
     }
 
@@ -162,7 +211,7 @@ public class ProductControl extends HttpServlet {
             request.setAttribute("productId", productId);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/user/login.page");
+            response.sendRedirect(request.getContextPath() + "/home/index.page");
         }
     }
 
@@ -186,6 +235,25 @@ public class ProductControl extends HttpServlet {
             case "no":
                 response.sendRedirect(request.getContextPath() + "/product/index.page");
                 break;
+        }
+    }
+
+    protected void single_product(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String productId = request.getParameter("productId");
+            ProductFacade pf = new ProductFacade();
+            Product product = pf.read(productId);
+            if (product == null) {
+                System.out.println("error");
+            }
+            request.setAttribute("product", product);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } catch (SQLException e) {
+            request.setAttribute("message", e.getMessage());
+            request.setAttribute("controller", "error");
+            request.setAttribute("action", "error");
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         }
     }
 
