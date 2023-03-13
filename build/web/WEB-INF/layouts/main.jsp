@@ -23,6 +23,7 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
         <link href="<c:url value="/css/site.css" />" rel="stylesheet" type="text/css"/>
+        <link href="<c:url value="/css/product.css" />" rel="stylesheet" type="text/css"/>
         <link href="<c:url value="/css/font.css" />" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -49,13 +50,13 @@
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
-                                    <a href="<c:url value="/product/index.page"/>">Games</a>
+                                    <a href="<c:url value="/product/page_1.page"/>">Games</a>
                                     <ul>
-                                        <li><a href="<c:url value="#"/>">Features Page 1</a></li>
-                                        <li><a href="<c:url value="#"/>">Features Page 2</a></li>
-                                        <li><a href="<c:url value="#"/>">Features Page 3</a></li>
-                                        <li><a href="<c:url value="#"/>">Features Page 4</a></li>
-                                        <li><a href="<c:url value="#"/>">Features Page 5</a></li>
+                                        <li><a href="<c:url value="/product/page_1"/>">Features Page</a></li>
+                                        <li><a href="<c:url value="#"/>">Game List</a></li>
+                                            <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
+                                                <li><a href="<c:url value="#"/>">Product Manager</a></li>
+                                            </c:if>
                                     </ul>
                                 </li>
                                 <c:if test="${sessionScope.user==null}">

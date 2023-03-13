@@ -1,13 +1,14 @@
 <%-- 
     Document   : login
-    Created on : Mar 3, 2023, 3:28:13 PM
-    Author     : binla
+    Created on : Mar 9, 2023, 11:11:23 AM
+    Author     : Admin
 --%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
+
 <h2>Login Page</h2>
 
 <div class="login">

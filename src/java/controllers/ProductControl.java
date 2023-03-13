@@ -57,6 +57,12 @@ public class ProductControl extends HttpServlet {
             case "delete_handler":
                 delete_handler(request, response);
                 break;
+            case "page_1":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                break;
+            case "page_2":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                break;
             default:
                 request.setAttribute("message", "Page not found");
                 request.setAttribute("controller", "error");
