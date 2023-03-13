@@ -71,6 +71,7 @@ public class ProductControl extends HttpServlet {
                 break;
             case "single_product":
                 single_product(request, response);
+                break;
             case "page_3":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
