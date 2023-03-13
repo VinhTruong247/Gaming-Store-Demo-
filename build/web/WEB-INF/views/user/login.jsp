@@ -42,7 +42,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" value="<%=pass%>">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" minlength="1" maxlength="4" required value="<%=pass%>">
                     </div>            
                     <div class="mb-3">
                         <label for="remember" class="form-label">Password:</label><input type="checkbox" name="remember" value="on"
