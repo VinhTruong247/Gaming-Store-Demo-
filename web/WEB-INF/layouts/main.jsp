@@ -41,9 +41,9 @@
                             </a>
 
                             <!-- ***** Logo End ***** -->
-
-
-
+                            <c:if test="${sessionScope.user!=null}">
+                                <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
+                                </c:if>
                             <!-- ***** Menu Start ***** -->
 
                             <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
@@ -68,9 +68,9 @@
                                 <li class="submenu">
                                     <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
                                     <ul>
-                                        <li><a href="<c:url value="#"/>">Profile</a></li>
-                                        <li><a href="<c:url value="#"/>">Setting</a></li>
-                                        <li><a href="<c:url value="#"/>">Logout</a></li>
+                                        <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
+                                        <li><a href="<c:url value="/user/setting.page"/>">Setting</a></li>
+                                        <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
                                         </ul>
                                 </li>
                                 </c:if>
