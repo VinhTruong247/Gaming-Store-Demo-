@@ -42,7 +42,7 @@
                                 <td>${product.productPublisher}</td>
                                 <td>${product.category}</td>
                                 <td>
-                                    <fmt:formatNumber value="${product.price}" type="currency" />
+                                    <fmt:formatNumber value="${product.price}" type="number"/>&#8363;
                                 </td>
                                 <td>
 

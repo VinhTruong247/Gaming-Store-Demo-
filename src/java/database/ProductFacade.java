@@ -19,6 +19,27 @@ import java.util.List;
  */
 public class ProductFacade {
 
+        public List<Product> selectPerPage(int offset) throws SQLException {
+        List<Product> list = null;
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("select * from products order by product_name offset ? rows fetch first 6 rows only");
+        stm.setInt(1, offset);
+        ResultSet rs = stm.executeQuery();
+        list = new ArrayList<>();
+        while(rs.next()){
+            Product p = new Product();
+            p.setProductId(rs.getString("product_id"));
+            p.setProductName(rs.getString("product_name"));
+            p.setProductPublisher(rs.getString("product_publisher"));
+            p.setCategory(rs.getString("product_category"));
+            p.setDescription(rs.getString("product_description"));
+            p.setPrice(rs.getDouble("price"));
+            list.add(p);
+        }
+        con.close();
+        return list;
+    }
+
     public List<Product> select() throws SQLException {
         List<Product> list = null;
         Connection con = Database.getConnection();

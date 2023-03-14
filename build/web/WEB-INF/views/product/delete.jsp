@@ -9,7 +9,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en-US" scope="session" />
 
-<h2>Create Page</h2>
+<h2>Delete Page</h2>
 
 <div class="delete">
     <div class="container">

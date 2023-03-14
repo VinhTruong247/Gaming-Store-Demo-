@@ -8,6 +8,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en-US" scope="session" />
 <h2>User List</h2>
+
 <table class="table table-striped">
     <thead>
         <tr>

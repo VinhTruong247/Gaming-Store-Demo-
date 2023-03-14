@@ -8,6 +8,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
+<h2>Login Page</h2>
+
 <%
     String user = "", pass = "", reme = "";
     Cookie[] cookies = request.getCookies();
@@ -30,7 +32,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Login Page</h2>
+                
             </div>
             <div class="col">
                 <form action="<c:url value="/user/login_handler.page" />" method="get">

@@ -63,29 +63,11 @@ public class ProductControl extends HttpServlet {
             case "delete_handler":
                 delete_handler(request, response);
                 break;
-            case "page_1":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "page_2":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            case "page":
+                page(request, response);
                 break;
             case "single_product":
                 single_product(request, response);
-                break;
-            case "page_3":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "page_4":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "page_5":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "page_6":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "page_7":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             default:
                 request.setAttribute("message", "Page not found");
@@ -93,6 +75,26 @@ public class ProductControl extends HttpServlet {
                 request.setAttribute("action", "error");
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
+        }
+    }
+
+    protected void page(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String offset = request.getParameter("offset");
+        if (offset == null) {
+            offset = "0";
+        }
+        try {
+            ProductFacade pf = new ProductFacade();
+            List<Product> list = pf.selectPerPage(Integer.parseInt(offset));
+            request.setAttribute("list", list);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } catch (SQLException e) {
+            request.setAttribute("message", e.getMessage());
+            request.setAttribute("controller", "error");
+            request.setAttribute("action", "error");
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         }
     }
 
