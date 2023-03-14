@@ -10,9 +10,12 @@ import database.ProductFacade;
 import database.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Math.ceil;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,16 +81,27 @@ public class ProductControl extends HttpServlet {
         }
     }
 
+    protected void search(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
     protected void page(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String offset = request.getParameter("offset");
+        String option = request.getParameter("option");
         if (offset == null) {
             offset = "0";
         }
         try {
+            String search = request.getParameter("search");
             ProductFacade pf = new ProductFacade();
-            List<Product> list = pf.selectPerPage(Integer.parseInt(offset));
+            List<Product> list = pf.selectPerPage(Integer.parseInt(offset), search, option);
+            int count = pf.countProduct();
+            int pageNum = (int) Math.ceil(count / 6.0);
+            request.setAttribute("pageNum", pageNum);
+            request.setAttribute("offset", offset);
             request.setAttribute("list", list);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } catch (SQLException e) {

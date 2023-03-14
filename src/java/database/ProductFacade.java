@@ -19,14 +19,92 @@ import java.util.List;
  */
 public class ProductFacade {
 
-        public List<Product> selectPerPage(int offset) throws SQLException {
+    public List<Product> selectPerPage(int offset, String search, String option) throws SQLException {
+        List<Product> list = null;
+        switch (option) {
+            case "ascending": {
+                Connection con = Database.getConnection();
+                PreparedStatement stm = con.prepareStatement("select * from products where product_name like ? order by product_name offset ? rows fetch first 6 rows only and ASC");
+                stm.setString(1, "%" + search + "%");
+                stm.setInt(2, offset);
+                ResultSet rs = stm.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setPrice(rs.getDouble("price"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            case "descending": {
+                Connection con = Database.getConnection();
+                PreparedStatement stm = con.prepareStatement("select * from products where product_name like ? order by product_name offset ? rows fetch first 6 rows only and DESC");
+                stm.setString(1, "%" + search + "%");
+                stm.setInt(2, offset);
+                ResultSet rs = stm.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setPrice(rs.getDouble("price"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            default: {
+                Connection con = Database.getConnection();
+                PreparedStatement stm = con.prepareStatement("select * from products where product_name like ? order by product_name offset ? rows fetch first 6 rows only");
+                stm.setString(1, "%" + search + "%");
+                stm.setInt(2, offset);
+                ResultSet rs = stm.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setPrice(rs.getDouble("price"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+        }
+        return list;
+    }
+
+    public int countProduct() throws SQLException {
+        int count = 0;
+        Connection con = Database.getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery("select count(product_id) as Quantity from products");
+        while (rs.next()) {
+            count = rs.getInt("Quantity");
+        }
+        con.close();
+        return count;
+    }
+
+    public List<Product> select() throws SQLException {
         List<Product> list = null;
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from products order by product_name offset ? rows fetch first 6 rows only");
-        stm.setInt(1, offset);
-        ResultSet rs = stm.executeQuery();
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery("select * from products");
         list = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             Product p = new Product();
             p.setProductId(rs.getString("product_id"));
             p.setProductName(rs.getString("product_name"));
@@ -40,26 +118,6 @@ public class ProductFacade {
         return list;
     }
 
-    public List<Product> select() throws SQLException {
-        List<Product> list = null;
-        Connection con = Database.getConnection();
-        Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("select * from products");
-        list = new ArrayList<>();
-        while(rs.next()){
-            Product p = new Product();
-            p.setProductId(rs.getString("product_id"));
-            p.setProductName(rs.getString("product_name"));
-            p.setProductPublisher(rs.getString("product_publisher"));
-            p.setCategory(rs.getString("product_category"));
-            p.setDescription(rs.getString("product_description"));
-            p.setPrice(rs.getDouble("price"));
-            list.add(p);
-        }
-        con.close();
-        return list;
-    }
-    
     public void create(Product product) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?)");
@@ -69,11 +127,11 @@ public class ProductFacade {
         stm.setString(4, product.getCategory());
         stm.setString(5, product.getDescription());
         stm.setDouble(6, product.getPrice());
-        
+
         int count = stm.executeUpdate();
         con.close();
     }
-    
+
     public void delete(String productId) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("delete from products where product_id = ?");
@@ -81,7 +139,7 @@ public class ProductFacade {
         int count = stm.executeUpdate();
         con.close();
     }
-    
+
     public void update(Product product) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ? where product_id = ?");
@@ -94,14 +152,14 @@ public class ProductFacade {
         int count = stm.executeUpdate();
         con.close();
     }
-    
+
     public Product read(String productId) throws SQLException {
         Product product = null;
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("select * from products where product_id = ?");
         stm.setString(1, productId);
         ResultSet rs = stm.executeQuery();
-        if(rs.next()){
+        if (rs.next()) {
             product = new Product();
             product.setProductId(rs.getString("product_id"));
             product.setProductName(rs.getString("product_name"));
