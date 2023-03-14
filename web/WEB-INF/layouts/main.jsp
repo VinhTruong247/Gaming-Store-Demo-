@@ -137,7 +137,7 @@
                         <ul>
                             <li><a href="#">Help</a></li>
                             <li><a href="#">FAQ's</a></li>
-                            <li><a href="/user/login.page">Member</a></li>
+                            <li><a href="<c:url value="/user/login.page"/>">Member</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-12">

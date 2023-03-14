@@ -1163,6 +1163,7 @@ Products Page
   color: #2a2a2a;
   font-weight: 700;
   margin-bottom: 8px;
+  width: 75%;
 }
 
 #products .item .down-content span {
