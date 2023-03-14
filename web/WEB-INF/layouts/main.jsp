@@ -18,7 +18,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
         <!-- Latest compiled JavaScript -->
 
@@ -41,9 +41,9 @@
                             </a>
 
                             <!-- ***** Logo End ***** -->
-                            <c:if test="${sessionScope.user!=null}">
-                                <li class="scroll-to-section">Welcome ${user.fullName}</li>
-                                </c:if>
+                            
+                            
+                            
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
@@ -64,7 +64,7 @@
                                     </c:if>
                                     <c:if test="${sessionScope.user!=null}">
                                     <li class="submenu">
-                                        <img style="width: 50px;height:40px;overflow: hidden;border-radius: 50%;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
+                                        <img style="width: 50px; height:40px; overflow: hidden; border-radius: 50%" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
                                         <ul>
                                             <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
                                             <li><a href="<c:url value="/user/setting.page"/>">Setting</a></li>
@@ -72,6 +72,9 @@
                                         </ul>
                                     </c:if>
                                 <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
+                                <c:if test="${sessionScope.user!=null}">
+                                <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
+                                </c:if>
                             </ul>        
                             <a class='menu-trigger'>
                                 <span>Menu</span>

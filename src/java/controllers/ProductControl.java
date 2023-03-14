@@ -114,7 +114,7 @@ public class ProductControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath() + "/home/index.page");
+            response.sendRedirect(request.getContextPath() + "/product/manager.page");
         }
     }
 
@@ -125,7 +125,7 @@ public class ProductControl extends HttpServlet {
         if (user != null && user.getRole().equals("ADMIN")) {
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/home/index.page");
+            response.sendRedirect(request.getContextPath() + "/product/manager.page");
         }
     }
 
@@ -180,7 +180,7 @@ public class ProductControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
             }
         } else {
-            response.sendRedirect(request.getContextPath() + "/home/index.page");
+            response.sendRedirect(request.getContextPath() + "/product/manager.page");
         }
     }
 
@@ -210,7 +210,7 @@ public class ProductControl extends HttpServlet {
                 }
                 break;
             case "cancel":
-                response.sendRedirect(request.getContextPath() + "/product/index.page");
+                response.sendRedirect(request.getContextPath() + "/product/manager.page");
                 break;
             default:
                 break;
@@ -226,7 +226,7 @@ public class ProductControl extends HttpServlet {
             request.setAttribute("productId", productId);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/home/index.page");
+            response.sendRedirect(request.getContextPath() + "/product/manager.page");
         }
     }
 
@@ -239,7 +239,7 @@ public class ProductControl extends HttpServlet {
                 ProductFacade pf = new ProductFacade();
                 try {
                     pf.delete(productId);
-                    response.sendRedirect(request.getContextPath() + "/product/index.page");
+                    response.sendRedirect(request.getContextPath() + "/product/manager.page");
                 } catch (SQLException ex) {
                     request.setAttribute("message", ex.getMessage());
                     request.setAttribute("controller", "error");
@@ -248,7 +248,7 @@ public class ProductControl extends HttpServlet {
                 }
                 break;
             case "no":
-                response.sendRedirect(request.getContextPath() + "/product/index.page");
+                response.sendRedirect(request.getContextPath() + "/product/manager.page");
                 break;
         }
     }

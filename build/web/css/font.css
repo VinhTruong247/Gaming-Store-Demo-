@@ -1200,6 +1200,9 @@
 .fa-youtube:before {
   content: "\f167";
 }
+.fa-xmark:before{
+    content: "\f00d";
+}
 .fa-xing:before {
   content: "\f168";
 }
