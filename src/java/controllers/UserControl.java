@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.Hasher;
 
 /**
  *
@@ -62,6 +63,15 @@ public class UserControl extends HttpServlet {
             case "signup_handler":
                 signup_handler(request, response);
                 break;
+            case "profile":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "edit":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "edit_handler":
+                edit_handler(request,response);
+                break;
         }
     }
 
@@ -77,6 +87,9 @@ public class UserControl extends HttpServlet {
                     UserFacade uf = new UserFacade();
                     if (uf.checkAccountExist(loginInput)) {
                         User user = new User();
+                        if (password.length() < 20) {
+                            password = Hasher.hash(password);
+                        }
                         user = uf.login(loginInput, password);
                         if (user == null) {
                             request.setAttribute("message", "Incorrect username/email or password.");
@@ -174,7 +187,10 @@ public class UserControl extends HttpServlet {
                 break;
         }
     }
-
+    protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

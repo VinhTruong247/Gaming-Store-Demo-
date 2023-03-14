@@ -46,6 +46,9 @@
 
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section" style="margin-top: 10px;">Welcome ${user.fullName}</li>
+                                    </c:if>
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
@@ -59,10 +62,12 @@
                                             </c:if>
                                     </ul>
                                 </li>
+
                                 <c:if test="${sessionScope.user==null}">
                                     <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
                                     </c:if>
                                     <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
                                     <li class="submenu">
                                         <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt="">
                                         <ul>
@@ -76,7 +81,7 @@
                                         <c:if test="${sessionScope.user!=null}">
                                     <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
                                     </c:if>
-                            </ul>        
+                            </ul>
                             <a class='menu-trigger'>
                                 <span>Menu</span>
                             </a>
@@ -85,13 +90,13 @@
                     </div>
                 </div>
             </div>
-        </header>            
+        </header>
 
 
-        <!-- ***** Detail ***** -->                    
+        <!-- ***** Detail ***** -->
         <div class="detail">
-            <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />                        
-        </div>                    
+            <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />
+        </div>
         <!-- ***** Detail ***** -->
 
 
@@ -137,7 +142,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="under-footer">
-                            <p>Copyright © 2023 Steam V2.0, Ltd. All Rights Reserved. 
+                            <p>Copyright © 2023 Steam V2.0, Ltd. All Rights Reserved.
 
                                 <br>Design: <a href="<c:url value="/home/aboutus.page"/>">Steam V2.0 Team</a>
 

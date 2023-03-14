@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import utils.Hasher;
 
 /**
  *
@@ -54,7 +53,7 @@ public class UserFacade {
         }
         PreparedStatement stm = con.prepareStatement("select * from users u inner join user_roles r on u.role_id=r.id where " + queryCommand);
         stm.setString(1, input);
-        stm.setString(2, Hasher.hash(password));
+        stm.setString(2, password);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
             user = new User();

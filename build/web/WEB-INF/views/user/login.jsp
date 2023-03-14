@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
 <%
-    String user = "", pass = "", reme="";
+    String user = "", pass = "", reme = "";
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cook : cookies) {
@@ -25,15 +25,13 @@
         }
     }
 %>
-<h2>Login Page</h2>
 
 <div class="login">
     <div class="container">
         <div class="row">
-
             <div class="col">
+                <h2>Login Page</h2>
             </div>
-
             <div class="col">
                 <form action="<c:url value="/user/login_handler.page" />" method="get">
                     <div class="mb-3 mt-3">
@@ -46,7 +44,7 @@
                     </div>            
                     <div class="mb-3">
                         <label for="remember" class="form-label">Remember password:</label><input type="checkbox" name="remember" value="on"
-                                                                                         <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
+                                                                                                  <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
                     </div>   
                     <button type="submit" class="btn btn-outline-success" name="op" value="login"><i class="bi bi-check-lg"></i> Login</button>
                     <button type="submit" class="btn btn-outline-danger" name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
