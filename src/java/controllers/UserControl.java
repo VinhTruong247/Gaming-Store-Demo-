@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.Hasher;
 
 /**
  *
@@ -77,6 +78,7 @@ public class UserControl extends HttpServlet {
                     UserFacade uf = new UserFacade();
                     if (uf.checkAccountExist(loginInput)) {
                         User user = new User();
+                        if(password.length()<20) password = Hasher.hash(password);
                         user = uf.login(loginInput, password);
                         if (user == null) {
                             request.setAttribute("message", "Incorrect username/email or password.");
