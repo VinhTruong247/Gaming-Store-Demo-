@@ -56,15 +56,15 @@
 
                             <div class="pagination">
                                 <ul>
-                                    <li><a href="<c:url value=" /product/page_1.page?offset=0" />">&laquo;</a></li>
-                                    <li><a href="<c:url value=" /product/page_1.page?offset=0" />"">1</a></li>
-                                    <li><a href="<c:url value=" /product/page_2.page?offset=6" />">2</a></li>
-                                    <li><a href="<c:url value=" /product/page_3.page?offset=12" />">3</a></li>
-                                    <li><a href="<c:url value=" /product/page_4.page?offset=18" />">4</a></li>
-                                    <li><a href="<c:url value=" /product/page_5.page?offset=24" />">5</a></li>
-                                    <li><a href="<c:url value=" /product/page_6.page?offset=30" />">6</a></li>
-                                    <li><a href="<c:url value=" /product/page_7.page?offset=36" />">7</a></li>
-                                    <li><a href="<c:url value=" /product/page_2.page?offset=6" />">&raquo;</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=0" />">&laquo;</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=0" />"">1</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=6" />">2</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=12" />">3</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=18" />">4</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=24" />">5</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=30" />">6</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=36" />">7</a></li>
+                                    <li><a href="<c:url value="/product/page.page?offset=6" />">&raquo;</a></li>
                                 </ul>
                             </div>
 
