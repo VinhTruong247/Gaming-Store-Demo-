@@ -64,11 +64,11 @@
                                     </c:if>
                                     <c:if test="${sessionScope.user!=null}">
                                     <li class="submenu">
-                                        <img style="width: 50px; height:40px; overflow: hidden; border-radius: 50%" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
+                                        <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
                                         <ul>
-                                            <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
-                                            <li><a href="<c:url value="/user/setting.page"/>">Setting</a></li>
-                                            <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
+                                            <li><a href="<c:url value="#"/>">Profile</a></li>
+                                            <li><a href="<c:url value="#"/>">Setting</a></li>
+                                            <li><a href="<c:url value="#">Logout</a></li>
                                         </ul>
                                     </c:if>
                                 <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
