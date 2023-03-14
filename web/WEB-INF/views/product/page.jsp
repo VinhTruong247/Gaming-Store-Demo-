@@ -27,15 +27,15 @@
                                         <div class="thumb">
                                             <div class="hover-content">
                                                 <ul>
-                                                    <li><a href="<c:url value=" #" />"><i class="fa fa-eye"></i></a>
+                                                    <li><a href="<c:url value="#" />"><i class="fa fa-eye"></i></a>
                                                     </li>
-                                                    <li><a href="<c:url value=" #" />"><i class="fa fa-star"></i></a>
+                                                    <li><a href="<c:url value="#" />"><i class="fa fa-star"></i></a>
                                                     </li>
-                                                    <li><a href="<c:url value=" #" />"><i
+                                                    <li><a href="<c:url value="#" />"><i
                                                             class="fa fa-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <img src="<c:url value="/images/out1.jpg" />" alt="">
+                                            <img src="<c:url value="/images/out1.jpg"/>" alt="">
                                         </div>
                                         <div class="down-content">
                                                 <h4>${product.productName}</h4>

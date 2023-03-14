@@ -34,6 +34,7 @@ public class ProductFacade {
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
             p.setPrice(rs.getDouble("price"));
+            p.setProductImages(rs.getString("product_images"));
             list.add(p);
         }
         con.close();
@@ -54,6 +55,7 @@ public class ProductFacade {
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
             p.setPrice(rs.getDouble("price"));
+            p.setProductImages(rs.getString("product_images"));
             list.add(p);
         }
         con.close();
@@ -62,13 +64,14 @@ public class ProductFacade {
     
     public void create(Product product) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?, ?)");
         stm.setString(1, product.getProductId());
         stm.setString(2, product.getProductName());
         stm.setString(3, product.getProductPublisher());
         stm.setString(4, product.getCategory());
         stm.setString(5, product.getDescription());
         stm.setDouble(6, product.getPrice());
+        stm.setString(7, product.getProductImages());
         
         int count = stm.executeUpdate();
         con.close();
@@ -109,6 +112,7 @@ public class ProductFacade {
             product.setCategory(rs.getString("product_category"));
             product.setDescription(rs.getString("product_description"));
             product.setPrice(rs.getDouble("price"));
+            product.setProductImages(rs.getString("product_images"));
         }
         con.close();
         return product;

@@ -143,7 +143,8 @@ public class ProductControl extends HttpServlet {
                     String category = request.getParameter("category");
                     String description = request.getParameter("description");
                     double price = Double.parseDouble(request.getParameter("price"));
-                    Product product = new Product(productId, productName, productPublisher, category, description, price);
+                    String productImages = request.getParameter("productImages");
+                    Product product = new Product(productId, productName, productPublisher, category, description, price, productImages);
                     request.setAttribute("product", product);
                     ProductFacade pf = new ProductFacade();
                     pf.create(product);
@@ -198,7 +199,8 @@ public class ProductControl extends HttpServlet {
                     String category = request.getParameter("category");
                     String description = request.getParameter("description");
                     double price = Double.parseDouble(request.getParameter("price"));
-                    Product product = new Product(productId, productName, productPublisher, category, description, price);
+                    String productImages = request.getParameter("productImages");
+                    Product product = new Product(productId, productName, productPublisher, category, description, price, productImages);
                     request.setAttribute("product", product);
 
                     ProductFacade pf = new ProductFacade();
