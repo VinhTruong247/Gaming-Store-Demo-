@@ -41,44 +41,43 @@
                             </a>
 
                             <!-- ***** Logo End ***** -->
-                            <c:if test="${sessionScope.user!=null}">
-                                <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
-                                </c:if>
+
                             <!-- ***** Menu Start ***** -->
-
-                            <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
-                            <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
-                            <li class="submenu">
-                                <a href="<c:url value="/product/page_1.page"/>">Games</a>
-                                <ul>
-                                    <li><a href="<c:url value="/product/page_1.page"/>">Features Page</a></li>
-                                    <li><a href="<c:url value="/product/page_1.page"/>">Game List</a></li>
-                                        <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
-                                        <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
-                                        <li><a href="<c:url value="#"/>">Sale Data</a></li>
-                                        </c:if>
-                                </ul>
-                            </li>
-                            <c:if test="${sessionScope.user==null}">
-                                <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
-                                </c:if>
-                            <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
-                                    <c:if test="${sessionScope.user!=null}">
-                                <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
+                            <ul class="nav">
+                                <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section" style="margin-top: 10px;">Welcome ${user.fullName}</li>
+                                    </c:if>
+                                <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
+                                <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
-                                    <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
+                                    <a href="<c:url value="/product/page_1.page"/>">Games</a>
                                     <ul>
-                                        <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
-                                        <li><a href="<c:url value="/user/setting.page"/>">Setting</a></li>
-                                        <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
-                                        </ul>
+                                        <li><a href="<c:url value="/product/page_1.page"/>">Features Page</a></li>
+                                        <li><a href="<c:url value="/product/page_1.page"/>">Game List</a></li>
+                                            <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
+                                            <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
+                                            <li><a href="<c:url value="#"/>">Sale Data</a></li>
+                                            </c:if>
+                                    </ul>
                                 </li>
-                                </c:if>
 
-                            <a class='menu-trigger'>
-                                <span>Menu</span>
-                            </a>
-                            <!-- ***** Menu End ***** -->
+                                <c:if test="${sessionScope.user==null}">
+                                    <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
+                                    </c:if>
+                                    <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li class="submenu">
+                                        <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt=""/>
+                                        <ul>
+                                            <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
+                                            <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </c:if>
+                                <a class='menu-trigger'>
+                                    <span>Menu</span>
+                                </a>
+                                <!-- ***** Menu End ***** -->
                         </nav>
                     </div>
                 </div>
