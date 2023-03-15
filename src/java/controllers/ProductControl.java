@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -81,21 +83,27 @@ public class ProductControl extends HttpServlet {
     protected void page(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String offset = request.getParameter("offset");
-        if (offset == null) {
-            offset = "0";
-        }
+        int currentPage = Integer.parseInt(request.getParameter("currentPage"));
         try {
+            
             ProductFacade pf = new ProductFacade();
-            List<Product> list = pf.selectPerPage(Integer.parseInt(offset));
+            int count = pf.countProduct();
+            int totalPage = count / 6;
+            System.out.println(totalPage);
+            if(count % 3 != 0){
+                totalPage++;
+            }
+            
+            
+            List<Product> list = pf.selectPerPage(currentPage);
+            request.setAttribute("currentPage", currentPage);
             request.setAttribute("list", list);
+            request.setAttribute("totalPage", totalPage);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        } catch (SQLException e) {
-            request.setAttribute("message", e.getMessage());
-            request.setAttribute("controller", "error");
-            request.setAttribute("action", "error");
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductControl.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     protected void manager(HttpServletRequest request, HttpServletResponse response)

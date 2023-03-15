@@ -10,7 +10,7 @@
 <fmt:setLocale value="en-US" scope="session" />
 <h2>Update Page</h2>
 
-<div class="create">
+<div class="update">
     <div class="container">
         <div class="row">
 
@@ -36,7 +36,10 @@
                         <input type="text" class="form-control" id="description" placeholder="Description" name="description" value="${product.description}">
 
                         <label for="price" class="form-label">Price:</label>
-                        <input type="number" step="0.1" class="form-control" id="price" placeholder="Price" name="price" value="${product.price}">
+                        <input type="number" step="0.1" class="form-control" id="price" placeholder="Price" name="price" value="${product.price}">                       
+                        
+                        <label for="productImages" class="form-label">Images:</label>
+                        <input type="text" class="form-control" id="productImages" placeholder="Input images directory" value="${product.productImages}">
                     </div>
                     
                     <button type="submit" name="op" class="btn btn-outline-success" value="update"><i class="fa fa-check"></i> Update</button>

@@ -50,10 +50,10 @@
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
-                                    <a href="<c:url value="/product/page_1.page"/>">Games</a>
+                                    <a href="<c:url value="/product/page.page?currentPage=1"/>">Games</a>
                                     <ul>
-                                        <li><a href="<c:url value="/product/page.page"/>">Features Page</a></li>
-                                        <li><a href="<c:url value="/product/page.page"/>">Game List</a></li>
+                                        <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Featured Page</a></li>
+                                        <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
                                             <li><a href="<c:url value="#"/>">Sale Data</a></li>
@@ -118,9 +118,9 @@
                     <div class="col-lg-3">
                         <h4>Games &amp; Categories</h4>
                         <ul>
-                            <li><a href="/product/page.page">Game</a></li>
-                            <li><a href="/product/page.page">Feature Page</a></li>
-                            <li><a href="/product/page.page">Game List</a></li>
+                            <li><a href="/product/page.page?currentPage=1">Game</a></li>
+                            <li><a href="/product/page.page?currentPage=1">Feature Page</a></li>
+                            <li><a href="/product/page.page?currentPage=1">Game List</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
