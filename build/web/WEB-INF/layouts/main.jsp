@@ -118,9 +118,9 @@
                     <div class="col-lg-3">
                         <h4>Games &amp; Categories</h4>
                         <ul>
-                            <li><a href="/product/page.page?currentPage=1">Game</a></li>
-                            <li><a href="/product/page.page?currentPage=1">Feature Page</a></li>
-                            <li><a href="/product/page.page?currentPage=1">Game List</a></li>
+                            <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Game</a></li>
+                            <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Feature Page</a></li>
+                            <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Game List</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
@@ -158,5 +158,5 @@
                 </div>
             </div>
         </footer>
-    </body>
+    </body>    
 </html>

@@ -37,10 +37,14 @@
                             <img src="<c:url value="${product.productImages}"/>" alt="">
                         </div>
                         <div class="down-content">
+                            
                             <h4>${product.productName}</h4>
-                            <span>
-                                <fmt:formatNumber value="${product.price}" type="number"/>&#8363;
+                            
+                            <span style="margin-left: 45%">
+                                <fmt:formatNumber value="${product.price}" type="number"/>&#8363; |
+                                <a href="<c:url value="/product/single_product.page?productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
                             </span>
+                            
                             <ul class="stars">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
@@ -48,6 +52,7 @@
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
                             </ul>
+                            
                         </div>
                     </div>
                 </div>
