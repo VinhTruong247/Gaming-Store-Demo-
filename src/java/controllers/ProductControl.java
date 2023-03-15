@@ -10,6 +10,7 @@ import database.ProductFacade;
 import database.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Math.ceil;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -80,12 +81,17 @@ public class ProductControl extends HttpServlet {
         }
     }
 
+    protected void search(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
     protected void page(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int currentPage = Integer.parseInt(request.getParameter("currentPage"));
         try {
-            
+
             ProductFacade pf = new ProductFacade();
             int count = pf.countProduct();
             int totalPage = count / 6;
@@ -93,8 +99,8 @@ public class ProductControl extends HttpServlet {
             if(count % 3 != 0){
                 totalPage++;
             }
-            
-            
+
+
             List<Product> list = pf.selectPerPage(currentPage);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("list", list);
@@ -103,7 +109,7 @@ public class ProductControl extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ProductControl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     protected void manager(HttpServletRequest request, HttpServletResponse response)
