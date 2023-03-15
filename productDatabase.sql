@@ -44,9 +44,9 @@ VALUES
 
 (014,'Euro Truck Simulator 2','SCS Software','Simulation','Travel across Europe as king of the road, a trucker who delivers important cargo across impressive distances! With dozens of cities to explore, your endurance, skill and speed will all be pushed to their limits.',87000,'/images/game/euro_truck_simulator_2.jpg'),
 
-(015,'ELDEN RING','FromSoftware Inc.','RPG','THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',898000,'/images/game/elden_ring.jpg'),
+(015,'Elden Ring - Deluxe Edition','FromSoftware Inc.','RPG','THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.',1198000,'/images/game/elden_ring.jpg'),
 
-(016,'NBA 2K23','2K','Sports','Rise to the occasion in NBA 2K23. Showcase your talent in MyCAREER. Pair All-Stars with timeless legends in MyTEAM. Build your own dynasty in MyGM, or guide the NBA in a new direction with MyLEAGUE. Take on NBA or WNBA teams in PLAY NOW and feel true-to-life gameplay.',300000,'/images/game/nba_2k23.jpg'),
+(016,'NBA 2K23 - Jordan Edition','2K','Sports','Rise to the occasion in NBA 2K23. Showcase your talent in MyCAREER. Pair All-Stars with timeless legends in MyTEAM. Build your own dynasty in MyGM, or guide the NBA in a new direction with MyLEAGUE. Take on NBA or WNBA teams in PLAY NOW and feel true-to-life gameplay.',1700000,'/images/game/nba_2k23.jpg'),
 
 (017,'WILD HEARTS™','Electronic Arts','Multiplayer','Master ancient tech to hunt down giant beasts.',1090000,'/images/game/wild_hearts.jpg'),
 
@@ -95,4 +95,6 @@ As the lone survivor of a passenger jet crash, you find yourself in a mysterious
 
 (039,'Phasmophobia','Kinetic Games','Online Co-Op','Phasmophobia is a 4 player online co-op psychological horror. Paranormal activity is on the rise and it’s up to you and your team to use all the ghost-hunting equipment at your disposal in order to gather as much evidence as you can.',160000,'/images/game/phasmophobia.jpg'),
 
-(040,'MONSTER HUNTER RISE','CAPCOM Co., Ltd','RPG','Rise to the challenge and join the hunt! In Monster Hunter Rise, the latest installment in the award-winning and top-selling Monster Hunter series, you’ll become a hunter, explore brand new maps and use a variety of weapons to take down fearsome monsters as part of an all-new storyline.',881000,'/images/game/monster_hunter_rise.jpg')
+(040,'Monster Hunter Rise','CAPCOM Co., Ltd','RPG','Rise to the challenge and join the hunt! In Monster Hunter Rise, the latest installment in the award-winning and top-selling Monster Hunter series, you’ll become a hunter, explore brand new maps and use a variety of weapons to take down fearsome monsters as part of an all-new storyline.',881000,'/images/game/monster_hunter_rise.jpg'),
+
+(041,'Minecraft','Microsoft','Sandbox','Minecraft is a video game in which players create and break apart various kinds of blocks in three-dimensional worlds. Two main modes of the game are Survival and Creative. In Survival, players must find their own building supplies and food. They also interact with blocklike mobs, or moving creatures.',650000,'/images/game/minecraft.jpg')

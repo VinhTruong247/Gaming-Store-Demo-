@@ -1396,7 +1396,7 @@ Single Product Page
 #single {
     text-align: center;
     margin-bottom: 60px;
-    margin-top: 160px;
+    margin-top: 140px;
 }
 
 #single .left-images img {
@@ -1435,7 +1435,7 @@ Single Product Page
 }
 
 #single .right-content ul.stars li {
-    margin-top: 95%;
+    margin-top: 80%;
     display: inline-block;
     font-size: 13px;
 }
