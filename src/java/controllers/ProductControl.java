@@ -96,10 +96,9 @@ public class ProductControl extends HttpServlet {
             int count = pf.countProduct();
             int totalPage = count / 6;
             System.out.println(totalPage);
-            if(count % 3 != 0){
+            if (count % 3 != 0) {
                 totalPage++;
             }
-
 
             List<Product> list = pf.selectPerPage(currentPage);
             request.setAttribute("currentPage", currentPage);
@@ -219,7 +218,7 @@ public class ProductControl extends HttpServlet {
 
                     ProductFacade pf = new ProductFacade();
                     pf.update(product);
-
+                    response.sendRedirect(request.getContextPath() + "/product/manager.page");
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     request.setAttribute("message", ex);
