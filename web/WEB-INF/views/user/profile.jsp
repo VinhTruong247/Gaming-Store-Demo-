@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Profile</h2>
+                <h2>Your Profile</h2>
             </div>
             <div class="col">
                 <form>

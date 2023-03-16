@@ -8,11 +8,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
 
-<h2>Sign Up Page</h2>
-
 <div class="signup">
     <div class="container">
         <div class="row">
+
+            <h2>Sign Up Page</h2>
+
             <div class="col">
                 <form action="<c:url value="/user/signup_handler.page" />" method="get">
                     <input type="hidden" name="role" value="CUSTOMER">
@@ -40,6 +41,7 @@
                 <a href="<c:url value="/user/login.page"/>" class="btn btn-outline-primary">Login</a>
                 <i style="color:red;">${message}</i>
             </div>
+
         </div>
     </div>
 </div>

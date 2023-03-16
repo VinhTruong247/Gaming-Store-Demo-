@@ -35,6 +35,7 @@
                 
             </div>
             <div class="col">
+                <h2>Login</h2>
                 <form action="<c:url value="/user/login_handler.page" />" method="get">
                     <div class="mb-3 mt-3">
                         <label for="loginInput" class="form-label">Email or Username:</label>
