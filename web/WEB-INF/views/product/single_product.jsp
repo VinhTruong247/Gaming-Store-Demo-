@@ -20,7 +20,7 @@
 
             <div class="col-lg-4">
                 <div class="right-content">
-                    
+
                     <h4>${product.productName}</h4>
 
                     <span class="price"><fmt:formatNumber value="${product.price}" type="number"/>&#8363;</span>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="right-content">
-                        <p>Product left in stock: <fmt:formatNumber value="${product.quantity}" type="number"/></p>
+                            <p>Product left in stock: <fmt:formatNumber value="${product.quantity}" type="number"/></p>
                         </div>
                     </div>
                     <div class="total">

@@ -10,26 +10,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
 
-<h2>About Us Page</h2>
+<div class="about-us">
 
-
-
-<div class="page-heading about-page-heading" id="top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="inner-content">
-                    <h2>About Our Team</h2>
-                    <span></span>
+    <!-- ***** Banner ***** -->    
+    <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                        <h2><span>Our Team</span></h2>
+                        <span>The Steam V2.0</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- ***** Banner ***** -->
 
-
-
-<div class="about-us">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -113,7 +110,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-lg-4">
                 <div class="team-item">
                     <div class="thumb">

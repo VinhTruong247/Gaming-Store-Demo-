@@ -30,40 +30,15 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/*Header*/
+header, nav, section, article, aside, footer, hgroup {
+    display: block;
+}
 
-.page-heading {
-    margin-top:5%;
-    margin-bottom: 20px;
-    background-image: url(../images/background.jpg);
+.main-banner{
+    background-image: url(../images/home.jpg);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-.page-heading .inner-content {
-    padding: 150px 0px;
-    text-align: center;
-}
-
-.page-heading .inner-content h2 {
-    font-size: 52px;
-    color: white;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.page-heading .inner-content span {
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
-    font-style: italic;
-}
-
-
-
-header, nav, section, article, aside, footer, hgroup {
-    display: block;
 }
 
 .row {
@@ -762,18 +737,53 @@ About Us Page
 --------------------------------------------- 
 */
 
+/*Header*/
 
-
-.about-page-heading {
-    margin-top: 160px;
-    margin-bottom: 30px;
-    /*background-image: url(../images/background.jpg);*/
+.about-us .page-heading {
+    margin-top:5%;
+    margin-bottom: 20px;
+    background-image: url(../images/background.jpg);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
+.about-us .page-heading .inner-content {
+    padding: 150px 0px;
+    text-align: center;
+    margin: 0;
+}
+
+.about-us .page-heading .inner-content h2 span {
+    font-style: normal;
+    font-size: 52px;
+    color: white;
+    font-weight: 700;
+    border-radius: 10%;
+    background: black;
+    background-origin: content-box;
+    padding: 0.2rem 1rem 1rem;
+    -webkit-box-decoration-break: clone;
+}
+
+.about-us .page-heading .inner-content span {
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5%;
+    color: #fff;
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.2rem 1rem 0.8rem;
+    -webkit-box-decoration-break: clone;
+}
+
+/*Header*/
+
 .about-us {
+    margin-top: 80px;
+}
+
+.about-us .container{
     margin-top: 80px;
 }
 
@@ -854,7 +864,7 @@ About Us Page
 }
 
 .our-team {
-    margin-top: 100px;
+    margin-top: 80px;
     padding-top: 90px;
     padding-bottom: 90px;
     border-top: 3px dotted #eee;
@@ -1146,6 +1156,47 @@ Products Page
     padding-bottom: 90px;
 }
 
+/*Header*/
+
+#products .page-heading {
+    margin-top:5%;
+    margin-bottom: 20px;
+    background-image: url(../images/background.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#products .page-heading .inner-content {
+    padding: 150px 0px;
+    text-align: center;
+    margin: 0;
+}
+
+#products .page-heading .inner-content h2 span {
+    font-style: normal;
+    font-size: 52px;
+    color: white;
+    font-weight: 700;
+    border-radius: 10%;
+    background: black;
+    background-origin: content-box;
+    padding: 0.2rem 1rem 1rem;
+    -webkit-box-decoration-break: clone;
+}
+
+#products .page-heading .inner-content span {
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5%;
+    color: #fff;
+    font-style: italic;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.2rem 1rem 0.8rem;
+    -webkit-box-decoration-break: clone;
+}
+
+/*Header*/
 
 #products .section-heading {
     text-align: center;
@@ -1285,23 +1336,25 @@ Products Page
     background-color: #ddd;
 }
 
-#products button {
-    width: 7.5rem;
-    height: 3.35rem;
-    display: inline-block;
-    text-align: center;
-    line-height: 44px;
-    background-color: #2a2a2a;
-    box-shadow: none;
-    border: 1px solid transparent;
-    color: #fff;
-    transition: all 0.3s;
+#single .total h4 {
+    float: left;
+    font-size: 20px;
+    margin-top: 10px;
+    color: black!important;
 }
 
-#products button:hover {
-    background-color: #fff;
-    border: 1px solid #2a2a2a;
+#single .total .main-border-button {
+    text-align: right;
+}
+
+#single .total .main-border-button a {
+    border-color: #2a2a2a;
     color: #2a2a2a;
+}
+
+#single .total .main-border-button a:hover {
+    color: #fff;
+    background-color: #2a2a2a;
 }
 
 #products .down-content .btn-outline-primary {
@@ -1310,18 +1363,18 @@ Products Page
     display: inline-block;
     text-align: center;
     line-height: 30px;
-    background-color: #2a2a2a;
     box-shadow: none;
-    border: 1px solid transparent;
-    color: #fff;
+    background-color: #fff;
+    border: 1px solid #2a2a2a;
+    color: #2a2a2a;
     transition: all 0.3s;
     margin-left: 0.5rem;
 }
 
 #products .down-content .btn-outline-primary:hover {
-    background-color: #fff;
-    border: 1px solid #2a2a2a;
-    color: #2a2a2a;
+    background-color: #2a2a2a;
+    border: 1px solid transparent;
+    color: #fff;
 }
 
 /* 

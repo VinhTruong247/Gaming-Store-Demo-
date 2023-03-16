@@ -33,20 +33,20 @@
 
                         <label for="description" class="form-label">Description:</label>
                         <input type="text" class="form-control" id="description" placeholder="Description" name="description">
-                        
+
                         <label for="quantity" class="form-label">Quantity:</label>
                         <input type="number" step="1" class="form-control" id="quantity" placeholder="Quantity" name="quantity">
 
                         <label for="price" class="form-label">Price:</label>
                         <input type="number" step="1" class="form-control" id="price" placeholder="Price" name="price">
-                        
+
                         <label for="productImages" class="form-label">Images:</label>
                         <input type="text" class="form-control" id="productImages" placeholder="Input images directory" name="productImages">
                     </div>
-                    
+
                     <button type="submit" name="op" class="btn btn-outline-success" value="create"><i class="fa fa-check"></i> Create</button>
                     <button type="submit" name="op" class="btn btn-outline-danger" value="cancel"><i class="fa fa-xmark"></i> Cancel</button>
-                    
+
                 </form>
                 <i style="color:red">${message}</i>
             </div>
