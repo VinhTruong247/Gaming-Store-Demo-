@@ -30,16 +30,41 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/*div .detail{
-    border-bottom: 3px dotted #eee;
-    padding-top: 160px;
-    padding-bottom: 30px;
-}*/
+/*Header*/
+
+.page-heading {
+    margin-top:5%;
+    margin-bottom: 20px;
+    background-image: url(../images/background.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.page-heading .inner-content {
+    padding: 150px 0px;
+    text-align: center;
+}
+
+.page-heading .inner-content h2 {
+    font-size: 52px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.page-heading .inner-content span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    font-style: italic;
+}
+
+
 
 header, nav, section, article, aside, footer, hgroup {
     display: block;
 }
-
 
 .row {
     display: -ms-flexbox;
@@ -1148,11 +1173,14 @@ Products Page
     font-size: 22px;
     color: #2a2a2a;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
+    height: 55px;
     width: 75%;
 }
 
 #products .item .down-content span {
+    margin: 10px 0;
+    float: right;
     font-size: 18px;
     color: #a1a1a1;
     font-weight: 500;
@@ -1435,7 +1463,7 @@ Single Product Page
 }
 
 #single .right-content ul.stars li {
-    margin-top: 75%;
+    margin-top: 95%;
     display: inline-block;
     font-size: 13px;
 }
@@ -1461,9 +1489,9 @@ Single Product Page
 }
 
 #single .right-content p {
-    font-size: 14px;
-    color: black;
-    font-weight: 500;
+    font-size: 16px;
+    color: grey;
+    font-weight: bold;
     display: block;
     margin-top: 25px;
 }

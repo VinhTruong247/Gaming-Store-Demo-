@@ -28,8 +28,8 @@
                             <th>Name</th>
                             <th>Publisher</th>
                             <th>Category</th>
+                            <th>Quantity</th>
                             <th>Price</th>
-
                             <th>Options</th> 
 
                         </tr>
@@ -41,6 +41,9 @@
                                 <td>${product.productName}</td>
                                 <td>${product.productPublisher}</td>
                                 <td>${product.category}</td>
+                                <td>
+                                    <fmt:formatNumber value="${product.quantity}" type="number"/>
+                                </td>
                                 <td>
                                     <fmt:formatNumber value="${product.price}" type="number"/>&#8363;
                                 </td>

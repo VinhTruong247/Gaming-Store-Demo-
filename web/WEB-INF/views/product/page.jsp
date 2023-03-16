@@ -5,19 +5,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <fmt:setLocale value="en-US" scope="session" />
 
-<h2>Product Page</h2>
-
-<section class="section" id="products">
+<!-- ***** Banner ***** -->
+<div class="page-heading" id="top">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-heading">
+                <div class="inner-content">
                     <h2>Our Latest Products</h2>
                     <span>Check out all of our products.</span>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<!-- ***** Banner ***** -->
+
+<section class="section" id="products">
+
     <div class="container">
         <div class="row">
 
@@ -37,14 +41,14 @@
                             <img src="<c:url value="${product.productImages}"/>" alt="">
                         </div>
                         <div class="down-content">
-                            
+
                             <h4>${product.productName}</h4>
-                            
+
                             <span style="margin-left: 48%">
                                 <fmt:formatNumber value="${product.price}" type="number"/>&#8363; |
                                 <a href="<c:url value="/product/single_product.page?productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
                             </span>
-                            
+
                             <ul class="stars">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
@@ -52,7 +56,7 @@
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
                             </ul>
-                            
+
                         </div>
                     </div>
                 </div>

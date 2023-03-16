@@ -34,6 +34,7 @@ public class ProductFacade {
             p.setProductPublisher(rs.getString("product_publisher"));
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
+            p.setQuantity(rs.getDouble("quantity"));
             p.setPrice(rs.getDouble("price"));
             p.setProductImages(rs.getString("product_images"));
             list.add(p);
@@ -55,6 +56,7 @@ public class ProductFacade {
             p.setProductPublisher(rs.getString("product_publisher"));
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
+            p.setQuantity(rs.getDouble("quantity"));
             p.setPrice(rs.getDouble("price"));
             p.setProductImages(rs.getString("product_images"));
             list.add(p);
@@ -65,14 +67,15 @@ public class ProductFacade {
 
     public void create(Product product) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement stm = con.prepareStatement("insert products values (?, ?, ?, ?, ?, ?, ?, ?)");
         stm.setString(1, product.getProductId());
         stm.setString(2, product.getProductName());
         stm.setString(3, product.getProductPublisher());
         stm.setString(4, product.getCategory());
         stm.setString(5, product.getDescription());
-        stm.setDouble(6, product.getPrice());
-        stm.setString(7, product.getProductImages());
+        stm.setDouble(6, product.getQuantity());
+        stm.setDouble(7, product.getPrice());
+        stm.setString(8, product.getProductImages());
 
         int count = stm.executeUpdate();
         con.close();
@@ -88,13 +91,15 @@ public class ProductFacade {
 
     public void update(Product product) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ? where product_id = ?");
+        PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ?, product_quantity = ?, product_images = ? where product_id = ?");
         stm.setString(1, product.getProductName());
         stm.setString(2, product.getProductPublisher());
         stm.setString(3, product.getCategory());
         stm.setString(4, product.getDescription());
-        stm.setDouble(5, product.getPrice());
-        stm.setString(6, product.getProductId());
+        stm.setDouble(5, product.getPrice());       
+        stm.setDouble(6, product.getQuantity());
+        stm.setString(7, product.getProductImages());
+        stm.setString(8, product.getProductId());
         int count = stm.executeUpdate();
         con.close();
     }
@@ -112,6 +117,7 @@ public class ProductFacade {
             product.setProductPublisher(rs.getString("product_publisher"));
             product.setCategory(rs.getString("product_category"));
             product.setDescription(rs.getString("product_description"));
+            product.setQuantity(rs.getDouble("quantity"));
             product.setPrice(rs.getDouble("price"));
             product.setProductImages(rs.getString("product_images"));
         }

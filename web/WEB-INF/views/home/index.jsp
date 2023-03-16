@@ -104,7 +104,7 @@
                                             <h4>Best Seller #4</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="<c:url value="#"/>">aBuy Now</a>
+                                                <a href="<c:url value="#"/>">Buy Now</a>
                                             </div>
                                         </div>
                                     </div>

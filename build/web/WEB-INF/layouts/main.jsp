@@ -67,7 +67,7 @@
 
                                 <c:if test="${sessionScope.user!=null}">
                                     <li class="submenu">
-                                        <img style="width: 50px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt="">
+                                        <img style="width:40px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt="">
                                         <ul>
                                             <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
                                             <li><a href="<c:url value="/user/edit.page"/>">Setting</a></li>
@@ -92,6 +92,7 @@
             </div>
         </header>
 
+        
 
         <!-- ***** Detail ***** -->
         <div class="detail">

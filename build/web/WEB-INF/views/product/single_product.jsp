@@ -50,6 +50,9 @@
                                 <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
                             </div>
                         </div>
+                        <div class="right-content">
+                        <p>Product left in stock: <fmt:formatNumber value="${product.quantity}" type="number"/></p>
+                        </div>
                     </div>
                     <div class="total">
                         <h4>Total: </h4>

@@ -16,6 +16,7 @@ public class Product {
     private String productPublisher;
     private String category;
     private String description;
+    private double quantity;
     private double price;
     private String productImages;
 
@@ -23,15 +24,17 @@ public class Product {
 
     }
 
-    public Product(String productId, String productName, String productPublisher, String category, String description, double price, String productImages) {
+    public Product(String productId, String productName, String productPublisher, String category, String description, double quantity, double price, String productImages) {
         this.productId = productId;
         this.productName = productName;
         this.productPublisher = productPublisher;
         this.category = category;
         this.description = description;
+        this.quantity = quantity;
         this.price = price;
         this.productImages = productImages;
     }
+  
 
     public String getProductId() {
         return productId;
@@ -87,6 +90,14 @@ public class Product {
 
     public void setProductImages(String productImages) {
         this.productImages = productImages;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
     }
    
 }

@@ -34,9 +34,12 @@
 
                         <label for="description" class="form-label">Description:</label>
                         <input type="text" class="form-control" id="description" placeholder="Description" name="description" value="${product.description}">
+                        
+                        <label for="quantity" class="form-label">Quantity:</label>
+                        <input type="number" step="1" class="form-control" id="quantity" placeholder="Quantity" name="quantity" value="${product.quantity}">         
 
                         <label for="price" class="form-label">Price:</label>
-                        <input type="number" step="0.1" class="form-control" id="price" placeholder="Price" name="price" value="${product.price}">                       
+                        <input type="number" step="100" class="form-control" id="price" placeholder="Price" name="price" value="${product.price}">                       
                         
                         <label for="productImages" class="form-label">Images:</label>
                         <input type="text" class="form-control" id="productImages" placeholder="Input images directory" value="${product.productImages}">
@@ -49,7 +52,9 @@
                 <i style="color:red">${message}</i>
             </div>
 
-            <div class="col"></div>
+            <div class="col">
+                <img src="<c:url value="${product.productImages}"/>" alt="">
+            </div>
 
         </div>
     </div>
