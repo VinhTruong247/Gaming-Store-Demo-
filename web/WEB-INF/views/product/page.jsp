@@ -40,7 +40,7 @@
                             
                             <h4>${product.productName}</h4>
                             
-                            <span style="margin-left: 45%">
+                            <span style="margin-left: 48%">
                                 <fmt:formatNumber value="${product.price}" type="number"/>&#8363; |
                                 <a href="<c:url value="/product/single_product.page?productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
                             </span>
