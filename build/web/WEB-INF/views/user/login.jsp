@@ -15,13 +15,13 @@
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cook : cookies) {
-            if (cook.getName().equals("cookuser") && cook.getValue() != null) {
+            if (cook.getName().equals("cookUser") && cook.getValue() != null) {
                 user = cook.getValue();
             }
-            if (cook.getName().equals("cookpass") && cook.getValue() != null) {
+            if (cook.getName().equals("cookPass") && cook.getValue() != null) {
                 pass = cook.getValue();
             }
-            if (cook.getName().equals("cookremember") && cook.getValue() != null) {
+            if (cook.getName().equals("cookRemember") && cook.getValue() != null) {
                 reme = cook.getValue();
             }
         }
@@ -39,12 +39,12 @@
                 <form action="<c:url value="/user/login_handler.page" />" method="get">
                     <div class="mb-3 mt-3">
                         <label for="loginInput" class="form-label">Email or Username:</label>
-                        <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Enter your email or username here" value="<%=user%>">
+                        <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Enter your email or username here" required value="<%=user%>">
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password:</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" minlength="1" maxlength="4" required value="<%=pass%>">
-                    </div>            
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password:</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password here" name="password" required value="<%=pass%>">
+                        </div>            
                     <div class="mb-3">
                         <label for="remember" class="form-label">Remember password:</label><input type="checkbox" name="remember" value="on"
                                                                                                   <%= "on".equals(reme) ? "checked='/checked'" : ""%>>

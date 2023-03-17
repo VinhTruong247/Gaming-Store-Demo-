@@ -69,7 +69,8 @@ public class UserFacade {
     }
 
     //check tai khoan ton tai khong
-    public boolean checkAccountExist(String input) throws SQLException, NoSuchAlgorithmException {
+    public int checkAccountExist(String input) throws SQLException, NoSuchAlgorithmException {
+        int count = 0;
         User user = null;
         Connection con = Database.getConnection();
         String queryCommand = "";
@@ -78,21 +79,22 @@ public class UserFacade {
         } else {
             queryCommand = "user_username=?";
         }
-        PreparedStatement stm = con.prepareStatement("select * from users u where " + queryCommand);
+        PreparedStatement stm = con.prepareStatement("select count(user_email) 'count' from users where " + queryCommand);
         stm.setString(1, input);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
-            return true;
+            count=rs.getInt("count");
         }
         con.close();
-        return false;
+        System.out.println(count);
+        return count;
     }
 
     public int getNextId(String role) throws SQLException{
         int count=0;
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("select max(user_id) 'max' from users group by role_id having role_id = ?");
-        stm.setInt(1, (role.matches("ADMIN")? 1: 2));
+        stm.setInt(1, getRoleId(role));
         ResultSet rs = stm.executeQuery();
         if(rs.next()) count=rs.getInt("max");
         con.close();
@@ -102,13 +104,52 @@ public class UserFacade {
     public void create(User user) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("SET IDENTITY_INSERT users ON insert into users(role_id,user_id,user_username,user_email,user_password,user_fullName) values (?, ?, ?, ?, ?, ?) SET IDENTITY_INSERT users OFF");
-        stm.setInt(1, (user.getRole().matches("ADMIN")? 1 : 2));
-        stm.setString(2, user.getUserId().substring(user.getUserId().lastIndexOf("-")+1));
+        stm.setInt(1, getRoleId(user.getRole()));
+        stm.setInt(2, user.getUserId());
         stm.setString(3, user.getUsername());
         stm.setString(4, user.getEmail());
-        stm.setString(6, user.getPassword());
-        stm.setString(5, user.getFullName());
+        stm.setString(5, user.getPassword());
+        stm.setString(6, user.getFullName());
         int count = stm.executeUpdate();
         con.close();
+    }
+    
+    public void update(User user) throws SQLException {
+        //Tạo connection để kết nối vào DBMS
+        Connection con = Database.getConnection();
+        //Tạo đối tượng statement
+        PreparedStatement stm = con.prepareStatement("update users set user_username = ?, user_email = ?, user_fullName = ? where user_id = ? and role_id = ?");
+        //Thực thi lệnh sql
+        stm.setString(1, user.getUsername());
+        stm.setString(2, user.getEmail());
+        stm.setString(3, user.getFullName());
+        stm.setInt(4, user.getUserId());
+        stm.setInt(5, getRoleId(user.getRole()));
+        int count = stm.executeUpdate();        
+        con.close();
+    }
+    
+    public void changePass(User user) throws SQLException {
+        //Tạo connection để kết nối vào DBMS
+        Connection con = Database.getConnection();
+        //Tạo đối tượng statement
+        PreparedStatement stm = con.prepareStatement("update users set user_password = ? where user_id = ? and role_id = ?");
+        //Thực thi lệnh sql
+        stm.setString(1, user.getPassword());
+        stm.setInt(2, user.getUserId());
+        stm.setInt(3, getRoleId(user.getRole()));
+        int count = stm.executeUpdate();        
+        con.close();
+    }
+    
+    public int getRoleId(String role) throws SQLException{
+        int id=0;
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("select id from user_roles where role=?");
+        stm.setString(1, role);
+        ResultSet rs = stm.executeQuery();
+        if(rs.next()) id=rs.getInt("id");
+        con.close();
+        return id;
     }
 }

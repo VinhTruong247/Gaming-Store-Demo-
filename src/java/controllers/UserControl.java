@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utils.Hasher;
+import utils.Tools;
 
 /**
  *
@@ -54,9 +55,6 @@ public class UserControl extends HttpServlet {
             case "logout":
                 logout(request, response);
                 break;
-            case "userlist":
-                userlist(request, response);
-                break;
             case "signup":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
@@ -70,7 +68,13 @@ public class UserControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "edit_handler":
-                edit_handler(request,response);
+                edit_handler(request, response);
+                break;
+            case "changePass":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "changePass_handler":
+                changePass_handler(request, response);
                 break;
         }
     }
@@ -82,10 +86,10 @@ public class UserControl extends HttpServlet {
         switch (op) {
             case "login":
                 try {
-                    String loginInput = request.getParameter("loginInput");
+                    String loginInput = request.getParameter("loginInput").trim();
                     String password = request.getParameter("password");
                     UserFacade uf = new UserFacade();
-                    if (uf.checkAccountExist(loginInput)) {
+                    if (uf.checkAccountExist(loginInput) != 0) {
                         User user = new User();
                         if (password.length() < 20) {
                             password = Hasher.hash(password);
@@ -96,17 +100,16 @@ public class UserControl extends HttpServlet {
                             request.getRequestDispatcher("/user/login.page").forward(request, response);
                         } else {
                             String remember = request.getParameter("remember");
-                            System.out.println(remember);
                             if (remember != null) {
-                                Cookie cookuser = new Cookie("cookuser", user.getUsername());
-                                Cookie cookpass = new Cookie("cookpass", password);
-                                Cookie cookremember = new Cookie("cookremember", remember);
-                                cookuser.setMaxAge(REMEMBER_ME_EXPIRY);
-                                cookpass.setMaxAge(REMEMBER_ME_EXPIRY);
-                                cookremember.setMaxAge(REMEMBER_ME_EXPIRY);
-                                response.addCookie(cookuser);
-                                response.addCookie(cookpass);
-                                response.addCookie(cookremember);
+                                Cookie cookUser = new Cookie("cookUser", user.getUsername());
+                                Cookie cookPass = new Cookie("cookPass", password);
+                                Cookie cookRemember = new Cookie("cookRemember", remember);
+                                cookUser.setMaxAge(REMEMBER_ME_EXPIRY);
+                                cookPass.setMaxAge(REMEMBER_ME_EXPIRY);
+                                cookRemember.setMaxAge(REMEMBER_ME_EXPIRY);
+                                response.addCookie(cookUser);
+                                response.addCookie(cookPass);
+                                response.addCookie(cookRemember);
                             }
                             HttpSession session = request.getSession();
                             session.setAttribute("user", user);
@@ -117,7 +120,7 @@ public class UserControl extends HttpServlet {
                         request.getRequestDispatcher("/user/login.page").forward(request, response);
                     }
                 } catch (Exception ex) {
-                    request.setAttribute("message", ex.toString());
+                    request.setAttribute("message", "Unable to update info due to: " + ex.getMessage());
                     request.getRequestDispatcher("/user/login.page").forward(request, response);
                 }
                 break;
@@ -125,38 +128,22 @@ public class UserControl extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/home/index.page");
                 break;
         }
-
     }
 
     protected void logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie cookuser = new Cookie("cookuser", null);
-        Cookie cookpass = new Cookie("cookpass", null);
-        Cookie cookremember = new Cookie("cookremember", null);
-        cookuser.setMaxAge(0);
-        cookpass.setMaxAge(0);
-        cookremember.setMaxAge(0);
-        response.addCookie(cookuser);
-        response.addCookie(cookpass);
-        response.addCookie(cookremember);
+        Cookie cookUser = new Cookie("cookUser", null);
+        Cookie cookPass = new Cookie("cookPass", null);
+        Cookie cookRemember = new Cookie("cookRemember", null);
+        cookUser.setMaxAge(0);
+        cookPass.setMaxAge(0);
+        cookRemember.setMaxAge(0);
+        response.addCookie(cookUser);
+        response.addCookie(cookPass);
+        response.addCookie(cookRemember);
         HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect(request.getContextPath() + "/home/index.page");
-    }
-
-    protected void userlist(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            UserFacade uf = new UserFacade();
-            List<User> list = uf.select();
-            request.setAttribute("list", list);
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        } catch (SQLException e) {
-            request.setAttribute("message", e.getMessage());
-            request.setAttribute("controller", "error");
-            request.setAttribute("action", "error");
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        }
     }
 
     protected void signup_handler(HttpServletRequest request, HttpServletResponse response)
@@ -164,21 +151,47 @@ public class UserControl extends HttpServlet {
         String op = request.getParameter("op");
         switch (op) {
             case "signup":
+                String fullName = request.getParameter("fullName").trim();
+                String username = request.getParameter("username").trim();
+                String email = request.getParameter("email").trim();
+                HttpSession session = request.getSession();
+                UserFacade uf = new UserFacade();
+                request.setAttribute("fullName", fullName);
                 try {
-                    UserFacade uf = new UserFacade();
-                    String role = request.getParameter("role");
-                    int id = uf.getNextId(role);
-                    String fullName = request.getParameter("fullName");
-                    String username = request.getParameter("username");
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    User user = new User(role, uf.getNextId(role), username, email, password, fullName);
-                    uf.create(user);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user);
-                    request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                    if (uf.checkAccountExist(username) == 0 && uf.checkAccountExist(email) == 0) {
+                        request.setAttribute("username", username);
+                        request.setAttribute("email", email);
+                        String role = request.getParameter("role");
+                        int id = uf.getNextId(role);
+                        String password = request.getParameter("password");
+                        String confirmPass = request.getParameter("confirmPass");
+                        if (Tools.verifyPassword(password)) {
+                            if (password.equals(confirmPass)) {
+                                User user = new User(role, id, username, email, Hasher.hash(password), fullName);
+                                uf.create(user);
+                                session.setAttribute("user", user);
+                                request.setAttribute("announce", "Signup done, you can go back to Home Page now.");
+                                response.sendRedirect(request.getContextPath() + "/home/index.page");
+                            } else {
+                                request.setAttribute("message", "Unable to signup due to: Confirm password doesn't match.");
+                                request.getRequestDispatcher("/user/signup.page").forward(request, response);
+                            }
+                        } else {
+                            request.setAttribute("message", "Unable to signup due to: password doesn't meet requirement (Only alphanumeric, Ex: 1234,abcd,...)");
+                            request.getRequestDispatcher("/user/signup.page").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("message", "Unable to signup due to: Username or email already existed.");
+                        request.getRequestDispatcher("/user/signup.page").forward(request, response);
+                    }
                 } catch (Exception ex) {
-                    request.setAttribute("message", ex.toString());
+                    String message = "Unable to signup due to: ";
+                    if (ex.toString().contains("duplicate")) {
+                        message += "Account already exists.";
+                    } else {
+                        message += "Unable to create account.";
+                    }
+                    request.setAttribute("message", message);
                     request.getRequestDispatcher("/user/signup.page").forward(request, response);
                 }
                 break;
@@ -187,10 +200,103 @@ public class UserControl extends HttpServlet {
                 break;
         }
     }
+
     protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String op = request.getParameter("op");
+        switch (op) {
+            case "apply":
+                HttpSession session = request.getSession();
+                User oldUser = (User) session.getAttribute("user");
+                try {
+                    UserFacade uf = new UserFacade();
+                    User newUser = new User();
+                    String username = request.getParameter("username");
+                    String email = request.getParameter("email");
+                    if (username.isEmpty()) {
+                        username = oldUser.getUsername();
+
+                    } else {
+                        Cookie cookUser = new Cookie("cookUser", username);
+                        cookUser.setMaxAge(REMEMBER_ME_EXPIRY);
+                        response.addCookie(cookUser);
+                    }
+                    if (email.isEmpty()) {
+                        email = oldUser.getEmail();
+                    }
+                    String role = request.getParameter("role");
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    String fullName = request.getParameter("fullName");
+                    if (fullName.isEmpty()) {
+                        fullName = oldUser.getFullName();
+                    }
+                    String password = request.getParameter("pssword");
+                    newUser = new User(role, id, username, email, password, fullName);
+                    uf.update(newUser);
+                    session.setAttribute("user", newUser);
+                    response.sendRedirect(request.getContextPath() + "/user/profile.page");
+                } catch (Exception ex) {
+                    session.setAttribute("user", oldUser);
+                    String message = "Unable to edit due to: ";
+                    if (ex.toString().contains("duplicate")) {
+                        message += "Account already exists";
+                    } else {
+                        message += "Unable to edit account";
+                    }
+                    request.setAttribute("message", message);
+                    request.getRequestDispatcher("/user/edit.page").forward(request, response);
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/user/profile.page");
+                break;
+        }
     }
+
+    protected void changePass_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String op = request.getParameter("op");
+        switch (op) {
+            case "apply":
+                try {
+                    String oldPass = request.getParameter("oldPass");
+                    System.out.println(oldPass);
+                    HttpSession session = request.getSession();
+                    User user = (User) session.getAttribute("user");
+                    System.out.println(oldPass);
+                    System.out.println(user.getPassword());
+                    System.out.println(Hasher.hash(oldPass));
+                    if (!(user.getPassword()).equals(Hasher.hash(oldPass))) {
+                        System.out.println(oldPass);
+                        request.setAttribute("message", "Incorrect old password.");
+                        request.getRequestDispatcher("/user/changePass.page").forward(request, response);
+                    } else {
+                        String newPass = request.getParameter("newPass");
+                        if (Tools.verifyPassword(newPass)) {
+                            user.setPassword(Hasher.hash(newPass));
+                            UserFacade uf = new UserFacade();
+                            uf.changePass(user);
+                            Cookie cookPass = new Cookie("cookPass", user.getPassword());
+                            cookPass.setMaxAge(REMEMBER_ME_EXPIRY);
+                            response.addCookie(cookPass);
+                            session.setAttribute("user", user);
+                            response.sendRedirect(request.getContextPath() + "/user/profile.page");
+                        } else {
+                            request.setAttribute("message", "Unable to change password due to: new password doesn't meet requirement (Only alphanumeric, Ex: 1234,abcd,...)");
+                            request.getRequestDispatcher("/user/changePass.page").forward(request, response);
+                        }
+                    }
+                } catch (Exception ex) {
+                    request.setAttribute("message", "Unable to change password due to: " + ex.toString());
+                    request.getRequestDispatcher("/user/changePass.page").forward(request, response);
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/user/profile.page");
+                break;
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
