@@ -269,7 +269,7 @@ public class UserControl extends HttpServlet {
                     if (!(user.getPassword()).equals(Hasher.hash(oldPass))) {
                         System.out.println(oldPass);
                         request.setAttribute("message", "Incorrect old password.");
-                        request.getRequestDispatcher("/user/signup.page").forward(request, response);
+                        request.getRequestDispatcher("/user/changePass.page").forward(request, response);
                     } else {
                         String newPass = request.getParameter("newPass");
                         if (Tools.verifyPassword(newPass)) {
