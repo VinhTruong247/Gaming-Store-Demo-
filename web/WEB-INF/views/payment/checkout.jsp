@@ -65,19 +65,9 @@
         </div>
 
         <div class="row">
-
-            <label>
-                <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-            </label>
-
+            <button type="submit" class="btn btn-outline-danger" name="op" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
+            <button type="submit" class="btn btn-outline-success" name="op" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
         </div>
-
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                <input type="submit" value="Purchase" class="btn">
-            </div>
-            <div class="col"></div>
-        </div>
+        
     </div>
 </div>

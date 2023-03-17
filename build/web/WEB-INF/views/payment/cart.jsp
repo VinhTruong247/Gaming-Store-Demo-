@@ -13,8 +13,35 @@
 
 <div class="checkout">
     <div class="container">
+
         <div class="row">
-            <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
+
+            <table class="table table-striped">
+                <thead>
+
+                    <tr>
+                        <th>Images</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>                        
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <c:forEach var="product" items="${list}" varStatus="loop">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                                
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
         </div>
+
+        <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
+
     </div>
 </div>

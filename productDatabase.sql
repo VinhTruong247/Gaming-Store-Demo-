@@ -31,7 +31,7 @@ VALUES
 
 (008,'Destiny 2: Lightfall','Bungie','Adventure','Destiny 2 is an action MMO with a single evolving world that you and your friends can join anytime, anywhere, absolutely free.',100,1499000,'/images/game/destiny_2.jpg'),
 
-(009,'OCTOPATH TRAVELER II','Square Enix','RPG','This game is a brand-new entry in the OCTOPATH TRAVELER series, the first installment of which was initially released in 2018 and sold over 3 million copies worldwide.',100,165000,'/images/game/octopath_traveler_2.jpg'),
+(009,'OCTOPATH TRAVELER II','Square Enix','RPG','This game is a brand-new entry in the OCTOPATH TRAVELER series, the first installment of which was initially released in 2018 and sold over 3 million copies worldwide.',100,1499000,'/images/game/octopath_traveler_2.jpg'),
 
 (010,'EA SPORTS™ FIFA 23','Electronic Arts','Sports','FIFA 23 brings The World’s Game to the pitch, with HyperMotion2 Technology, men’s and women’s FIFA World Cup™coming during the season, women’s club teams, cross-play features*, and more.',100,1090000,'/images/game/fifa23.jpg'),
 

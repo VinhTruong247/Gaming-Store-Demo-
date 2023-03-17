@@ -15,6 +15,7 @@
 <div class="main-banner" id="top">
     <div class="container-fluid">
         <div class="row">
+
             <div class="col-lg-6">
                 <div class="left-content">
                     <div class="thumb">
@@ -25,13 +26,16 @@
                                 <a href="<c:url value="/home/aboutus.page"/>">Find out more</a>
                             </div>
                         </div>
-                        <img src="<c:url value="/images/out.jpg"/>" alt="">
+                        <img src="<c:url value="/images/team_home.jpg"/>" alt="">
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <div class="right-content">
+
                     <div class="row">
+
                         <div class="col-lg-6">
                             <div class="right-first-image">
                                 <div class="thumb">
@@ -52,6 +56,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="right-first-image">
                                 <div class="thumb">
@@ -72,6 +77,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="right-first-image">
                                 <div class="thumb">
@@ -92,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="right-first-image">
                                 <div class="thumb">
@@ -112,6 +119,7 @@
                                 </div>
                             </div>
                         </div>
+                                
                     </div>
                 </div>
             </div>
