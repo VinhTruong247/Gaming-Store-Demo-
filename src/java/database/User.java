@@ -12,7 +12,7 @@ package database;
 public class User {
 
     private String role;
-    private String userId;
+    private int userId;
     private String username;
     private String email;
     private String password;
@@ -23,7 +23,7 @@ public class User {
 
     public User(String role, int id, String username, String email, String password, String fullName) {
         this.role = role;
-        this.userId = role+"-"+id;
+        this.userId = id;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -38,12 +38,12 @@ public class User {
         this.role = role;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
     public void setUserId(int id) {
-        this.userId = role+"-"+id;
+        this.userId = id;
     }
 
     public String getUsername() {

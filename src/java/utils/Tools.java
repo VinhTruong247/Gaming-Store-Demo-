@@ -17,9 +17,21 @@ public class Tools {
         + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
     
     public static boolean verifyEmail(String input){
-        Pattern pattern = Pattern.compile(regexPattern);
-        Matcher matcher = pattern.matcher(input);
-        if(matcher.matches()) return true;
+        if(input.matches(regexPattern)) return true;
         else return false;
+    }
+    
+    public static boolean verifyPassword(String input){
+        if(!input.equals(input.trim())) {
+            System.out.println("false");
+            return false;
+        }
+        if(input.matches("[0-9a-zA-Z]*")) {
+            System.out.println("true");
+            return true;
+        }
+        else {
+            System.out.println("false");return false;
+        }
     }
 }

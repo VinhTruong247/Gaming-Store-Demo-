@@ -955,11 +955,12 @@ Login & Signup Page
 
 
 
-.login, .signup {
+.login, .signup, .profile, .edit, .changePass {
     margin-top: 90px;
     border-bottom: 3px dotted #eee;
     padding-bottom: 90px;
 }
+
 
 .login form input {
     width: 100%;

@@ -62,25 +62,21 @@
                                 </li>
 
                                 <c:if test="${sessionScope.user==null}">
-                                    <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login</a></li>
+                                    <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login/Sign up</a></li>
                                     </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">
+                                    <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
                                     <li class="submenu">
                                         <img style="width:40px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt="">
                                         <ul>
                                             <li><a href="<c:url value="/user/profile.page"/>">Profile</a></li>
-                                            <li><a href="<c:url value="/user/edit.page"/>">Setting</a></li>
-                                            <li><a href="<c:url value="#"/>">Logout</a></li>
+                                            <li><a href="<c:url value="/user/logout.page"/>">Logout</a></li>
                                         </ul>
                                     </li>
                                 </c:if>
 
                                 <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
-
-                                <c:if test="${sessionScope.user!=null}">
-                                    <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
-                                    </c:if>
                             </ul>
                             <a class='menu-trigger'>
                                 <span>Menu</span>
