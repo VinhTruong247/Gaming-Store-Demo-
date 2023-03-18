@@ -13,7 +13,6 @@
 
 <div class="checkout">
     <div class="container">
-
         <div class="row">
 
             <table class="table table-striped">

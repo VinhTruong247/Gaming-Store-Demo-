@@ -36,7 +36,7 @@
             </div>
             <div class="col">
                 <h2>Login</h2>
-                <form action="<c:url value="/user/login_handler.page" />" method="get">
+                <form action="<c:url value="/user/login_handler.page" />" method="post">
                     <div class="mb-3 mt-3">
                         <label for="loginInput" class="form-label">Email or Username:</label>
                         <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Enter your email or username here" required value="<%=user%>">
@@ -47,7 +47,7 @@
                         </div>            
                     <div class="mb-3">
                         <label for="remember" class="form-label">Remember password:</label><input type="checkbox" name="remember" value="on"
-                                                                                                  <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
+                                                                                                    <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
                     </div>   
                     <button type="submit" class="btn btn-outline-success" name="op" value="login"><i class="bi bi-check-lg"></i> Login</button>
                     <button type="submit" class="btn btn-outline-danger" name="op" formnovalidate value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>

@@ -275,12 +275,31 @@ public class ProductControl extends HttpServlet {
     protected void single_product(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
             String productId = request.getParameter("productId");
             ProductFacade pf = new ProductFacade();
             Product product = pf.read(productId);
             if (product == null) {
                 System.out.println("error");
             }
+            String op = request.getParameter("op");
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            switch (op) {
+                case "+":
+                    if (quantity != 100) {
+                        quantity++;
+                    }
+                    break;
+                case "-":
+                    if (quantity != 1) {
+                        quantity--;
+                    }
+                    break;
+            }
+            
+            session.setAttribute("quantity", quantity);
+            session.setAttribute("prodcut", product);
+            request.setAttribute("quantity", quantity);
             request.setAttribute("product", product);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } catch (SQLException e) {
