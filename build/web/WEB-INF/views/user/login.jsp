@@ -50,7 +50,7 @@
                                                                                                   <%= "on".equals(reme) ? "checked='/checked'" : ""%>>
                     </div>   
                     <button type="submit" class="btn btn-outline-success" name="op" value="login"><i class="bi bi-check-lg"></i> Login</button>
-                    <button type="submit" class="btn btn-outline-danger" name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
+                    <button type="submit" class="btn btn-outline-danger" name="op" formnovalidate value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
                 </form>
                 <i style="color:red;">${message}</i>
                 <hr/>

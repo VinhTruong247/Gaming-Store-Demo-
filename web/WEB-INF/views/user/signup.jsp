@@ -38,7 +38,7 @@
                         <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Confirm your password here" required value="">
                     </div>
                     <button type="submit" class="btn btn-outline-success" name="op" value="signup"><i class="bi bi-check-lg"></i> Sign Up</button>
-                    <button type="submit" class="btn btn-outline-danger" name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
+                    <button type="submit" class="btn btn-outline-danger" name="op" formnovalidate value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
                 </form>
                 <hr/>
                 Have an account? 
