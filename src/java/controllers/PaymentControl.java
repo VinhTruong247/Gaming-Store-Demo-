@@ -54,15 +54,7 @@ public class PaymentControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "cart":
-<<<<<<< Updated upstream
-                HttpSession session = request.getSession();
-                Cart cart = (Cart) session.getAttribute("cart");
-                double total = cart.getTotal();
-                request.setAttribute("total",total);
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-=======
                 cart(request, response);
->>>>>>> Stashed changes
                 break;
             case "add":
                 add(request, response);
@@ -91,10 +83,13 @@ public class PaymentControl extends HttpServlet {
         ProductFacade pf = new ProductFacade();
         Product product = pf.read(productId);
         HttpSession session = request.getSession();
-        user= (User) session.getAttribute("user");
-        String username="";
-        if(user!=null)username=user.getFullName();
-        else username="unknown";
+        user = (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
+        }
         Item item = new Item(product, username);
         List<Product> products = pf.select();
         Cart cart = (Cart) session.getAttribute("cart");
@@ -135,7 +130,7 @@ public class PaymentControl extends HttpServlet {
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
-        user= (User) session.getAttribute("user");
+        user = (User) session.getAttribute("user");
         String username = "";
         if (user != null) {
             username = user.getFullName();
@@ -145,12 +140,14 @@ public class PaymentControl extends HttpServlet {
         System.out.println(username);
         Cart cart = new Cart();
         List<Product> list = cf.select(username);
-        for(Product p : list){
-            Item item = new Item(p,username);
+        for (Product p : list) {
+            Item item = new Item(p, username);
             cart.add(item);
         }
+        double total = cart.getTotal();
+        request.setAttribute("total", total);
         session.setAttribute("cart", cart);
-        request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

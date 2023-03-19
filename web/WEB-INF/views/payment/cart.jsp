@@ -32,7 +32,6 @@
 
                 </thead>
                 <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
-<<<<<<< Updated upstream
                     <tr>
                         <td>${loop.count}</td>
                         <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
@@ -43,18 +42,6 @@
                         </td>
                     </tr>
                 </c:forEach>
-=======
-                        <tr>
-                            <td>${loop.count}</td>
-                            <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
-                            <td>${item.product.productName}</td>
-                            <td>${item.product.price}</td>
-                            <td>
-                                <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
-                            </td>
-                        </tr>
-                    </c:forEach>
->>>>>>> Stashed changes
                 </tbody>
             </table>
         </div>
