@@ -10,3 +10,5 @@ nbproject/private/private.xml
 nbproject/private/private.xml
 nbproject/private/private.xml
 *.xml
+*.properties
+*.xml
