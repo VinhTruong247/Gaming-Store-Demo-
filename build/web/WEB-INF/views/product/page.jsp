@@ -46,7 +46,7 @@
 
                             <span style="margin-left: 48%">
                                 <fmt:formatNumber value="${product.price}" type="number"/>&#8363; |
-                                <a href="<c:url value="/product/single_product.page?productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
+                                <a href="<c:url value="/product/single_product.page?quantity=1&op=none&productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
                             </span>
 
                             <ul class="stars">

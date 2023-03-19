@@ -7,9 +7,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <fmt:setLocale value="en-US" scope="session" />
-
 <section class="section" id="single">
-
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -47,7 +45,13 @@
                         </div>
                         <div class="right-content">
                             <div class="quantity buttons_added">
-                                <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                <a href="<c:url value="/product/single_product.page?quantity=${quantity}&op=-&productId=${product.productId}"/>"><input type="button" value="-" class="minus"></a>
+                                <form action="<c:url value="/product/single_product.page"/>" method="get">
+                                    <input type="hidden" name="productId" value="${product.productId}">
+                                    <input type="number" step="1" min="1" max="" name="quantity" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="numeric" value="${quantity}">
+                                    <input type="hidden" name="op" value="none">
+                                </form>
+                                <a href="<c:url value="/product/single_product.page?quantity=${quantity}&op=%2b&productId=${product.productId}"/>"><input type="button" value="+" class="minus"></a>
                             </div>
                         </div>
                         <div class="right-content">
@@ -56,11 +60,10 @@
                     </div>
                     <div class="total">
                         <h4>Total: </h4>
-                        <div class="main-border-button"><a href="<c:url value="#"/>">Add To Cart</a></div>
+                        <div class="main-border-button"><a href="<c:url value="/payment/cart.page?quantity=${quantity}&op=%2b&productId=${product.productId}"/>">Add To Cart</a></div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
