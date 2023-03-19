@@ -22,9 +22,7 @@
                         <th>No.</th>
                         <th>Images</th>
                         <th>Name</th>
-                        <th>Price</th>
-                        <th>Total Price</th>
-                        <th>Quantity</th>
+                        <th style="float: left;">Price</th>
                         <th></th>
                     </tr>
 
@@ -36,8 +34,6 @@
                             <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                             <td>${item.product.productName}</td>
                             <td>${item.product.price}</td>
-                            <td>${item.cost}</td>
-                            <td><input type="number" name="addQuantity" value="${item.addQuantity}" style="width: 30%;" /></td>
                             <td>
                                 <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
                             </td>
