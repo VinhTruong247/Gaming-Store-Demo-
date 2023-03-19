@@ -74,6 +74,9 @@ public class PaymentControl extends HttpServlet {
             case "update":
                 update(request, response);
                 break;
+            case "success":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
             default:
                 request.setAttribute("message", "Page not found");
                 request.setAttribute("controller", "error");
@@ -163,7 +166,15 @@ public class PaymentControl extends HttpServlet {
 
     protected void checkout_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
+        String action = request.getParameter("action");
+        switch (action) {
+            case "success":
+                response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/home/index.page");
+                break;
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 

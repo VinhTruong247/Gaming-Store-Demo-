@@ -118,7 +118,7 @@ public class CartControl extends HttpServlet {
 
     protected void checkout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
