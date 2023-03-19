@@ -65,9 +65,11 @@
         </div>
 
         <div class="row">
-            <button type="submit" class="btn btn-outline-danger" name="op" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
-            <button type="submit" class="btn btn-outline-success" name="op" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+            <form action="<c:url value="/payment.page" />" method="post">
+                <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
+                <button type="submit" class="btn btn-outline-success" name="action" value="success" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+            </form>
         </div>
-        
+
     </div>
 </div>

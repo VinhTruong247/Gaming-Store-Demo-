@@ -44,6 +44,10 @@ public class PaymentControl extends HttpServlet {
                 break;
             case "success":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                request.getRequestDispatcher("/payment/success.page").forward(request, response);
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/payment/cart.page");
                 break;
             default:
                 request.setAttribute("message", "Page not found");
