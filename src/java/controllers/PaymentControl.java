@@ -45,14 +45,18 @@ public class PaymentControl extends HttpServlet {
         String action = (String) request.getAttribute("action");
 
         switch (action) {
-            case "checkout":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
             case "cart":
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null) {
+                    cart = new Cart();
+                    session.setAttribute("cart", cart);
+                }
                 double total = cart.getTotal();
-                request.setAttribute("total",total);
+                request.setAttribute("total", total);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "checkout":
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "add":
@@ -78,6 +82,7 @@ public class PaymentControl extends HttpServlet {
 
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+
         String productId = request.getParameter("productId");
         ProductFacade pf = new ProductFacade();
         Product product = pf.read(productId);
@@ -85,10 +90,6 @@ public class PaymentControl extends HttpServlet {
         List<Product> products = pf.select();
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
-        }
         cart.add(item);
         response.sendRedirect(request.getHeader("referer"));
     }

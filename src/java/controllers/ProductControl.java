@@ -69,6 +69,9 @@ public class ProductControl extends HttpServlet {
             case "page":
                 page(request, response);
                 break;
+            case "search":
+                search(request, response);
+                break;
             case "single_product":
                 single_product(request, response);
                 break;
@@ -83,7 +86,18 @@ public class ProductControl extends HttpServlet {
 
     protected void search(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        String searchPhrase = request.getParameter("searchPhrase");
+        try {
+            ProductFacade pf = new ProductFacade();
+            List<Product> list = pf.searchProduct(searchPhrase);
+            request.setAttribute("searchList", list);
+            request.setAttribute("searchPhrase", searchPhrase);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     protected void page(HttpServletRequest request, HttpServletResponse response)
@@ -282,7 +296,7 @@ public class ProductControl extends HttpServlet {
             if (product == null) {
                 System.out.println("error");
             }
-            String op = request.getParameter("op");    
+            String op = request.getParameter("op");
             session.setAttribute("prodcut", product);
             request.setAttribute("product", product);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
