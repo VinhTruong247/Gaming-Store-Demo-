@@ -93,6 +93,10 @@ public class CartControl extends HttpServlet {
             username = "unknown";
         }
         cf.delete(username, productId);
+        Cart cart = (Cart) session.getAttribute("cart");
+        System.out.println("d");
+        cart.remove(productId);
+        session.setAttribute("cart", cart);
         response.sendRedirect(request.getHeader("referer"));
     }
 

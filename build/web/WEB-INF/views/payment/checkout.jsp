@@ -97,7 +97,7 @@
         </div>
 
         <div class="row" style="text-align: center">
-            <form action="<c:url value="/payment.page" />" method="post">
+            <form action="<c:url value="/payment/checkout_handler.page" />" method="post">
                 <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
                 <button type="submit" class="btn btn-outline-success" name="action" value="success" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
             </form>

@@ -51,7 +51,13 @@ public class PaymentControl extends HttpServlet {
 
         switch (action) {
             case "checkout":
+                HttpSession session = request.getSession();
+                Cart cart = (Cart) session.getAttribute("cart");
+                session.setAttribute("cart", cart);
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "checkout_handler":
+                checkout_handler(request, response);
                 break;
             case "cart":
                 cart(request, response);
@@ -105,8 +111,18 @@ public class PaymentControl extends HttpServlet {
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
+        user = (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
+        }
+        cf.delete(username, productId);
         Cart cart = (Cart) session.getAttribute("cart");
+        System.out.println("d");
         cart.remove(productId);
+        session.setAttribute("cart", cart);
         response.sendRedirect(request.getHeader("referer"));
     }
 
@@ -128,7 +144,6 @@ public class PaymentControl extends HttpServlet {
 
     protected void cart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
         user = (User) session.getAttribute("user");
         String username = "";
@@ -137,7 +152,6 @@ public class PaymentControl extends HttpServlet {
         } else {
             username = "unknown";
         }
-        System.out.println(username);
         Cart cart = new Cart();
         List<Product> list = cf.select(username);
         for (Product p : list) {
@@ -150,7 +164,12 @@ public class PaymentControl extends HttpServlet {
         request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
+    protected void checkout_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
