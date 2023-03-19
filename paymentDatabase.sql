@@ -6,11 +6,6 @@ CREATE TABLE sale (
 
 CREATE TABLE orderlist (
 	order_id int,
-	product_id int primary key,
-)
-
-CREATE TABLE cart (
-	product_id int primary key,
-	add_quantity int,
-	price int,
+	product_id int,
+	primary key(order_id,product_id)
 )
