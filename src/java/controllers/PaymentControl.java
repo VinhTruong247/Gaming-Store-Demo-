@@ -32,21 +32,24 @@ public class PaymentControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String controller = (String)request.getAttribute("controller");
-        String action = (String)request.getAttribute("action");
-        
-        switch(action){
+        String controller = (String) request.getAttribute("controller");
+        String action = (String) request.getAttribute("action");
+
+        switch (action) {
             case "checkout":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "cart":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
+            case "success":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             default:
                 request.setAttribute("message", "Page not found");
                 request.setAttribute("controller", "error");
                 request.setAttribute("action", "error");
-                request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
         }
     }
