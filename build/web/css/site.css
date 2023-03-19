@@ -1358,6 +1358,27 @@ Products Page
     color: #fff;
 }
 
+#products .btn-outline-primary {
+    width: 6rem;
+    height: 2.75rem;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    box-shadow: none;
+    background-color: black;
+    border: 1px solid transparent;
+    color: white;
+    transition: all 0.3s;
+    margin-left: 0.5rem;
+}
+
+#products .btn-outline-primary:hover {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
+
 /* 
 ---------------------------------------------
 Create, Update, Delete Page

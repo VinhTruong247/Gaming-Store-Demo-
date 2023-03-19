@@ -32,7 +32,7 @@
                         <th>No.</th>
                         <th>Images</th>
                         <th>Name</th>
-                        <th style="float: left;">Price</th>
+                        <th>Price</th>
                         <th></th>
                     </tr>
 
@@ -44,6 +44,7 @@
                             <td style="width: 220px;"><img src="<c:url value="${product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                             <td>${product.productName}</td>
                             <td><fmt:formatNumber value="${product.price}" type="number"/>&#8363;</td>
+                            <td><a href="<c:url value="/product/single_product.page?quantity=1&op=none&productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a></td>
                         </tr>
                     </form>
                 </c:forEach>
