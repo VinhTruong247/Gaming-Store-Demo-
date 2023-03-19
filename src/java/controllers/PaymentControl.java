@@ -85,6 +85,7 @@ public class PaymentControl extends HttpServlet {
 
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+
         String productId = request.getParameter("productId");
         ProductFacade pf = new ProductFacade();
         Product product = pf.read(productId);
@@ -99,10 +100,6 @@ public class PaymentControl extends HttpServlet {
         Item item = new Item(product, username);
         List<Product> products = pf.select();
         Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            session.setAttribute("cart", cart);
-        }
         cart.add(item);
         response.sendRedirect(request.getHeader("referer"));
     }

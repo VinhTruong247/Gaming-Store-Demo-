@@ -18,7 +18,31 @@ import java.util.List;
  * @author VU HONG ANH
  */
 public class ProductFacade {
-    
+
+    public List<Product> searchProduct(String searchPhrase) throws SQLException {
+        List<Product> list = null;
+        String query = "select * from products where product_name like ? order by product_name";
+        Connection con = Database.getConnection();
+        PreparedStatement pf = con.prepareStatement(query);
+        pf.setString(1, "%" + searchPhrase + "%");
+        ResultSet rs = pf.executeQuery();
+        list = new ArrayList<>();
+        while (rs.next()) {
+            Product p = new Product();
+            p.setProductId(rs.getString("product_id"));
+            p.setProductName(rs.getString("product_name"));
+            p.setProductPublisher(rs.getString("product_publisher"));
+            p.setCategory(rs.getString("product_category"));
+            p.setDescription(rs.getString("product_description"));
+            p.setQuantity(rs.getDouble("quantity"));
+            p.setPrice(rs.getDouble("price"));
+            p.setProductImages(rs.getString("product_images"));
+            list.add(p);
+        }
+        con.close();
+        return list;
+    }
+
     public void addCart(String productId, int addQuantity, double price) throws SQLException {
         double totalPrice = addQuantity * price;
         Connection con = Database.getConnection();
@@ -35,7 +59,7 @@ public class ProductFacade {
     public void addOrder() throws SQLException {
         Connection con = Database.getConnection();
         int orderId = countOrder() + 1;
-        
+
     }
 
     public int countOrder() throws SQLException {
@@ -126,7 +150,7 @@ public class ProductFacade {
         stm.setString(2, product.getProductPublisher());
         stm.setString(3, product.getCategory());
         stm.setString(4, product.getDescription());
-        stm.setDouble(5, product.getPrice());       
+        stm.setDouble(5, product.getPrice());
         stm.setDouble(6, product.getQuantity());
         stm.setString(7, product.getProductImages());
         stm.setString(8, product.getProductId());

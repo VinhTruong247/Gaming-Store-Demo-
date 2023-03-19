@@ -9,13 +9,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
 
-<%
-
-%>
-
 <h2>Cart Page</h2>
 
-<div class="checkout">
+<div class="cart">
     <div class="container">
         <div class="row">
 
@@ -47,7 +43,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
             </div>
             <div class="col-lg-4">

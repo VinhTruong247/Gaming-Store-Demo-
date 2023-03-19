@@ -47,6 +47,10 @@
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
 
+                                <form action="<c:url value="/product/search.page"/>">
+                                    <input type="text" class="form-control" id="searchPhrase" name="searchPhrase" placeholder="Type Something..." value="${searchPhrase}">  
+                                </form>
+
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
                                 <li class="submenu">
@@ -88,7 +92,7 @@
             </div>
         </header>
 
-        
+
 
         <!-- ***** Detail ***** -->
         <div class="detail">

@@ -62,38 +62,40 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col">
                 <h3>Billing Address</h3>
                 <hr/>
-                
-                <table class="table table-striped">
-                <thead>
+                <div style="overflow-y: scroll; height:70%">
+                    <table class="table table-striped">
+                        <thead>
 
-                    <tr>
-                        <th>No.</th>
-                        <th>Images</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
+                            <tr>
+                                <th>No.</th>
+                                <th>Images</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
 
-                </thead>
-                <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
-                    <tr>
-                        <td>${loop.count}</td>
-                        <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
-                        <td>${item.product.productName}</td>
-                        <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
-                        <td>
-                            <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                        </thead>
+                        <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
+                            <tr>
+                                <td>${loop.count}</td>
+                                <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
+                                <td>${item.product.productName}</td>
+                                <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
+                                <td>
+                                    <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                                </td>
+                            </tr>
+                        </c:forEach>                  
+                        </tbody>
+                    </table>
+                </div>
+                <h4>Total: <fmt:formatNumber value="${cart.total}" type="number"/>&#8363;</h4>
             </div>            
-            
+
         </div>
 
         <div class="row" style="text-align: center">
