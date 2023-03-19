@@ -24,10 +24,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author VU HONG ANH
  */
-@WebServlet(name = "PaymentControl", urlPatterns = {"/payment"})
-public class PaymentControl extends HttpServlet {
+@WebServlet(name = "CartControl", urlPatterns = {"/cart"})
+public class CartControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,16 +41,10 @@ public class PaymentControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        String controller = (String) request.getAttribute("controller");
-        String action = (String) request.getAttribute("action");
-
-        switch (action) {
-            case "checkout":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
-            case "cart":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-                break;
+        String controller = (String)request.getAttribute("controller");
+        String action = (String)request.getAttribute("action");
+        String op = request.getParameter("op");
+        switch(op){
             case "add":
                 add(request, response);
                 break;
@@ -63,15 +57,12 @@ public class PaymentControl extends HttpServlet {
             case "update":
                 update(request, response);
                 break;
-            default:
-                request.setAttribute("message", "Page not found");
-                request.setAttribute("controller", "error");
-                request.setAttribute("action", "error");
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+            case "checkout":
+                checkout(request, response);
                 break;
         }
     }
-
+    
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
@@ -81,14 +72,14 @@ public class PaymentControl extends HttpServlet {
         List<Product> products = pf.select();
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
+        if (cart == null){
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
         cart.add(item);
         response.sendRedirect(request.getHeader("referer"));
     }
-
+    
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
@@ -97,7 +88,7 @@ public class PaymentControl extends HttpServlet {
         cart.remove(productId);
         response.sendRedirect(request.getHeader("referer"));
     }
-
+    
     protected void empty(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
@@ -105,7 +96,7 @@ public class PaymentControl extends HttpServlet {
         cart.empty();
         response.sendRedirect(request.getHeader("referer"));
     }
-
+    
     protected void update(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
@@ -113,7 +104,12 @@ public class PaymentControl extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         cart.update(productId, addQuantity);
-        response.sendRedirect(request.getHeader("referer"));
+        request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
+    }
+    
+    protected void checkout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -131,7 +127,7 @@ public class PaymentControl extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PaymentControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -149,7 +145,7 @@ public class PaymentControl extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(PaymentControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartControl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

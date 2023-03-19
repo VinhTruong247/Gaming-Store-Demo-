@@ -282,24 +282,8 @@ public class ProductControl extends HttpServlet {
             if (product == null) {
                 System.out.println("error");
             }
-            String op = request.getParameter("op");
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            switch (op) {
-                case "+":
-                    if (quantity != 100) {
-                        quantity++;
-                    }
-                    break;
-                case "-":
-                    if (quantity != 1) {
-                        quantity--;
-                    }
-                    break;
-            }
-            
-            session.setAttribute("quantity", quantity);
+            String op = request.getParameter("op");    
             session.setAttribute("prodcut", product);
-            request.setAttribute("quantity", quantity);
             request.setAttribute("product", product);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } catch (SQLException e) {

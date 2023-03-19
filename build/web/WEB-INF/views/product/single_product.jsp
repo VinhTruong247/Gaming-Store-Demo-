@@ -41,27 +41,14 @@
 
                     <div class="quantity-content">
                         <div class="left-content">
-                            <h6>No. of Orders</h6>
-                        </div>
-                        <div class="right-content">
-                            <div class="quantity buttons_added">
-                                <a href="<c:url value="/product/single_product.page?quantity=${quantity}&op=-&productId=${product.productId}"/>"><input type="button" value="-" class="minus"></a>
-                                <form action="<c:url value="/product/single_product.page"/>" method="get">
-                                    <input type="hidden" name="productId" value="${product.productId}">
-                                    <input type="number" step="1" min="1" max="" name="quantity" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="numeric" value="${quantity}">
-                                    <input type="hidden" name="op" value="none">
-                                </form>
-                                <a href="<c:url value="/product/single_product.page?quantity=${quantity}&op=%2b&productId=${product.productId}"/>"><input type="button" value="+" class="minus"></a>
-                            </div>
-                        </div>
-                        <div class="right-content">
                             <p>Product left in stock: <fmt:formatNumber value="${product.quantity}" type="number"/></p>
                         </div>
+
+                        <div class="right-content">
+                            <div class="main-border-button"><a href="<c:url value="/cart?&op=add&productId=${product.productId}"/>">Add To Cart</a></div>
+                        </div>
                     </div>
-                    <div class="total">
-                        <h4>Total: </h4>
-                        <div class="main-border-button"><a href="<c:url value="/payment/cart.page?quantity=${quantity}&op=%2b&productId=${product.productId}"/>">Add To Cart</a></div>
-                    </div>
+                        
                 </div>
             </div>
         </div>

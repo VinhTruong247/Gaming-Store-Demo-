@@ -18,6 +18,36 @@ import java.util.List;
  * @author VU HONG ANH
  */
 public class ProductFacade {
+    
+    public void addCart(String productId, int addQuantity, double price) throws SQLException {
+        double totalPrice = addQuantity * price;
+        Connection con = Database.getConnection();
+        String query = "insert cart values (?, ?, ?)";
+        PreparedStatement stm = con.prepareStatement(query);
+        stm.setString(1, productId);
+        stm.setInt(2, addQuantity);
+        stm.setDouble(3, totalPrice);
+        ResultSet rs = stm.executeQuery();
+        System.out.println("Addded " + addQuantity + "items of product " + productId + "to cart.");
+        con.close();
+    }
+
+    public void addOrder() throws SQLException {
+        Connection con = Database.getConnection();
+        int orderId = countOrder() + 1;
+        
+    }
+
+    public int countOrder() throws SQLException {
+        int count = 0;
+        Connection con = Database.getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery("select count(distinct order_id) as Orders from orderlist");
+        while (rs.next()) {
+            count = rs.getInt("Orders");
+        }
+        return count;
+    }
 
     public List<Product> selectPerPage(int pageNum) throws SQLException {
         List<Product> list = null;

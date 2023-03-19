@@ -1336,27 +1336,6 @@ Products Page
     background-color: #ddd;
 }
 
-#single .total h4 {
-    float: left;
-    font-size: 20px;
-    margin-top: 10px;
-    color: black!important;
-}
-
-#single .total .main-border-button {
-    text-align: right;
-}
-
-#single .total .main-border-button a {
-    border-color: #2a2a2a;
-    color: #2a2a2a;
-}
-
-#single .total .main-border-button a:hover {
-    color: #fff;
-    background-color: #2a2a2a;
-}
-
 #products .down-content .btn-outline-primary {
     width: 6rem;
     height: 2.75rem;
@@ -1529,18 +1508,6 @@ Single Product Page
     margin-top: 25px;
 }
 
-#single .right-content .quote {
-    margin-top: 25px;
-}
-
-#single .right-content .quote p {
-    font-style: italic;
-    color: #2a2a2a;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: left !important;
-}
-
 #single .right-content p {
     font-size: 16px;
     color: grey;
@@ -1562,96 +1529,32 @@ Single Product Page
 #single .quantity-content .left-content {
     float: left;
     margin-right: 30px;
+    text-align: left;
 }
 
-#single .quantity-content .right-content {
+#single .quantity-content .left-content p {
     text-align: right;
-}
-
-#single .quantity-content .left-content h6 {
-    padding-top: 7px;
     font-size: 20px;
     font-weight: 700;
     color: black;
     position: relative;
     z-index: 11;
-}
-
-#single .total h4 {
-    float: left;
-    font-size: 20px;
     margin-top: 10px;
-    color: black!important;
 }
 
-#single .total .main-border-button {
+#single .quantity-content .right-content .main-border-button {
     text-align: right;
 }
 
-#single .total .main-border-button a {
+#single .quantity-content .right-content .main-border-button a {
     border-color: #2a2a2a;
     color: #2a2a2a;
 }
 
-#single .total .main-border-button a:hover {
+#single .quantity-content .right-content .main-border-button a:hover {
     color: #fff;
     background-color: #2a2a2a;
 }
-
-#single .quantity {
-    display: inline-block; }
-
-#single .quantity .input-text.qty {
-    width: 35px;
-    height: 39px;
-    padding: 0 5px;
-    text-align: center;
-    background-color: transparent;
-    border: 1px solid #efefef;
-}
-
-#single .quantity.buttons_added {
-    text-align: left;
-    position: relative;
-    white-space: nowrap;
-    vertical-align: top; }
-
-#single .quantity.buttons_added input {
-    display: inline-block;
-    margin: 0;
-    vertical-align: top;
-    box-shadow: none;
-}
-
-#single .quantity.buttons_added .minus,
-#single .quantity.buttons_added .plus {
-    padding: 7px 10px 8px;
-    height: 39px;
-    background-color: #ffffff;
-    border: 1px solid #efefef;
-    cursor:pointer;}
-
-#single .quantity.buttons_added .minus {
-    border-right: 0; }
-
-#single .quantity.buttons_added .plus {
-    border-left: 0; }
-
-#single .quantity.buttons_added .minus:hover,
-#single .quantity.buttons_added .plus:hover {
-    background: #eeeeee; }
-
-#single .quantity input::-webkit-outer-spin-button,
-#single .quantity input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    margin: 0; }
-
-#single .quantity.buttons_added .minus:focus,
-#single .quantity.buttons_added .plus:focus {
-    outline: none; }
-
-
 
 /* 
 ---------------------------------------------

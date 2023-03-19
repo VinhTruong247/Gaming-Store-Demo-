@@ -19,21 +19,30 @@
                 <thead>
 
                     <tr>
+                        <th>No.</th>
                         <th>Images</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>                        
+                        <th>Total Price</th>
+                        <th>Quantity</th>
+                        <th></th>
                     </tr>
 
                 </thead>
-                <tbody>
-                    <c:forEach var="product" items="${list}" varStatus="loop">
+                <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
+                    <form action="/lonmePRJ/cart">
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>                                
+                            <td>${loop.count}</td>
+                            <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
+                            <td>${item.product.productName}</td>
+                            <td>${item.product.price}</td>
+                            <td>${item.cost}</td>
+                            <td><input type="number" name="addQuantity" value="${item.addQuantity}" style="width: 30%;" /></td>
+                            <td>
+                                <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                            </td>
                         </tr>
+                    </form>
                     </c:forEach>
                 </tbody>
             </table>
