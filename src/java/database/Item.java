@@ -12,14 +12,14 @@ package database;
 public class Item {
 
     private Product product;
-    private int addQuantity;
+    private String username;
 
     public Item() {
     }
 
-    public Item(Product product, int addQuantity) {
+    public Item(Product product, String username) {
         this.product = product;
-        this.addQuantity = addQuantity;
+        this.username = username;
     }
 
     public Product getProduct() {
@@ -30,15 +30,15 @@ public class Item {
         this.product = product;
     }
 
-    public int getAddQuantity() {
-        return addQuantity;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAddQuantity(int addQuantity) {
-        this.addQuantity = addQuantity;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
+    
     public double getCost() {
-        return this.product.getPrice() * this.addQuantity;
+        return this.product.getPrice();
     }
 }

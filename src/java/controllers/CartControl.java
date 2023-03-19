@@ -6,9 +6,11 @@
 package controllers;
 
 import database.Cart;
+import database.CartFacade;
 import database.Item;
 import database.Product;
 import database.ProductFacade;
+import database.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,6 +31,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CartControl", urlPatterns = {"/cart"})
 public class CartControl extends HttpServlet {
 
+    CartFacade cf = new CartFacade();
+    User user = new User();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,10 +46,10 @@ public class CartControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        String controller = (String)request.getAttribute("controller");
-        String action = (String)request.getAttribute("action");
+        String controller = (String) request.getAttribute("controller");
+        String action = (String) request.getAttribute("action");
         String op = request.getParameter("op");
-        switch(op){
+        switch (op) {
             case "add":
                 add(request, response);
                 break;
@@ -54,59 +59,59 @@ public class CartControl extends HttpServlet {
             case "empty":
                 empty(request, response);
                 break;
-            case "update":
-                update(request, response);
-                break;
             case "checkout":
                 checkout(request, response);
                 break;
         }
     }
-    
+
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
-        ProductFacade pf = new ProductFacade();
-        Product product = pf.read(productId);
-        Item item = new Item(product, 1);
-        List<Product> products = pf.select();
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null){
-            cart = new Cart();
-            session.setAttribute("cart", cart);
+        user = (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
         }
-        cart.add(item);
+        System.out.println(username);
+        cf.add(username, productId);
         response.sendRedirect(request.getHeader("referer"));
     }
-    
+
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.remove(productId);
+        user = (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
+        }
+        cf.delete(username, productId);
         response.sendRedirect(request.getHeader("referer"));
     }
-    
+
     protected void empty(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
+        user = (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
+        }
         Cart cart = (Cart) session.getAttribute("cart");
         cart.empty();
+        cf.empty(username);
         response.sendRedirect(request.getHeader("referer"));
     }
-    
-    protected void update(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        String productId = request.getParameter("productId");
-        int addQuantity = Integer.parseInt(request.getParameter("addQuantity"));
-        HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.update(productId, addQuantity);
-        request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
-    }
-    
+
     protected void checkout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.sendRedirect(request.getContextPath() + "/payment/checkout.page");

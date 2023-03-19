@@ -6,9 +6,11 @@
 package controllers;
 
 import database.Cart;
+import database.CartFacade;
 import database.Item;
 import database.Product;
 import database.ProductFacade;
+import database.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,6 +30,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "PaymentControl", urlPatterns = {"/payment"})
 public class PaymentControl extends HttpServlet {
+
+    CartFacade cf = new CartFacade();
+    User user = new User();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,11 +54,15 @@ public class PaymentControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "cart":
+<<<<<<< Updated upstream
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
                 double total = cart.getTotal();
                 request.setAttribute("total",total);
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+=======
+                cart(request, response);
+>>>>>>> Stashed changes
                 break;
             case "add":
                 add(request, response);
@@ -81,9 +90,13 @@ public class PaymentControl extends HttpServlet {
         String productId = request.getParameter("productId");
         ProductFacade pf = new ProductFacade();
         Product product = pf.read(productId);
-        Item item = new Item(product, 1);
-        List<Product> products = pf.select();
         HttpSession session = request.getSession();
+        user= (User) session.getAttribute("user");
+        String username="";
+        if(user!=null)username=user.getFullName();
+        else username="unknown";
+        Item item = new Item(product, username);
+        List<Product> products = pf.select();
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
@@ -113,11 +126,31 @@ public class PaymentControl extends HttpServlet {
     protected void update(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
-        int addQuantity = Integer.parseInt(request.getParameter("addQuantity"));
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
-        cart.update(productId, addQuantity);
         response.sendRedirect(request.getHeader("referer"));
+    }
+
+    protected void cart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String productId = request.getParameter("productId");
+        HttpSession session = request.getSession();
+        user= (User) session.getAttribute("user");
+        String username = "";
+        if (user != null) {
+            username = user.getFullName();
+        } else {
+            username = "unknown";
+        }
+        System.out.println(username);
+        Cart cart = new Cart();
+        List<Product> list = cf.select(username);
+        for(Product p : list){
+            Item item = new Item(p,username);
+            cart.add(item);
+        }
+        session.setAttribute("cart", cart);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
