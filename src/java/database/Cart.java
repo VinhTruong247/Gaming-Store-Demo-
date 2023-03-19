@@ -24,15 +24,14 @@ public class Cart {
         int productId = Integer.parseInt(item.getProduct().getProductId());
         if(map.containsKey(productId)){
             Item oldItem = map.get(productId);
-            oldItem.setAddQuantity(oldItem.getAddQuantity() + item.getAddQuantity());
         } else {
             map.put(productId, item);
         }
     }
     
-    public void update(String productId, int quantity){
+    public void update(String productId, String username){
         Item item = map.get(Integer.parseInt(productId));
-        item.setAddQuantity(quantity);
+        item.setUsername(username);
     }
     
     public void remove(String productId){
