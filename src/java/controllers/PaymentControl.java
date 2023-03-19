@@ -49,6 +49,10 @@ public class PaymentControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "cart":
+                HttpSession session = request.getSession();
+                Cart cart = (Cart) session.getAttribute("cart");
+                double total = cart.getTotal();
+                request.setAttribute("total",total);
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "add":

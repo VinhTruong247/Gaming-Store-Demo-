@@ -62,9 +62,41 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col">
+                <h3>Billing Address</h3>
+                <hr/>
+                
+                <table class="table table-striped">
+                <thead>
+
+                    <tr>
+                        <th>No.</th>
+                        <th>Images</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
+                    <tr>
+                        <td>${loop.count}</td>
+                        <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
+                        <td>${item.product.productName}</td>
+                        <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
+                        <td>
+                            <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            </div>            
+            
         </div>
 
-        <div class="row">
+        <div class="row" style="text-align: center">
             <form action="<c:url value="/payment.page" />" method="post">
                 <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
                 <button type="submit" class="btn btn-outline-success" name="action" value="success" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>

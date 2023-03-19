@@ -1285,8 +1285,10 @@ Products Page
     background-color: #fff;
 }
 
-
-
+#products .item .thumb .hover-content ul li a:hover{
+    color: white;
+    background-color: black;
+}
 
 #products .pagination ul li a:hover,
 #products .pagination ul li.active a {

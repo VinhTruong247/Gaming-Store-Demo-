@@ -50,4 +50,13 @@ public class Cart {
     public Collection<Item> getItem(){
         return map.values();
     }
+    
+    public double getTotal(){
+        double total = 0;
+        for (Item item : map.values()) {
+            total += item.getCost();
+        }
+        return total;
+    }
+    
 }

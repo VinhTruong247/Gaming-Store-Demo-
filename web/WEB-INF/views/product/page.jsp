@@ -35,7 +35,7 @@
                                     </li>
                                     <li><a href="<c:url value="#"/>"><i class="fa fa-star"></i></a>
                                     </li>
-                                    <li><a href="<c:url value="#"/>"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="<c:url value="/cart?&op=add&productId=${product.productId}"/>"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <img src="<c:url value="${product.productImages}"/>" alt="">
@@ -44,7 +44,7 @@
 
                             <h4>${product.productName}</h4>
 
-                            <span style="margin-left: 48%">
+                            <span style="margin-left: 45%">
                                 <fmt:formatNumber value="${product.price}" type="number"/>&#8363; |
                                 <a href="<c:url value="/product/single_product.page?quantity=1&op=none&productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a>
                             </span>

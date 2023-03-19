@@ -9,6 +9,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
 
+<%
+
+%>
+
 <h2>Cart Page</h2>
 
 <div class="checkout">
@@ -22,30 +26,34 @@
                         <th>No.</th>
                         <th>Images</th>
                         <th>Name</th>
-                        <th style="float: left;">Price</th>
+                        <th>Price</th>
                         <th></th>
                     </tr>
 
                 </thead>
                 <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
-                    <form action="/lonmePRJ/cart">
-                        <tr>
-                            <td>${loop.count}</td>
-                            <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
-                            <td>${item.product.productName}</td>
-                            <td>${item.product.price}</td>
-                            <td>
-                                <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
-                            </td>
-                        </tr>
-                    </form>
-                    </c:forEach>
+                    <tr>
+                        <td>${loop.count}</td>
+                        <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
+                        <td>${item.product.productName}</td>
+                        <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
+                        <td>
+                            <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
-
         </div>
 
-        <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
+            </div>
+            <div class="col-lg-4">
+                <h4>Total: <fmt:formatNumber value="${total}" type="number"/>&#8363;</h4>
+            </div>
+        </div>
 
     </div>
 </div>
