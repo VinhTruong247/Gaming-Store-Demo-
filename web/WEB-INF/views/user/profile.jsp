@@ -34,6 +34,10 @@
                         <label for="email" class="form-label">Email:</label>
                         <input disabled="" type="email" class="form-control" id="email" name="email" value="${user.email}">
                     </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Address:</label>
+                        <input disabled="" type="email" class="form-control" id="email" name="email" value="${user.address}">
+                    </div>
                 </form>
                 <div>
                     <a href="<c:url value="/user/edit.page"/>" class="btn btn-outline-primary">Edit</a>

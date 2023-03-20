@@ -154,6 +154,7 @@ public class UserControl extends HttpServlet {
                 String fullName = request.getParameter("fullName").trim();
                 String username = request.getParameter("username").trim();
                 String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
                 HttpSession session = request.getSession();
                 UserFacade uf = new UserFacade();
                 request.setAttribute("fullName", fullName);
@@ -161,13 +162,14 @@ public class UserControl extends HttpServlet {
                     if (uf.checkAccountExist(username) == 0 && uf.checkAccountExist(email) == 0) {
                         request.setAttribute("username", username);
                         request.setAttribute("email", email);
+                        request.setAttribute("address", address);
                         String role = request.getParameter("role");
                         int id = uf.getNextId(role);
                         String password = request.getParameter("password");
                         String confirmPass = request.getParameter("confirmPass");
                         if (Tools.verifyPassword(password)) {
                             if (password.equals(confirmPass)) {
-                                User user = new User(role, id, username, email, Hasher.hash(password), fullName);
+                                User user = new User(role, id, username, email, Hasher.hash(password), fullName, address);
                                 uf.create(user);
                                 session.setAttribute("user", user);
                                 request.setAttribute("announce", "Signup done, you can go back to Home Page now.");
@@ -230,8 +232,9 @@ public class UserControl extends HttpServlet {
                     if (fullName.isEmpty()) {
                         fullName = oldUser.getFullName();
                     }
-                    String password = request.getParameter("pssword");
-                    newUser = new User(role, id, username, email, password, fullName);
+                    String address = request.getParameter("address");
+                    String password = request.getParameter("pasword");
+                    newUser = new User(role, id, username, email, password, fullName, address);
                     uf.update(newUser);
                     session.setAttribute("user", newUser);
                     response.sendRedirect(request.getContextPath() + "/user/profile.page");

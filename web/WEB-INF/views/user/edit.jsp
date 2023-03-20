@@ -28,6 +28,10 @@
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="email" name="email" value="${user.email}">
                     </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address:</label>
+                        <input type="text" class="form-control" id="address" name="address" value="${user.address}">
+                    </div>
                     <input type="hidden" name="password" value="${user.password}">
                     <input type="hidden" name="id" value="${user.userId}">
                     <input type="hidden" name="role" value="${user.role}">

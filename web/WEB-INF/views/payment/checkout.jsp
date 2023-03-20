@@ -19,13 +19,22 @@
             <div class="col">
                 <h3>Billing Address</h3>
                 <hr/>
-
-                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                <input type="text" id="fname" name="firstname" placeholder="Your Name">
-                <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                <input type="text" id="email" name="email" placeholder="abc@example.com">
-                <label for="adr"><i class="fa fa-home"></i> Address</label>
-                <input type="text" id="adr" name="address" placeholder="Your Address">
+                <c:if test="${sessionScope.user != null}">
+                    <label for="fullName"><i class="fa fa-user"></i> Full Name</label>
+                    <input type="text" disabled="" id="fname" name="fullName" value="${sessionScope.user.fullName}">
+                    <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                    <input type="text" disabled="" id="email" name="email" value="${sessionScope.user.email}">
+                    <label for="address"><i class="fa fa-home"></i> Address</label>
+                    <input type="text" disabled="" id="adr" name="address" value="${sessionScope.user.address}">
+                </c:if>
+                <c:if test="${sessionScope.user == null}">
+                    <label for="fullName"><i class="fa fa-user"></i> Full Name</label>
+                    <input type="text" id="fname" name="fullName" placeholder="Your Name">
+                    <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                    <input type="text" id="email" name="email" placeholder="abc@example.com">
+                    <label for="address"><i class="fa fa-home"></i> Address</label>
+                    <input type="text" id="adr" name="address" placeholder="Your Address">
+                </c:if>
                 <label for="city"><i class="fa fa-institution"></i> City</label>
                 <input type="text" id="city" name="city" placeholder="City">
                 <label for="zip">Zip</label>

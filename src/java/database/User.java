@@ -17,17 +17,18 @@ public class User {
     private String email;
     private String password;
     private String fullName;
-
+    private String address;
     public User() {
     }
 
-    public User(String role, int id, String username, String email, String password, String fullName) {
+    public User(String role, int id, String username, String email, String password, String fullName, String address) {
         this.role = role;
         this.userId = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
+        this.address = address;
     }
 
     public String getRole() {
@@ -77,5 +78,14 @@ public class User {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 
 }

@@ -35,6 +35,7 @@ public class UserFacade {
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
+            user.setAddress(rs.getString("user_address"));
             list.add(user);
         }
         con.close();
@@ -63,6 +64,7 @@ public class UserFacade {
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
+            user.setAddress(rs.getString("user_address"));
         }
         con.close();
         return user;
@@ -103,13 +105,14 @@ public class UserFacade {
     
     public void create(User user) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("SET IDENTITY_INSERT users ON insert into users(role_id,user_id,user_username,user_email,user_password,user_fullName) values (?, ?, ?, ?, ?, ?) SET IDENTITY_INSERT users OFF");
+        PreparedStatement stm = con.prepareStatement("SET IDENTITY_INSERT users ON insert into users(role_id,user_id,user_username,user_email,user_password,user_fullName,user_address) values (?, ?, ?, ?, ?, ?, ?) SET IDENTITY_INSERT users OFF");
         stm.setInt(1, getRoleId(user.getRole()));
         stm.setInt(2, user.getUserId());
         stm.setString(3, user.getUsername());
         stm.setString(4, user.getEmail());
         stm.setString(5, user.getPassword());
         stm.setString(6, user.getFullName());
+        stm.setString(7, user.getAddress());
         int count = stm.executeUpdate();
         con.close();
     }
@@ -118,13 +121,14 @@ public class UserFacade {
         //Tạo connection để kết nối vào DBMS
         Connection con = Database.getConnection();
         //Tạo đối tượng statement
-        PreparedStatement stm = con.prepareStatement("update users set user_username = ?, user_email = ?, user_fullName = ? where user_id = ? and role_id = ?");
+        PreparedStatement stm = con.prepareStatement("update users set user_username = ?, user_email = ?, user_fullName = ?, user_address = ? where user_id = ? and role_id = ?");
         //Thực thi lệnh sql
         stm.setString(1, user.getUsername());
         stm.setString(2, user.getEmail());
         stm.setString(3, user.getFullName());
-        stm.setInt(4, user.getUserId());
-        stm.setInt(5, getRoleId(user.getRole()));
+        stm.setString(4, user.getAddress());
+        stm.setInt(5, user.getUserId());
+        stm.setInt(6, getRoleId(user.getRole()));
         int count = stm.executeUpdate();        
         con.close();
     }

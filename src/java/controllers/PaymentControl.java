@@ -169,6 +169,9 @@ public class PaymentControl extends HttpServlet {
         String action = request.getParameter("action");
         switch (action) {
             case "success":
+                HttpSession session = request.getSession();
+                Cart cart = (Cart) session.getAttribute("cart");
+                
                 response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
                 break;
             case "cancel":

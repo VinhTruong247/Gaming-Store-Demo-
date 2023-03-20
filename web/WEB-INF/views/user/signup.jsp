@@ -30,6 +30,10 @@
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email here" required value="${email}">
                     </div>
                     <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="email" class="form-control" id="email" name="address" placeholder="Enter your address here (Optional)" value="${address}">
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password here" required value="">
                     </div>
