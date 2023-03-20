@@ -31,10 +31,10 @@
 <div class="login">
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-lg-3">
                 
             </div>
-            <div class="col">
+            <div class="col-lg-6">
                 <h2>Login</h2>
                 <form action="<c:url value="/user/login_handler.page" />" method="post">
                     <div class="mb-3 mt-3">
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col-lg-3">
             </div>
 
         </div>
