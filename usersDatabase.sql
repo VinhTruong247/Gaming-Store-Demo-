@@ -14,6 +14,7 @@ CREATE TABLE users (
 	user_email VARCHAR(50) NOT NULL,
 	user_password CHAR(64) NOT NULL,
 	user_fullName NVARCHAR(50) NOT NULL,
+	user_address NVARCHAR(50),
 	UNIQUE(user_userName),
 	PRIMARY KEY (role_id,user_id),
 	constraint fk_roles_users foreign key (role_id) references user_roles(id)
