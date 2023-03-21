@@ -5,40 +5,43 @@
  */
 package database;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author VU HONG ANH
  */
 public class Item {
 
-    private Product product;
-    private String username;
+    private String productId;
+    private int quantity;
 
-    public Item() {
-    }
-
-    public Item(Product product, String username) {
-        this.product = product;
-        this.username = username;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public Item(){
     }
     
-    public double getCost() {
-        return this.product.getPrice();
+    public Item(String productId, int quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+    
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }   
+    
+    public double getTotal() throws SQLException {
+        ProductFacade pf = new ProductFacade();
+        return quantity*pf.read(productId).getPrice();
     }
 }

@@ -35,6 +35,7 @@ public class CartControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final int TEMP_PROD_EXPIRY = 24 * 60 * 60;
     CartFacade cf = new CartFacade();
+    ProductFacade pf = new ProductFacade();
     User user = new User();
 
     /**
@@ -62,21 +63,19 @@ public class CartControl extends HttpServlet {
             case "empty":
                 empty(request, response);
                 break;
-            case "checkout":
-                checkout(request, response);
-                break;
         }
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
+        String productId = request.getParameter("productId");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         user = (User) session.getAttribute("user");
-        String username = "";
         if (user != null) {
-            username = user.getFullName();
-            cf.add(username, productId);
+            int userId = user.getUserId();
+            Product product = pf.read(productId);
+            cf.add(userId, productId, quantity);
         } else {
             Cookie[] cookies = request.getCookies();
             String list = "";
@@ -85,29 +84,29 @@ public class CartControl extends HttpServlet {
                     list = cook.getValue();
                 }
             }
+            String nextProduct = productId + "-" + quantity;
             if (list.isEmpty()) {
-                list = productId;
+                list = nextProduct;
             } else {
-                list += "," + productId;
+                list += "," + nextProduct;
             }
-            Cookie cookProd = new Cookie("cart", list);
-            cookProd.setMaxAge(TEMP_PROD_EXPIRY);
-            response.addCookie(cookProd);
+            Cookie cookCart = new Cookie("cart", list);
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
         }
-        System.out.println(username);
-
         response.sendRedirect(request.getHeader("referer"));
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String productId = request.getParameter("productId");
         HttpSession session = request.getSession();
+        String productId = request.getParameter("productId");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         user = (User) session.getAttribute("user");
-        String username = "";
         if (user != null) {
-            username = user.getFullName();
-            cf.delete(username, productId);
+            int userId = user.getUserId();
+            Product product = pf.read(productId);
+            cf.delete(userId, productId);
         } else {
             Cookie[] cookies = request.getCookies();
             String list = "";
@@ -116,38 +115,30 @@ public class CartControl extends HttpServlet {
                     list = cook.getValue();
                 }
             }
-            String[] listOfProduct = list.split(productId);
-            System.out.println(listOfProduct);
-            for(String p : listOfProduct){
-                System.out.println(p);
-            }
+            String p = productId + "-" + quantity;
+            list.replaceAll(p, "");
+            list.replaceAll(",,", ",");
+            Cookie cookCart = new Cookie("cart", list);
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
         }
-        System.out.println("ddd");
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.remove(productId);
-        session.setAttribute("cart", cart);
         response.sendRedirect(request.getHeader("referer"));
     }
 
     protected void empty(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
+        String productId = request.getParameter("productId");
         user = (User) session.getAttribute("user");
-        String username = "";
         if (user != null) {
-            username = user.getFullName();
+            int userId = user.getUserId();
+            cf.delete(userId, productId);
         } else {
-            username = "unknown";
+            Cookie cookCart = new Cookie("cart", "");
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
         }
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.empty();
-        cf.empty(username);
         response.sendRedirect(request.getHeader("referer"));
-    }
-
-    protected void checkout(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

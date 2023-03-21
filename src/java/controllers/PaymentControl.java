@@ -33,7 +33,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "PaymentControl", urlPatterns = {"/payment"})
 public class PaymentControl extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+    private static final int TEMP_PROD_EXPIRY = 24 * 60 * 60;
     CartFacade cf = new CartFacade();
+    ProductFacade pf = new ProductFacade();
     User user = new User();
 
     /**
@@ -90,34 +93,14 @@ public class PaymentControl extends HttpServlet {
 
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
-        String productId = request.getParameter("productId");
-        ProductFacade pf = new ProductFacade();
-        Product product = pf.read(productId);
         HttpSession session = request.getSession();
-        user = (User) session.getAttribute("user");
-        String username = "";
-        if (user != null) {
-            username = user.getFullName();
-        } else {
-            username = "unknown";
-        }
-        Item item = new Item(product, username);
-        List<Product> products = pf.select();
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.add(item);
-        response.sendRedirect(request.getHeader("referer"));
-    }
-
-    protected void delete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
         String productId = request.getParameter("productId");
-        HttpSession session = request.getSession();
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         user = (User) session.getAttribute("user");
-        String username = "";
         if (user != null) {
-            username = user.getFullName();
-            cf.delete(username, productId);
+            int userId = user.getUserId();
+            Product product = pf.read(productId);
+            cf.add(userId, productId, quantity);
         } else {
             Cookie[] cookies = request.getCookies();
             String list = "";
@@ -126,49 +109,73 @@ public class PaymentControl extends HttpServlet {
                     list = cook.getValue();
                 }
             }
-            String[] listOfProduct = list.split(productId);
-            for (String p : listOfProduct) {
-                System.out.println(p);
+            String nextProduct = productId + "-" + quantity;
+            if (list.isEmpty()) {
+                list = nextProduct;
+            } else {
+                list += "," + nextProduct;
             }
+            Cookie cookCart = new Cookie("cart", list);
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
         }
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.remove(productId);
-        session.setAttribute("cart", cart);
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    protected void delete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String productId = request.getParameter("productId");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            Product product = pf.read(productId);
+            cf.delete(userId, productId);
+        } else {
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            String p = productId + "-" + quantity;
+            list.replaceAll(p, "");
+            list.replaceAll(",,", ",");
+            Cookie cookCart = new Cookie("cart", list);
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
+        }
         response.sendRedirect(request.getHeader("referer"));
     }
 
     protected void empty(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        cart.empty();
+        String productId = request.getParameter("productId");
+        user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            cf.delete(userId, productId);
+        } else {
+            Cookie cookCart = new Cookie("cart", "");
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
+        }
         response.sendRedirect(request.getHeader("referer"));
     }
 
     protected void update(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
         String productId = request.getParameter("productId");
-        HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        response.sendRedirect(request.getHeader("referer"));
-    }
-
-    protected void cart(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        HttpSession session = request.getSession();
+        int newQuantity = Integer.parseInt(request.getParameter("newQuantity"));
         user = (User) session.getAttribute("user");
-        String username = "";
-        Cart cart = new Cart();
-        double total = 0;
+        int userId = user.getUserId();
         if (user != null) {
-            username = user.getFullName();
-            List<Product> list = cf.select(username);
-            for (Product p : list) {
-                Item item = new Item(p, username);
-                cart.add(item);
-            }
+            cf.update(userId, productId, newQuantity);
         } else {
-            ProductFacade pf = new ProductFacade();
             Cookie[] cookies = request.getCookies();
             String list = "";
             for (Cookie cook : cookies) {
@@ -177,9 +184,47 @@ public class PaymentControl extends HttpServlet {
                 }
             }
             String[] listOfProduct = list.split(",");
-            for (String p : listOfProduct) {
-                Item item = new Item(pf.read(p), username);
-                cart.add(item);
+            int oldQuantity = 0;
+            for (String word : listOfProduct) {
+                String[] p = word.split("-");
+                if (p[0].equals(productId)) {
+                    oldQuantity = Integer.parseInt(p[1]);
+                }
+            }
+            String oldProduct = productId + "-" + oldQuantity;
+            String newProduct = productId + "-" + newQuantity;
+            list.replaceAll(oldProduct, newProduct);
+            Cookie cookCart = new Cookie("cart", list);
+            cookCart.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookCart);
+        }
+        response.sendRedirect(request.getHeader("referer"));
+    }
+
+    protected void cart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession();
+        String productId = request.getParameter("productId");
+        user = (User) session.getAttribute("user");
+        double total = 0;
+        Cart cart = new Cart();
+        if (user != null) {
+            int userId = user.getUserId();
+            cart = cart = cf.select(userId);
+        } else {
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            String[] listOfProduct = list.split(",");
+            for (String word : listOfProduct) {
+                String[] p = word.split("-");
+                Product product = pf.read(p[0]);
+                int quantity = Integer.parseInt(p[1]);
+                cart.update(product, quantity);
             }
         }
         total = cart.getTotal();

@@ -14,46 +14,45 @@ import java.util.Map;
  * @author VU HONG ANH
  */
 public class Cart {
-    private Map<Integer, Item> map = null;
+    private Map<Product, Integer> map = null;
     
     public Cart(){
         map = new HashMap<>();
     }
     
-    public void add(Item item){
-        int productId = Integer.parseInt(item.getProduct().getProductId());
-        if(map.containsKey(productId)){
-            Item oldItem = map.get(productId);
+    public void add(Product product){
+        int quantity = map.get(product);
+        if(map.containsKey(product)){
+            quantity++;
         } else {
-            map.put(productId, item);
+            map.put(product, quantity);
         }
     }
     
-    public void update(String productId, String username){
-        Item item = map.get(Integer.parseInt(productId));
-        item.setUsername(username);
+    public void update(Product product, int quantity){
+        map.put(product, quantity);
     }
     
-    public void remove(String productId){
-        map.remove(Integer.parseInt(productId));
+    public void remove(Product product){
+        map.remove(product);
     }
     
     public void empty(){
         map.clear();
     }
     
-    public Map<Integer, Item> getMap(){
+    public Map<Product, Integer> getMap(){
         return map;
     }
     
-    public Collection<Item> getItem(){
-        return map.values();
+    public Collection<Product> getItem(){
+        return map.keySet();
     }
     
     public double getTotal(){
         double total = 0;
-        for (Item item : map.values()) {
-            total += item.getCost();
+        for (Product product : map.keySet()) {
+            total += product.getPrice()*map.get(product);
         }
         return total;
     }

@@ -19,44 +19,67 @@ import java.util.List;
  */
 public class CartFacade {
     
-    public List<Product> select(String username) throws SQLException{
+    public Cart select(int userId) throws SQLException{
+        Cart cart = new Cart();
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select product_id from cart where username = ?");
-        stm.setString(1, username);
+        PreparedStatement stm = con.prepareStatement("select product_id, quantity from cart where user_id = ?");
+        stm.setInt(1, userId);
         ResultSet rs = stm.executeQuery();
         List<Product> list = new ArrayList<>();
         ProductFacade pf = new ProductFacade();
         while(rs.next()){
-            Product product = new Product();
-            product = pf.read(rs.getString("product_id"));
-            list.add(product);
+            Product product = pf.read(rs.getString("product_id"));
+            int quantity = rs.getInt("quantity");
+            cart.update(product, quantity);
         }
-        return list;
+        return cart;
     }
     
-    public int add(String username, String productId) throws SQLException{
+    public int add(int userId, String productId, int quantity) throws SQLException{
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("insert into cart(username,product_id) values (?,?)");
-        stm.setString(1, username);
+        PreparedStatement stm = con.prepareStatement("insert into cart values (?,?,?)");
+        stm.setInt(1, userId);
+        stm.setString(2, productId);
+        stm.setInt(3, quantity);
+        int count = stm.executeUpdate();
+        return count;
+    }
+    
+    public int update(int userId, String productId, int quantity) throws SQLException{
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("update cart set quantity = ? where user_id = ? and product_id = ?");
+        stm.setInt(1, quantity);
+        stm.setInt(2, userId);
+        stm.setString(3, productId);
+        int count = stm.executeUpdate();
+        return count;
+    }
+    
+    public int empty(int userId) throws SQLException{
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("delete from cart where user_id=?");
+        stm.setInt(1, userId);
+        int count = stm.executeUpdate();
+        return count;
+    }
+    
+    public int delete(int userId, String productId) throws SQLException{
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("delete from cart where user_id=? and product_id=?");
+        stm.setInt(1, userId);
         stm.setString(2, productId);
         int count = stm.executeUpdate();
         return count;
     }
     
-    public int empty(String username) throws SQLException{
+    public int getQuantity(int userId,String productId) throws SQLException{
+        int count = 0;
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("delete from cart where username=?");
-        stm.setString(1, username);
-        int count = stm.executeUpdate();
-        return count;
-    }
-    
-    public int delete(String username, String productId) throws SQLException{
-        Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("delete from cart where username=? and product_id=?");
-        stm.setString(1, username);
+        PreparedStatement stm = con.prepareStatement("select quantity from cart where user_id=? and product_id=?");
+        stm.setInt(1, userId);
         stm.setString(2, productId);
-        int count = stm.executeUpdate();
+        ResultSet rs = stm.executeQuery();
+        if(rs.next()) count = rs.getInt("quantity");
         return count;
     }
 }
