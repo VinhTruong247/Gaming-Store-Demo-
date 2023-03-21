@@ -47,9 +47,11 @@
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
 
-                                <form action="<c:url value="/product/search.page"/>">
-                                    <input type="text" class="form-control" id="searchPhrase" name="searchPhrase" placeholder="Type Something..." value="${searchPhrase}">  
-                                </form>
+                                <li class="scroll-to-section">
+                                    <form action="<c:url value="/product/search.page"/>">
+                                        <input type="text" class="form-control" id="searchPhrase" name="searchPhrase" placeholder="Type Something..." value="${searchPhrase}">  
+                                    </form>
+                                </li>
 
                                 <li class="scroll-to-section"><a href="<c:url value="/"/>">Home</a></li>
                                 <li class="scroll-to-section"><a href="<c:url value="/home/aboutus.page"/>">About Us</a></li>
@@ -60,7 +62,7 @@
                                         <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
-                                            <li><a href="<c:url value="#"/>">Sale Data</a></li>
+                                            <li><a href="<c:url value="/product/sale.page"/>">Sale Data</a></li>
                                             </c:if>
                                     </ul>
                                 </li>
@@ -82,9 +84,6 @@
 
                                 <li class="scroll-to-section"><a href="<c:url value="/payment/cart.page"/>"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
-                            <a class='menu-trigger'>
-                                <span>Menu</span>
-                            </a>
                             <!-- ***** Menu End ***** -->
                         </nav>
                     </div>

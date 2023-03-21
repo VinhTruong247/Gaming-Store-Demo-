@@ -48,6 +48,9 @@ public class ProductControl extends HttpServlet {
             case "manager":
                 manager(request, response);
                 break;
+            case "sale":
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                break;
             case "create":
                 create(request, response);
                 break;
