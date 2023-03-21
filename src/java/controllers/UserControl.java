@@ -89,7 +89,7 @@ public class UserControl extends HttpServlet {
                     String loginInput = request.getParameter("loginInput").trim();
                     String password = request.getParameter("password");
                     UserFacade uf = new UserFacade();
-                    if (uf.checkAccountExist(loginInput) != 0) {
+                    if (uf.getUser(loginInput) != null) {
                         User user = new User();
                         if (password.length() < 20) {
                             password = Hasher.hash(password);
@@ -98,12 +98,15 @@ public class UserControl extends HttpServlet {
                         if (user == null) {
                             request.setAttribute("message", "Incorrect username/email or password.");
                             request.getRequestDispatcher("/user/login.page").forward(request, response);
+                        } else if (!user.isActive()) {
+                            request.setAttribute("message", "This account has been shutdown by an ADMIN.");
+                            request.getRequestDispatcher("/user/login.page").forward(request, response);
                         } else {
                             String remember = request.getParameter("remember");
                             if (remember != null) {
                                 Cookie cookUser = new Cookie("cookUser", user.getUsername());
                                 Cookie cookPass = new Cookie("cookPass", password);
-                                Cookie cookRemember = new Cookie("cookRemember", remember);
+                                Cookie cookRemember = new Cookie("cookRemember", "on");
                                 cookUser.setMaxAge(REMEMBER_ME_EXPIRY);
                                 cookPass.setMaxAge(REMEMBER_ME_EXPIRY);
                                 cookRemember.setMaxAge(REMEMBER_ME_EXPIRY);
@@ -159,20 +162,18 @@ public class UserControl extends HttpServlet {
                 UserFacade uf = new UserFacade();
                 request.setAttribute("fullName", fullName);
                 try {
-                    if (uf.checkAccountExist(username) == 0 && uf.checkAccountExist(email) == 0) {
-                        request.setAttribute("username", username);
-                        request.setAttribute("email", email);
-                        request.setAttribute("address", address);
-                        String role = request.getParameter("role");
-                        int id = uf.getNextId(role);
+                    request.setAttribute("username", username);
+                    request.setAttribute("email", email);
+                    request.setAttribute("address", address);
+                    if (uf.getUser(username) == null && uf.getUser(email) == null) {
                         String password = request.getParameter("password");
                         String confirmPass = request.getParameter("confirmPass");
                         if (Tools.verifyPassword(password)) {
                             if (password.equals(confirmPass)) {
-                                User user = new User(role, id, username, email, Hasher.hash(password), fullName, address);
-                                uf.create(user);
+                                uf.create(2, username, email, Hasher.hash(password), fullName, address);
+                                User user = new User();
+                                user = uf.getUser(username);
                                 session.setAttribute("user", user);
-                                request.setAttribute("announce", "Signup done, you can go back to Home Page now.");
                                 response.sendRedirect(request.getContextPath() + "/home/index.page");
                             } else {
                                 request.setAttribute("message", "Unable to signup due to: Confirm password doesn't match.");
@@ -209,37 +210,39 @@ public class UserControl extends HttpServlet {
         switch (op) {
             case "apply":
                 HttpSession session = request.getSession();
-                User oldUser = (User) session.getAttribute("user");
+                User user = (User) session.getAttribute("user");
                 try {
                     UserFacade uf = new UserFacade();
-                    User newUser = new User();
                     String username = request.getParameter("username");
-                    String email = request.getParameter("email");
-                    if (username.isEmpty()) {
-                        username = oldUser.getUsername();
+                    if (!username.isEmpty()) {
+                        user.setUsername(username);
 
                     } else {
-                        Cookie cookUser = new Cookie("cookUser", username);
+                        Cookie cookUser = new Cookie("cookUser", user.getUsername());
+                        Cookie cookPass = new Cookie("cookPass", user.getPassword());
+                        Cookie cookRemember = new Cookie("cookRemember", "on");
                         cookUser.setMaxAge(REMEMBER_ME_EXPIRY);
+                        cookPass.setMaxAge(REMEMBER_ME_EXPIRY);
+                        cookRemember.setMaxAge(REMEMBER_ME_EXPIRY);
                         response.addCookie(cookUser);
+                        response.addCookie(cookPass);
+                        response.addCookie(cookRemember);
+                        response.addCookie(cookPass);
                     }
-                    if (email.isEmpty()) {
-                        email = oldUser.getEmail();
+                    String email = request.getParameter("email");
+                    if (!email.isEmpty()) {
+                        user.setEmail(email);
                     }
-                    String role = request.getParameter("role");
-                    int id = Integer.parseInt(request.getParameter("id"));
                     String fullName = request.getParameter("fullName");
-                    if (fullName.isEmpty()) {
-                        fullName = oldUser.getFullName();
+                    if (!fullName.isEmpty()) {
+                        user.setFullName(fullName);
                     }
                     String address = request.getParameter("address");
-                    String password = request.getParameter("pasword");
-                    newUser = new User(role, id, username, email, password, fullName, address);
-                    uf.update(newUser);
-                    session.setAttribute("user", newUser);
+                    uf.update(user);
+                    session.setAttribute("user", user);
                     response.sendRedirect(request.getContextPath() + "/user/profile.page");
                 } catch (Exception ex) {
-                    session.setAttribute("user", oldUser);
+                    session.setAttribute("user", user);
                     String message = "Unable to edit due to: ";
                     if (ex.toString().contains("duplicate")) {
                         message += "Account already exists";
@@ -279,9 +282,6 @@ public class UserControl extends HttpServlet {
                             user.setPassword(Hasher.hash(newPass));
                             UserFacade uf = new UserFacade();
                             uf.changePass(user);
-                            Cookie cookPass = new Cookie("cookPass", user.getPassword());
-                            cookPass.setMaxAge(REMEMBER_ME_EXPIRY);
-                            response.addCookie(cookPass);
                             session.setAttribute("user", user);
                             response.sendRedirect(request.getContextPath() + "/user/profile.page");
                         } else {

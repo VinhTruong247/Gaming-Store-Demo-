@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CartControl", urlPatterns = {"/cart"})
 public class CartControl extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+    private static final int TEMP_PROD_EXPIRY = 24 * 60 * 60;
     CartFacade cf = new CartFacade();
     User user = new User();
 
@@ -73,11 +76,26 @@ public class CartControl extends HttpServlet {
         String username = "";
         if (user != null) {
             username = user.getFullName();
+            cf.add(username, productId);
         } else {
-            username = "unknown";
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            if (list.isEmpty()) {
+                list = productId;
+            } else {
+                list += "," + productId;
+            }
+            Cookie cookProd = new Cookie("cart", list);
+            cookProd.setMaxAge(TEMP_PROD_EXPIRY);
+            response.addCookie(cookProd);
         }
         System.out.println(username);
-        cf.add(username, productId);
+
         response.sendRedirect(request.getHeader("referer"));
     }
 
@@ -89,12 +107,23 @@ public class CartControl extends HttpServlet {
         String username = "";
         if (user != null) {
             username = user.getFullName();
+            cf.delete(username, productId);
         } else {
-            username = "unknown";
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            String[] listOfProduct = list.split(productId);
+            System.out.println(listOfProduct);
+            for(String p : listOfProduct){
+                System.out.println(p);
+            }
         }
-        cf.delete(username, productId);
+        System.out.println("ddd");
         Cart cart = (Cart) session.getAttribute("cart");
-        System.out.println("d");
         cart.remove(productId);
         session.setAttribute("cart", cart);
         response.sendRedirect(request.getHeader("referer"));
@@ -118,7 +147,7 @@ public class CartControl extends HttpServlet {
 
     protected void checkout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

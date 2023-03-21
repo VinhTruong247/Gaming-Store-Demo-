@@ -21,21 +21,22 @@ import java.util.List;
  */
 public class UserFacade {
 
-    public List<User> select() throws SQLException {
+    public List<User> select() throws SQLException, NoSuchAlgorithmException {
         List<User> list = null;
         Connection con = Database.getConnection();
         Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("select * from users u inner join user_roles r on u.role_id=r.id");
+        ResultSet rs = stm.executeQuery("select * from users");
         list = new ArrayList<>();
         while (rs.next()) {
             User user = new User();
-            user.setRole(rs.getString("role"));
+            user.setRole(getRole(rs.getInt("role_id")));
             user.setUserId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
             user.setAddress(rs.getString("user_address"));
+            user.setActive(rs.getBoolean("user_active"));
             list.add(user);
         }
         con.close();
@@ -48,31 +49,31 @@ public class UserFacade {
         Connection con = Database.getConnection();
         String queryCommand = "";
         if (utils.Tools.verifyEmail(input)) {
-            queryCommand = "user_email=? and user_password=?";
+            queryCommand = "user_email=?";
         } else {
-            queryCommand = "user_username=? and user_password=?";
+            queryCommand = "user_username=?";
         }
-        PreparedStatement stm = con.prepareStatement("select * from users u inner join user_roles r on u.role_id=r.id where " + queryCommand);
+        PreparedStatement stm = con.prepareStatement("select * from users where " + queryCommand + " and user_password=?");
         stm.setString(1, input);
         stm.setString(2, password);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
             user = new User();
-            user.setRole(rs.getString("role"));
+            user.setRole(getRole(rs.getInt("role_id")));
             user.setUserId(rs.getInt("user_id"));
             user.setUsername(rs.getString("user_username"));
             user.setEmail(rs.getString("user_email"));
             user.setPassword(rs.getString("user_password"));
             user.setFullName(rs.getString("user_fullName"));
             user.setAddress(rs.getString("user_address"));
+            user.setActive(rs.getBoolean("user_active"));
         }
         con.close();
         return user;
     }
 
     //check tai khoan ton tai khong
-    public int checkAccountExist(String input) throws SQLException, NoSuchAlgorithmException {
-        int count = 0;
+    public User getUser(String input) throws SQLException, NoSuchAlgorithmException {
         User user = null;
         Connection con = Database.getConnection();
         String queryCommand = "";
@@ -81,54 +82,50 @@ public class UserFacade {
         } else {
             queryCommand = "user_username=?";
         }
-        PreparedStatement stm = con.prepareStatement("select count(user_email) 'count' from users where " + queryCommand);
+        PreparedStatement stm = con.prepareStatement("select * from users where " + queryCommand);
         stm.setString(1, input);
         ResultSet rs = stm.executeQuery();
         if (rs.next()) {
-            count=rs.getInt("count");
+            user = new User();
+            user.setRole(getRole(rs.getInt("role_id")));
+            user.setUserId(rs.getInt("user_id"));
+            user.setUsername(rs.getString("user_username"));
+            user.setEmail(rs.getString("user_email"));
+            user.setPassword(rs.getString("user_password"));
+            user.setFullName(rs.getString("user_fullName"));
+            user.setAddress(rs.getString("user_address"));
+            user.setActive(rs.getBoolean("user_active"));
         }
         con.close();
-        System.out.println(count);
-        return count;
-    }
-
-    public int getNextId(String role) throws SQLException{
-        int count=0;
-        Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select max(user_id) 'max' from users group by role_id having role_id = ?");
-        stm.setInt(1, getRoleId(role));
-        ResultSet rs = stm.executeQuery();
-        if(rs.next()) count=rs.getInt("max");
-        con.close();
-        return count+1;
+        return user;
     }
     
-    public void create(User user) throws SQLException {
+    public int create(int roleId, String username, String email, String password, String fullName, String address) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("SET IDENTITY_INSERT users ON insert into users(role_id,user_id,user_username,user_email,user_password,user_fullName,user_address) values (?, ?, ?, ?, ?, ?, ?) SET IDENTITY_INSERT users OFF");
-        stm.setInt(1, getRoleId(user.getRole()));
-        stm.setInt(2, user.getUserId());
-        stm.setString(3, user.getUsername());
-        stm.setString(4, user.getEmail());
-        stm.setString(5, user.getPassword());
-        stm.setString(6, user.getFullName());
-        stm.setString(7, user.getAddress());
+        PreparedStatement stm = con.prepareStatement("insert into users(role_id,user_username,user_email,user_password,user_fullName,user_address,user_active) values (?, ?, ?, ?, ?, ?, ?)");
+        stm.setInt(1, roleId);
+        stm.setString(2, username);
+        stm.setString(3, email);
+        stm.setString(4, password);
+        stm.setString(5, fullName);
+        stm.setString(6, address);
+        stm.setBoolean(7, true);
         int count = stm.executeUpdate();
         con.close();
+        return count;
     }
     
     public void update(User user) throws SQLException {
         //Tạo connection để kết nối vào DBMS
         Connection con = Database.getConnection();
         //Tạo đối tượng statement
-        PreparedStatement stm = con.prepareStatement("update users set user_username = ?, user_email = ?, user_fullName = ?, user_address = ? where user_id = ? and role_id = ?");
+        PreparedStatement stm = con.prepareStatement("update users set user_username = ?, user_email = ?, user_fullName = ?, user_address = ? where user_id = ?");
         //Thực thi lệnh sql
         stm.setString(1, user.getUsername());
         stm.setString(2, user.getEmail());
         stm.setString(3, user.getFullName());
         stm.setString(4, user.getAddress());
         stm.setInt(5, user.getUserId());
-        stm.setInt(6, getRoleId(user.getRole()));
         int count = stm.executeUpdate();        
         con.close();
     }
@@ -137,23 +134,25 @@ public class UserFacade {
         //Tạo connection để kết nối vào DBMS
         Connection con = Database.getConnection();
         //Tạo đối tượng statement
-        PreparedStatement stm = con.prepareStatement("update users set user_password = ? where user_id = ? and role_id = ?");
+        PreparedStatement stm = con.prepareStatement("update users set user_password = ? where user_id = ?");
         //Thực thi lệnh sql
         stm.setString(1, user.getPassword());
         stm.setInt(2, user.getUserId());
-        stm.setInt(3, getRoleId(user.getRole()));
         int count = stm.executeUpdate();        
         con.close();
     }
     
-    public int getRoleId(String role) throws SQLException{
-        int id=0;
+    public String getRole(int roleId) throws SQLException, NoSuchAlgorithmException {
+        User user = null;
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("select id from user_roles where role=?");
-        stm.setString(1, role);
+        String role = "";
+        PreparedStatement stm = con.prepareStatement("select role from user_roles where id = ?");
+        stm.setInt(1, roleId);
         ResultSet rs = stm.executeQuery();
-        if(rs.next()) id=rs.getInt("id");
+        if (rs.next()) {
+            role = rs.getString("role");
+        }
         con.close();
-        return id;
+        return role;
     }
 }

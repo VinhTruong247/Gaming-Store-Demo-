@@ -31,10 +31,7 @@
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>
                         <input type="text" class="form-control" id="address" name="address" value="${user.address}">
-                    </div>
-                    <input type="hidden" name="password" value="${user.password}">
-                    <input type="hidden" name="id" value="${user.userId}">
-                    <input type="hidden" name="role" value="${user.role}">
+                    </div>  
                     <button type="submit" class="btn btn-outline-success" name="op" value="apply"><i class="bi bi-check-lg"></i> Apply</button>
                     <button type="submit" class="btn btn-outline-danger" formnovalidate name="op" value="cancel"><i class="bi bi-x-lg"></i> Cancel</button>
                 </form>

@@ -29,7 +29,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ProductControl", urlPatterns = {"/product"})
 public class ProductControl extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -133,7 +132,7 @@ public class ProductControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user.getRole().equals("ADMIN")) {
             try {
                 ProductFacade pf = new ProductFacade();
                 List<Product> list = pf.select();
@@ -154,7 +153,7 @@ public class ProductControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user.getRole().equals("ADMIN")) {
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/product/manager.page");
@@ -197,7 +196,7 @@ public class ProductControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user.getRole().equals("ADMIN")) {
             try {
                 String productId = request.getParameter("productId");
                 ProductFacade pf = new ProductFacade();
@@ -257,7 +256,7 @@ public class ProductControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user.getRole().equals("ADMIN")) {
             String productId = request.getParameter("productId");
             request.setAttribute("productId", productId);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);

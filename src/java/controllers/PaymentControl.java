@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -115,12 +116,21 @@ public class PaymentControl extends HttpServlet {
         String username = "";
         if (user != null) {
             username = user.getFullName();
+            cf.delete(username, productId);
         } else {
-            username = "unknown";
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            String[] listOfProduct = list.split(productId);
+            for(String p : listOfProduct){
+                System.out.println(p);
+            }
         }
-        cf.delete(username, productId);
         Cart cart = (Cart) session.getAttribute("cart");
-        System.out.println("d");
         cart.remove(productId);
         session.setAttribute("cart", cart);
         response.sendRedirect(request.getHeader("referer"));
@@ -147,18 +157,31 @@ public class PaymentControl extends HttpServlet {
         HttpSession session = request.getSession();
         user = (User) session.getAttribute("user");
         String username = "";
+        Cart cart = new Cart();
+        double total = 0;
         if (user != null) {
             username = user.getFullName();
+            List<Product> list = cf.select(username);
+            for (Product p : list) {
+                Item item = new Item(p, username);
+                cart.add(item);
+            }
         } else {
-            username = "unknown";
+            ProductFacade pf = new ProductFacade();
+            Cookie[] cookies = request.getCookies();
+            String list = "";
+            for (Cookie cook : cookies) {
+                if (cook.getName().equals("cart")) {
+                    list = cook.getValue();
+                }
+            }
+            String[] listOfProduct = list.split(",");
+            for (String p : listOfProduct) {
+                Item item = new Item(pf.read(p), username);
+                cart.add(item);
+            }
         }
-        Cart cart = new Cart();
-        List<Product> list = cf.select(username);
-        for (Product p : list) {
-            Item item = new Item(p, username);
-            cart.add(item);
-        }
-        double total = cart.getTotal();
+        total = cart.getTotal();
         request.setAttribute("total", total);
         session.setAttribute("cart", cart);
         request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
@@ -171,7 +194,7 @@ public class PaymentControl extends HttpServlet {
             case "success":
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
-                
+
                 response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
                 break;
             case "cancel":

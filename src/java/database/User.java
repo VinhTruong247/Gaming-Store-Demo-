@@ -18,17 +18,20 @@ public class User {
     private String password;
     private String fullName;
     private String address;
+    private boolean active;
+
     public User() {
     }
 
-    public User(String role, int id, String username, String email, String password, String fullName, String address) {
+    public User(String role, int userId, String username, String email, String password, String fullName, String address, boolean active) {
         this.role = role;
-        this.userId = id;
+        this.userId = userId;
         this.username = username;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
+        this.active = active;
     }
 
     public String getRole() {
@@ -87,5 +90,12 @@ public class User {
         this.address = address;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
 }

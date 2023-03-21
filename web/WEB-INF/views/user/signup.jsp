@@ -16,7 +16,6 @@
 
             <div class="col">
                 <form action="<c:url value="/user/signup_handler.page" />" method="get">
-                    <input type="hidden" name="role" value="CUSTOMER">
                     <div class="mb-3 mt-3">
                         <label for="fullName" class="form-label">Full Name:</label>
                         <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name here" required value="${fullName}">
@@ -31,7 +30,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="email" class="form-control" id="email" name="address" placeholder="Enter your address here (Optional)" value="${address}">
+                        <input type="text" class="form-control" id="email" name="address" placeholder="Enter your address here (Optional)" value="${address}">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password:</label>
