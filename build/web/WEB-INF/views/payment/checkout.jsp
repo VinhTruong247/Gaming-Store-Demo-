@@ -58,12 +58,12 @@
                 <label for="ccnum">Card number</label>
                 <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
                 <label for="expmonth">Expire Month</label>
-                <input type="text" id="expmonth" name="expmonth" placeholder="September">
+                <input type="number" id="expmonth" name="expmonth" placeholder="01">
 
                 <div class="row">
                     <div class="col">
                         <label for="expyear">Expire Year</label>
-                        <input type="text" id="expyear" name="expyear" placeholder="2023">
+                        <input type="number" id="expyear" name="expyear" placeholder="2023">
                     </div>
                     <div class="col">
                         <label for="cvv">CVV</label>

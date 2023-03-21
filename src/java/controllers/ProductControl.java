@@ -91,9 +91,10 @@ public class ProductControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         String searchPhrase = request.getParameter("searchPhrase");
+        String option = request.getParameter("option");
         try {
             ProductFacade pf = new ProductFacade();
-            List<Product> list = pf.searchProduct(searchPhrase);
+            List<Product> list = pf.searchProduct(searchPhrase, option);
             request.setAttribute("searchList", list);
             request.setAttribute("searchPhrase", searchPhrase);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);

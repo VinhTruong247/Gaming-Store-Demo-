@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/src/java/controllers/UserControl.java</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/web/WEB-INF/views/payment/cart.jsp</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/src/java/database/Cart.java</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/src/java/controllers/Config.java</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/src/java/database/ProductFacade.java</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/src/java/controllers/CartControl.java</file>
-            <file>file:/E:/PRJ301/project/Gaming-Store-Demo-/web/WEB-INF/views/user/login.jsp</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/layouts/main.jsp</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/PaymentFacade.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/ProductFacade.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/PaymentControl.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/Config.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/views/payment/checkout.jsp</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/ProductControl.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/views/product/search.jsp</file>
         </group>
     </open-files>
 </project-private>

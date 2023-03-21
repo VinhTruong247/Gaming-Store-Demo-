@@ -19,27 +19,120 @@ import java.util.List;
  */
 public class ProductFacade {
 
-    public List<Product> searchProduct(String searchPhrase) throws SQLException {
+    public List<Product> searchProduct(String searchPhrase, String option) throws SQLException {
         List<Product> list = null;
-        String query = "select * from products where product_name like ? order by product_name";
-        Connection con = Database.getConnection();
-        PreparedStatement pf = con.prepareStatement(query);
-        pf.setString(1, "%" + searchPhrase + "%");
-        ResultSet rs = pf.executeQuery();
-        list = new ArrayList<>();
-        while (rs.next()) {
-            Product p = new Product();
-            p.setProductId(rs.getString("product_id"));
-            p.setProductName(rs.getString("product_name"));
-            p.setProductPublisher(rs.getString("product_publisher"));
-            p.setCategory(rs.getString("product_category"));
-            p.setDescription(rs.getString("product_description"));
-            p.setQuantity(rs.getDouble("quantity"));
-            p.setPrice(rs.getDouble("price"));
-            p.setProductImages(rs.getString("product_images"));
-            list.add(p);
+        switch (option) {
+            case "asc_name": {
+                String query = "select * from products where product_name like ? order by product_name asc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            case "desc_name": {
+                String query = "select * from products where product_name like ? order by product_name desc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            case "asc_price": {
+                String query = "select * from products where product_name like ? order by price asc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            case "desc_price": {
+                String query = "select * from products where product_name like ? order by price desc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            default: {
+                String query = "select * from products where product_name like ?";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
         }
-        con.close();
         return list;
     }
 

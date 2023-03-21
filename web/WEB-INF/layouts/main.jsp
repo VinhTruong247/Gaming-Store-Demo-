@@ -50,6 +50,7 @@
                                 <li class="scroll-to-section">
                                     <form action="<c:url value="/product/search.page"/>">
                                         <input type="text" class="form-control" id="searchPhrase" name="searchPhrase" placeholder="Type Something..." value="${searchPhrase}">  
+                                        <input type="hidden" name="option" value="default">
                                     </form>
                                 </li>
 

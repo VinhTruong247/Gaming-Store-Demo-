@@ -31,8 +31,14 @@
                     <tr>
                         <th>No.</th>
                         <th>Images</th>
-                        <th>Name</th>
-                        <th>Price</th>
+                        <th>Name | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_name"/>">Ascending</a> | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_name"/>">Descending</a>
+                        </th>
+                        <th>Price | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_price"/>">Ascending</a> | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_price"/>">Descending</a>
+                        </th>
                         <th></th>
                     </tr>
 
