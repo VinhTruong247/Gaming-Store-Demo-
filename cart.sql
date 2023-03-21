@@ -1,6 +1,6 @@
 create table cart(
-userid int foreign key references users(user_userid),
+user_id int foreign key references users(user_id),
 product_id int foreign key references products(product_id) NOT NULL,
 quantity int not null,
-primary key(userid,product_id)
+primary key(user_id,product_id)
 )
