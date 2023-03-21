@@ -11,7 +11,7 @@ issuedate date
 create table cart(
 user_id int foreign key references users(user_id),
 product_id int foreign key references products(product_id) NOT NULL,
-primary key(userid,product_id)
+primary key(user_id,product_id)
 )
 
 create table user_payment(
