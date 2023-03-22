@@ -48,17 +48,19 @@
 
                 </c:forEach>
                 <td colspan = "6"><c:if test="${count==0}"><h1 style="text-align: center;">Go get some games now!</h1></c:if></td>
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="row">
-            <div class="col-lg-4">
+            <div class="row">
+                <div class="col-lg-4">
                 <c:if test="${count==0}">
                     <a href="<c:url value="/product/page.page?currentPage=1"/>" class="btn btn-outline-primary">Go get more games!</a>
                 </c:if>     
                 <c:if test="${count>0}">
-                    <a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a>
+                    <c:if test="${sessionScope.user==null}">You need to login in order to buy<a href="<c:url value="/user/login.page"/>" class="btn btn-outline-primary">Login here</a></c:if>
+                    <c:if test="${sessionScope.user!=null}"><a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a></c:if>
+
                 </c:if>            
             </div>
             <div class="col-lg-4">

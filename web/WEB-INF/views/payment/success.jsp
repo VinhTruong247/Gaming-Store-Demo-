@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <div class="success">
     <div class="container">
+        <c:if test="${sessionScope.user==null}">
+            <c:redirect url="/payment/cart.page"/>
+        </c:if>
         <div class="row">
             <div class="card">
                 <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">

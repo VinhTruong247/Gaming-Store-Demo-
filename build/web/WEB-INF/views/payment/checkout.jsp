@@ -13,7 +13,9 @@
 <div class="checkout">
     <form action="<c:url value="/payment/checkout_handler.page" />">
         <div class="container">
-
+            <c:if test="${sessionScope.user==null}">
+                <c:redirect url="/payment/cart.page"/>
+            </c:if>
             <div class="row">
 
                 <div class="col">
@@ -97,14 +99,7 @@
                                         <td>${item.product.productName}</td>
                                         <td>${item.quantity}</td>
                                         <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
-                                        <td>
-                                            <form action="<c:url value="/cart"/>">
-                                                <input type="hidden" name="productId" value="${item.product.productId}">
-                                                <button type="submit" name="op" value="delete">Delete</button>
-                                            </form>
-
-                                            <%--<a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>--%>
-                                        </td>
+                                        <td><a href="<c:url value="/payment/delete.page?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             <td colspan = "5"><c:if test="${count==0}"><h1 style="text-align: center;">Go get some games now!</h1></c:if></td>
@@ -117,13 +112,13 @@
             </div>
 
             <div class="row" style="text-align: center">
-                    <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
-                    <c:if test="${count==0}">
-                        <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
-                    </c:if>
-                    <c:if test="${count>0}">
-                        <button type="submit" class="btn btn-outline-success" name="action" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
-                    </c:if>            
+                <button type="submit" class="btn btn-outline-danger" formnovalidate name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
+                <c:if test="${count==0}">
+                    <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>
+                <c:if test="${count>0}">
+                    <button type="submit" class="btn btn-outline-success" name="action" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>            
 
             </div>
 
