@@ -89,6 +89,7 @@ public class PaymentControl extends HttpServlet {
                 break;
         }
     }
+
     protected Cart getCart(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         Cart cart = new Cart();
@@ -194,34 +195,33 @@ public class PaymentControl extends HttpServlet {
 
     protected void checkout_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String cardname = request.getParameter("cardname");
-        String cardnumber = request.getParameter("cardnumber");
-        int expmonth = Integer.parseInt(request.getParameter("expmonth"));
-        int expyear = Integer.parseInt(request.getParameter("expyear"));
-        String cvv = request.getParameter("cvv");
-        int index = 0;
-        PaymentFacade pf = new PaymentFacade();
-        boolean checkPaymentCard = pf.checkPaymentCard(cardname, cardnumber, expmonth, expyear, cvv);
-        if (checkPaymentCard = false) {
-            request.setAttribute("message", "Invalid Payment Info, please check again.");
-        } else {
-            String action = request.getParameter("action");
-            switch (action) {
-                case "success":
+
+        String action = request.getParameter("action");
+        switch (action) {
+            case "success":
+                String cardname = request.getParameter("cardname");
+                String cardnumber = request.getParameter("cardnumber");
+                int expmonth = Integer.parseInt(request.getParameter("expmonth"));
+                int expyear = Integer.parseInt(request.getParameter("expyear"));
+                String cvv = request.getParameter("cvv");
+                int index = 0;
+                PaymentFacade pf = new PaymentFacade();
+                boolean checkPaymentCard = pf.checkPaymentCard(cardname, cardnumber, expmonth, expyear, cvv);
+                if (checkPaymentCard = false) {
+                    request.setAttribute("message", "Invalid Payment Info, please check again.");
+                } else {
                     HttpSession session = request.getSession();
                     Cart cart = (Cart) session.getAttribute("cart");
-
                     response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
-                    break;
-                case "cancel":
-                    response.sendRedirect(request.getContextPath() + "/home/index.page");
-                    break;
-            }
+                }
+                break;
+            case "cancel":
+                response.sendRedirect(request.getContextPath() + "/home/index.page");
+                break;
         }
-
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

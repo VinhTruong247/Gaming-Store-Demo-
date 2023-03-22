@@ -82,6 +82,7 @@
                                 <th>No.</th>
                                 <th>Images</th>
                                 <th>Name</th>
+                                <th>Quantity</th>
                                 <th>Price</th>
                                 <th></th>
                             </tr>
@@ -93,9 +94,15 @@
                                     <td>${loop.count}</td>
                                     <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                                     <td>${item.product.productName}</td>
+                                    <td>${item.quantity}</td>
                                     <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
                                     <td>
-                                        <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                                        <form action="<c:url value="/cart"/>">
+                                            <input type="hidden" name="productId" value="${item.product.productId}">
+                                            <button type="submit" name="op" value="delete">Delete</button>
+                                        </form>
+                                        
+                                        <%--<a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>--%>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -109,7 +116,7 @@
         </div>
 
         <div class="row" style="text-align: center">
-            <form action="<c:url value="/payment/checkout_handler.page" />" method="post">
+            <form action="<c:url value="/payment/checkout_handler.page" />">
                 <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
                 <c:if test="${count==0}">
                     <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
