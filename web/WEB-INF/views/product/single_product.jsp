@@ -41,20 +41,22 @@
 
                     <div class="quantity-content">
                         <div class="left-content">
-                            <p>Product left in stock: <fmt:formatNumber value="${product.quantity}" type="number"/></p>
+                            <p>Product left in stock: <fmt:formatNumber value="${product.quantity - item.quantity}" type="number"/></p>
                         </div>
 
                         <div class="right-content">
                             <%--<div class="main-border-button"><a href="<c:url value="/cart?&op=add&productId=${product.productId}"/>">Add To Cart</a></div>--%>
-                            <form action="/GamingWebsite/cart">
-                                <input type="number" name="addQuantity" min ="1" max="${product.quantity}" step="1" required value="${addQuantity}">
-                                <input type="hidden" name="productId" value="${product.productId}">
-                                <button type="submit" name="op" value="add">Add To Cart</button>
-                            </form>
+                            <div class="main-border-button">
+                                <form action="/GamingWebsite/cart">
+                                    <input type="number" name="addQuantity" min ="1" max="${product.quantity}" step="1" required value="${addQuantity}">
+                                    <input type="hidden" name="productId" value="${product.productId}">
+                                    <button type="submit" name="op" value="add"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
-                        
                 </div>
             </div>
         </div>
-    </div>
 </section>

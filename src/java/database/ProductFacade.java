@@ -66,6 +66,50 @@ public class ProductFacade {
                 con.close();
             }
             break;
+            case "asc_category": {
+                String query = "select * from products where product_name like ? order by product_category asc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
+            case "desc_category": {
+                String query = "select * from products where product_name like ? order by product_category desc";
+                Connection con = Database.getConnection();
+                PreparedStatement pf = con.prepareStatement(query);
+                pf.setString(1, "%" + searchPhrase + "%");
+                ResultSet rs = pf.executeQuery();
+                list = new ArrayList<>();
+                while (rs.next()) {
+                    Product p = new Product();
+                    p.setProductId(rs.getString("product_id"));
+                    p.setProductName(rs.getString("product_name"));
+                    p.setProductPublisher(rs.getString("product_publisher"));
+                    p.setCategory(rs.getString("product_category"));
+                    p.setDescription(rs.getString("product_description"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setPrice(rs.getDouble("price"));
+                    p.setProductImages(rs.getString("product_images"));
+                    list.add(p);
+                }
+                con.close();
+            }
+            break;
             case "asc_price": {
                 String query = "select * from products where product_name like ? order by price asc";
                 Connection con = Database.getConnection();

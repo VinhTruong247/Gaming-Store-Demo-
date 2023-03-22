@@ -31,13 +31,17 @@
                     <tr>
                         <th>No.</th>
                         <th>Images</th>
-                        <th>Name | 
-                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_name"/>">Ascending</a> | 
-                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_name"/>">Descending</a>
+                        <th>Name:  
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_name"/>"><i class="fa fa-sort-alpha-down"></i></a> | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_name"/>"><i class="fa fa-sort-alpha-up"></i></a>
                         </th>
-                        <th>Price | 
-                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_price"/>">Ascending</a> | 
-                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_price"/>">Descending</a>
+                        <th>Category:  
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_category"/>"><i class="fa fa-sort-alpha-down"></i></a> | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_category"/>"><i class="fa fa-sort-alpha-up"></i></a>
+                        </th>
+                        <th>Price:   
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=asc_price"/>"><i class="fa fa-sort-numeric-down"></i></a> | 
+                            <a href="<c:url value="/product/search.page?searchPhrase=${searchPhrase}&option=desc_price"/>"><i class="fa fa-sort-numeric-up"></i></a>
                         </th>
                         <th></th>
                     </tr>
@@ -49,6 +53,7 @@
                             <td>${loop.count}</td>
                             <td style="width: 220px;"><img src="<c:url value="${product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                             <td>${product.productName}</td>
+                            <td>${product.category}</td>
                             <td><fmt:formatNumber value="${product.price}" type="number"/>&#8363;</td>
                             <td><a href="<c:url value="/product/single_product.page?quantity=1&op=none&productId=${product.productId}"/>" class="btn btn-outline-primary">Find out</a></td>
                         </tr>

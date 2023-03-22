@@ -34,8 +34,8 @@
                             <td>${loop.count}</td>
                             <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                             <td>${item.product.productName}</td>
-                            <td><input type="number" name="addQuantity" min ="1" max="${item.product.quantity}" step="1" required value="${item.quantity}"
-                                       <h4>Left in stock: <fmt:parseNumber value="${item.product.quantity}"/></h4>
+                            <td><input type="number" name="addQuantity" min ="1" max="${item.product.quantity}" step="1" required value="${item.quantity}"/>
+                                       <p>Left in stock: <fmt:parseNumber value="${item.product.quantity - item.quantity}"/></p>
                             </td>
                             <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
                             <td>
@@ -59,7 +59,7 @@
                 </c:if>     
                 <c:if test="${count>0}">
                     <c:if test="${sessionScope.user==null}">You need to login in order to buy<a href="<c:url value="/user/login.page"/>" class="btn btn-outline-primary">Login here</a></c:if>
-                    <c:if test="${sessionScope.user!=null}"><a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary">Go to checkout</a></c:if>
+                    <c:if test="${sessionScope.user!=null}"><a href="<c:url value="/payment/checkout.page"/>" class="btn btn-outline-primary" style="background-color: green">Go to checkout</a></c:if>
 
                 </c:if>            
             </div>

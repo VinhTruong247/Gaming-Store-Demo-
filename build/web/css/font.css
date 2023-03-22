@@ -1170,11 +1170,11 @@
 .fa-file-text:before {
   content: "\f15c";
 }
-.fa-sort-alpha-asc:before {
-  content: "\f15d";
-}
-.fa-sort-alpha-desc:before {
+.fa-sort-alpha-up:before {
   content: "\f15e";
+}
+.fa-sort-alpha-down:before {
+  content: "\f15d";
 }
 .fa-sort-amount-asc:before {
   content: "\f160";
@@ -1182,10 +1182,10 @@
 .fa-sort-amount-desc:before {
   content: "\f161";
 }
-.fa-sort-numeric-asc:before {
+.fa-sort-numeric-down:before {
   content: "\f162";
 }
-.fa-sort-numeric-desc:before {
+.fa-sort-numeric-up:before {
   content: "\f163";
 }
 .fa-thumbs-up:before {

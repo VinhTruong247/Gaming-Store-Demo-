@@ -37,10 +37,16 @@
                         <label for="address"><i class="fa fa-home"></i> Address</label>
                         <input required="" type="text" id="adr" name="address" placeholder="Your Address">
                     </c:if>
-                    <label for="city"><i class="fa fa-institution"></i> City</label>
-                    <input required="" type="text" id="city" name="city" placeholder="City">
-                    <label for="zip">Zip</label>
-                    <input required="" type="text" id="zip" name="zip" placeholder="10000">
+                    <div class="row">
+                        <div class="col">
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input required="" type="text" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="col">
+                            <label for="zip">Zip</label>
+                            <input required="" type="text" id="zip" name="zip" placeholder="10000">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col">
@@ -58,11 +64,13 @@
                     <label for="cname">Card Holder</label>
                     <input required="" type="text" id="cname" name="cardname" placeholder="Card Holder Name">
                     <label for="ccnum">Card number</label>
-                    <input required="" type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                    <label for="expmonth">Expire Month</label>
-                    <input required="" type="number" id="expmonth" name="expmonth" placeholder="01">
+                    <input required="" type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">                    
 
                     <div class="row">
+                        <div class="col">
+                            <label for="expmonth">Expire Month</label>
+                            <input required="" type="number" id="expmonth" name="expmonth" placeholder="01">
+                        </div>
                         <div class="col">
                             <label for="expyear">Expire Year</label>
                             <input required="" type="number" id="expyear" name="expyear" placeholder="2023">

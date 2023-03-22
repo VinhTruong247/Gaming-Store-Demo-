@@ -64,12 +64,10 @@
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
                                             <li><a href="<c:url value="/product/sale.page"/>">Sale Data</a></li>
+                                            <li class="scroll-to-section"><a href="<c:url value="/manager/index.page"/>">User Manager</a></li>
                                             </c:if>
                                     </ul>
                                 </li>
-                                <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
-                                    <li class="scroll-to-section"><a href="<c:url value="/manager/index.page"/>">User Manager</a></li>
-                                    </c:if>
                                 <c:if test="${sessionScope.user==null}">
                                     <li class="scroll-to-section"><a href="<c:url value="/user/login.page"/>">Login/Sign up</a></li>
                                     </c:if>
