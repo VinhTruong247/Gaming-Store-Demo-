@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import utils.Tools;
 
 /**
  *
@@ -99,7 +100,7 @@ public class UserFacade {
         con.close();
         return user;
     }
-    
+
     public int create(int roleId, String username, String email, String password, String fullName, String address) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("insert into users(role_id,user_username,user_email,user_password,user_fullName,user_address,user_active) values (?, ?, ?, ?, ?, ?, ?)");
@@ -114,7 +115,7 @@ public class UserFacade {
         con.close();
         return count;
     }
-    
+
     public void update(User user) throws SQLException {
         //Tạo connection để kết nối vào DBMS
         Connection con = Database.getConnection();
@@ -126,10 +127,10 @@ public class UserFacade {
         stm.setString(3, user.getFullName());
         stm.setString(4, user.getAddress());
         stm.setInt(5, user.getUserId());
-        int count = stm.executeUpdate();        
+        int count = stm.executeUpdate();
         con.close();
     }
-    
+
     public void changePass(User user) throws SQLException {
         //Tạo connection để kết nối vào DBMS
         Connection con = Database.getConnection();
@@ -138,10 +139,10 @@ public class UserFacade {
         //Thực thi lệnh sql
         stm.setString(1, user.getPassword());
         stm.setInt(2, user.getUserId());
-        int count = stm.executeUpdate();        
+        int count = stm.executeUpdate();
         con.close();
     }
-    
+
     public String getRole(int roleId) throws SQLException, NoSuchAlgorithmException {
         User user = null;
         Connection con = Database.getConnection();
@@ -154,5 +155,76 @@ public class UserFacade {
         }
         con.close();
         return role;
+    }
+
+    public int promote(int userId) throws SQLException {
+        //Tạo connection để kết nối vào DBMS
+        Connection con = Database.getConnection();
+        //Tạo đối tượng statement
+        PreparedStatement stm = con.prepareStatement("update users set role_id=1 where user_id = ?");
+        //Thực thi lệnh sql
+        stm.setInt(1, userId);
+        int count = stm.executeUpdate();
+        con.close();
+        return count;
+    }
+
+    public int deactivate(int userId) throws SQLException {
+        //Tạo connection để kết nối vào DBMS
+        Connection con = Database.getConnection();
+        //Tạo đối tượng statement
+        PreparedStatement stm = con.prepareStatement("update users set user_active=0 where user_id = ?");
+        //Thực thi lệnh sql
+        stm.setInt(1, userId);
+        int count = stm.executeUpdate();
+        con.close();
+        return count;
+    }
+
+    public List<User> search(String input) throws SQLException, NoSuchAlgorithmException {
+        List<User> list = null;
+        String query = "select * from users where ";
+        if (!input.isEmpty()) {
+            if (Tools.verifyEmail(input)) {
+                query += "user_email like '%" + input + "%'";
+            }
+            else if (input.equalsIgnoreCase("ADMIN")) {
+                query += "role_id = 1";
+            }
+            else if (input.equalsIgnoreCase("CUSTOMER")) {
+                query += "role_id =2";
+            }
+            else if (input.matches("[0-9]*")) {
+                query += "user_id like '%" + input + "%'";
+            }
+            else{
+                query += "user_username like '%" + input + "%'";
+                query += " or user_fullName like '%" + input + "%'";
+                query += " or user_address like '%" + input + "%'";
+                
+            }
+        }
+        else{
+            query += "user_username is not null";
+        }
+        System.out.println(query);  
+        Connection con = Database.getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery(query);
+        list = new ArrayList<>();
+        while (rs.next()) {
+            User user = new User();
+            user.setRole(getRole(rs.getInt("role_id")));
+            user.setUserId(rs.getInt("user_id"));
+            user.setUsername(rs.getString("user_username"));
+            user.setEmail(rs.getString("user_email"));
+            user.setPassword(rs.getString("user_password"));
+            user.setFullName(rs.getString("user_fullName"));
+            user.setAddress(rs.getString("user_address"));
+            user.setActive(rs.getBoolean("user_active"));
+            list.add(user);
+        }
+        con.close();
+        return list;
     }
 }
