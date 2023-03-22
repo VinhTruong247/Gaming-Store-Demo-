@@ -8,13 +8,16 @@ package controllers;
 import database.Cart;
 import database.CartFacade;
 import database.Item;
+import database.OrderListFacade;
 import database.PaymentFacade;
 import database.Product;
 import database.ProductFacade;
 import database.User;
+import java.text.SimpleDateFormat;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -216,8 +219,15 @@ public class PaymentControl extends HttpServlet {
                     request.setAttribute("message", "Invalid Payment Info, please check again.");
                 } else {
                     HttpSession session = request.getSession();
-                    Cart cart = (Cart) session.getAttribute("cart");
-                    //thiếu code đưa dữ liệu vào database
+                    user = (User) session.getAttribute("user");
+                    Cart cart = new Cart();
+                    int userId = user.getUserId();
+                    cart = cart = cf.select(userId);
+                    OrderListFacade olf = new OrderListFacade();
+                    Date issueDate = new Date();
+                    for (Item item : cart.getItem()) {
+                        olf.add(item, user.getUserId(), issueDate);
+                    }
                     response.sendRedirect(request.getContextPath() + "/payment/success.page");
                 }
                 break;
