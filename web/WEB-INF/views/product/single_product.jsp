@@ -45,8 +45,12 @@
                         </div>
 
                         <div class="right-content">
-                            <div class="main-border-button"><a href="<c:url value="/cart?&op=add&productId=${product.productId}"/>">Add To Cart</a></div>
-                        </div>
+                            <%--<div class="main-border-button"><a href="<c:url value="/cart?&op=add&productId=${product.productId}"/>">Add To Cart</a></div>--%>
+                            <form action="/GamingWebsite/cart">
+                                <input type="number" name="addQuantity" min ="1" max="${product.quantity}" step="1" required value="${addQuantity}">
+                                <input type="hidden" name="productId" value="${product.productId}">
+                                <button type="submit" name="op" value="add">Add To Cart</button>
+                            </form>
                     </div>
                         
                 </div>

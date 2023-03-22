@@ -8,7 +8,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <fmt:setLocale value="en-US" scope="session" />
-
 <h2>Checkout Page</h2>
 
 <div class="checkout">
@@ -88,17 +87,19 @@
                             </tr>
 
                         </thead>
-                        <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
-                            <tr>
-                                <td>${loop.count}</td>
-                                <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
-                                <td>${item.product.productName}</td>
-                                <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
-                                <td>
-                                    <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
-                                </td>
-                            </tr>
-                        </c:forEach>                  
+                        <tbody>
+                            <c:forEach var="item" items="${sessionScope.cart.item}" varStatus="loop">
+                                <tr>
+                                    <td>${loop.count}</td>
+                                    <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
+                                    <td>${item.product.productName}</td>
+                                    <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
+                                    <td>
+                                        <a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        <td colspan = "5"><c:if test="${count==0}"><h1 style="text-align: center;">Go get some games now!</h1></c:if></td>
                         </tbody>
                     </table>
                 </div>
@@ -110,7 +111,12 @@
         <div class="row" style="text-align: center">
             <form action="<c:url value="/payment/checkout_handler.page" />" method="post">
                 <button type="submit" class="btn btn-outline-danger" name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
-                <button type="submit" class="btn btn-outline-success" name="action" value="success" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+                <c:if test="${count==0}">
+                    <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>
+                <c:if test="${count>0}">
+                    <button type="submit" class="btn btn-outline-success" name="action" value="success" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>            
             </form>
         </div>
 

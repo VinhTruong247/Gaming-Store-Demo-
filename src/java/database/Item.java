@@ -13,23 +13,23 @@ import java.sql.SQLException;
  */
 public class Item {
 
-    private String productId;
+    private Product product;
     private int quantity;
 
-    public Item(){
-    }
-    
-    public Item(String productId, int quantity) {
-        this.productId = productId;
-        this.quantity = quantity;
-    }
-    
-    public String getProductId() {
-        return productId;
+    public Item() {
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public Item(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -38,10 +38,10 @@ public class Item {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }   
-    
-    public double getTotal() throws SQLException {
+    }
+
+    public double getTotal(){
         ProductFacade pf = new ProductFacade();
-        return quantity*pf.read(productId).getPrice();
+        return quantity * product.getPrice();
     }
 }

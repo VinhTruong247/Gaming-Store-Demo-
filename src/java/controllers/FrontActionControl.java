@@ -5,13 +5,19 @@
  */
 package controllers;
 
+import database.Cart;
+import database.Product;
+import database.ProductFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,20 +36,22 @@ public class FrontActionControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         String url = request.getServletPath();
         String controller = url.substring(0, url.lastIndexOf("/"));
-        String action = url.substring(url.lastIndexOf("/")+1, url.lastIndexOf("."));
-        
+        String action = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
+
         System.out.println("ServletPath: " + url);
         System.out.println("Controller: " + controller);
         System.out.println("Action: " + action);
-        
+
         request.setAttribute("controller", controller);
         request.setAttribute("action", action);
-        
-        request.getRequestDispatcher(controller).forward(request, response);
+
+    request.getRequestDispatcher (controller)
+
+.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +64,7 @@ public class FrontActionControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -70,7 +78,7 @@ public class FrontActionControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -81,7 +89,7 @@ public class FrontActionControl extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
