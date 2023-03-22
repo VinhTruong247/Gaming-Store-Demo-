@@ -233,6 +233,7 @@ public class PaymentControl extends HttpServlet {
                         System.out.println(quantity);
                         product.setQuantity(quantity);
                         prf.update(product);
+                        prf.sale(product);
                     }
                     response.sendRedirect(request.getContextPath() + "/payment/success.page");
                 }

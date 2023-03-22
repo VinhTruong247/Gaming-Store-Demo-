@@ -190,7 +190,7 @@ public class ProductFacade {
         return list;
     }
 
-    public List<Product> select() throws SQLException {
+    public static List<Product> select() throws SQLException {
         List<Product> list = null;
         Connection con = Database.getConnection();
         Statement stm = con.createStatement();
@@ -284,39 +284,15 @@ public class ProductFacade {
         return count;
     }
     
-    public void sale(Cart cart) throws SQLException{
-        List<Product> list = select();
-        for (int i = 1; i < list.size(); i++){
-            for (int j = 1; j < cart.map.size(); j++){
-                if (list.get(i).getProductId().equals(cart.map.get(j).getProduct().getProductId())){
-                    //get remain quantity
-                    int remain = list.get(i).getQuantity() - cart.map.get(j).getQuantity();
-                    list.get(i).setQuantity(remain);
-                    //get quantity sold
-                    int sold = 100 - remain;
-                    double price = cart.map.get(j).getProduct().getPrice() * sold;
-                    Connection con = Database.getConnection();
-                    PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
-                    stm.setString(1, cart.map.get(j).getProduct().getProductId());
-                    stm.setInt(2, sold);
-                    stm.setDouble(3, price);
-                    int count = stm.executeUpdate();
-                    con.close();
-                } else {
-                    int remain = list.get(i).getQuantity() - cart.map.get(j).getQuantity();
-                    list.get(i).setQuantity(remain);
-                    //get quantity sold
-                    int sold = 100 - remain;
-                    double price = cart.map.get(j).getProduct().getPrice() * sold;
-                    Connection con = Database.getConnection();
-                    PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
-                    stm.setString(1, cart.map.get(j).getProduct().getProductId());
-                    stm.setInt(2, sold);
-                    stm.setDouble(3, price);
-                    int count = stm.executeUpdate();
-                    con.close();
-                }
-            }
-        }
+    public void sale(Product product) throws SQLException{
+        int sold = 100 - product.getQuantity();
+        double price = sold * product.getPrice();
+        Connection con = Database.getConnection();
+        PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
+        stm.setString(1, product.getProductId());
+        stm.setInt(2, sold);
+        stm.setDouble(3, price);
+        int count = stm.executeUpdate();
+        con.close();
     }
 }
