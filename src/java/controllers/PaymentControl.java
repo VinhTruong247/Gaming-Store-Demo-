@@ -198,7 +198,12 @@ public class PaymentControl extends HttpServlet {
 
         String action = request.getParameter("action");
         switch (action) {
-            case "success":
+            case "purchase":
+                String fullName = request.getParameter("fullName");
+                String email = request.getParameter("email");
+                String address = request.getParameter("address");
+                String city = request.getParameter("city");
+                String zip = request.getParameter("zip");
                 String cardname = request.getParameter("cardname");
                 String cardnumber = request.getParameter("cardnumber");
                 int expmonth = Integer.parseInt(request.getParameter("expmonth"));
@@ -212,7 +217,8 @@ public class PaymentControl extends HttpServlet {
                 } else {
                     HttpSession session = request.getSession();
                     Cart cart = (Cart) session.getAttribute("cart");
-                    response.sendRedirect(request.getContextPath() + "/payment/checkout.page");
+                    //thiếu code đưa dữ liệu vào database
+                    response.sendRedirect(request.getContextPath() + "/payment/success.page");
                 }
                 break;
             case "cancel":
