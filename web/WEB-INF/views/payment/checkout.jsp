@@ -13,7 +13,9 @@
 <div class="checkout">
     <form action="<c:url value="/payment/checkout_handler.page" />">
         <div class="container">
-
+            <c:if test="${sessionScope.user==null}">
+                <c:redirect url="/payment/cart.page"/>
+            </c:if>
             <div class="row">
 
                 <div class="col">
@@ -110,13 +112,13 @@
             </div>
 
             <div class="row" style="text-align: center">
-                    <button type="submit" class="btn btn-outline-danger" formnovalidate name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
-                    <c:if test="${count==0}">
-                        <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
-                    </c:if>
-                    <c:if test="${count>0}">
-                        <button type="submit" class="btn btn-outline-success" name="action" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
-                    </c:if>            
+                <button type="submit" class="btn btn-outline-danger" formnovalidate name="action" value="cancel" style="background-color: red"><i class="bi bi-x-lg"></i> Cancel</button>
+                <c:if test="${count==0}">
+                    <button type="submit" class="btn btn-secondary" name="action"disabled="" style="background-color: grey"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>
+                <c:if test="${count>0}">
+                    <button type="submit" class="btn btn-outline-success" name="action" value="purchase" style="background-color: green"><i class="bi bi-check-lg"></i> Purchase</button>
+                </c:if>            
 
             </div>
 

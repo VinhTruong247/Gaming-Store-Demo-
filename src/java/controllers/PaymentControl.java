@@ -220,13 +220,19 @@ public class PaymentControl extends HttpServlet {
                 } else {
                     HttpSession session = request.getSession();
                     user = (User) session.getAttribute("user");
-                    Cart cart = new Cart();
                     int userId = user.getUserId();
-                    cart = cart = cf.select(userId);
+                    Cart cart = getCart(request);
+                    cart = cf.select(userId);
                     OrderListFacade olf = new OrderListFacade();
+                    ProductFacade prf = new ProductFacade();
                     Date issueDate = new Date();
                     for (Item item : cart.getItem()) {
                         olf.add(item, user.getUserId(), issueDate);
+                        Product product = item.getProduct();
+                        int quantity = 100-item.getQuantity();
+                        System.out.println(quantity);
+                        product.setQuantity(quantity);
+                        prf.update(product);
                     }
                     response.sendRedirect(request.getContextPath() + "/payment/success.page");
                 }

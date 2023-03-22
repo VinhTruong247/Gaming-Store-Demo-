@@ -238,7 +238,7 @@ public class ProductFacade {
 
     public void update(Product product) throws SQLException {
         Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ?, product_quantity = ?, product_images = ? where product_id = ?");
+        PreparedStatement stm = con.prepareStatement("update products set product_name = ?, product_publisher = ?, product_category = ?, product_description = ?, price = ?, quantity = ?, product_images = ? where product_id = ?");
         stm.setString(1, product.getProductName());
         stm.setString(2, product.getProductPublisher());
         stm.setString(3, product.getCategory());
