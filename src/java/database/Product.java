@@ -16,7 +16,7 @@ public class Product {
     private String productPublisher;
     private String category;
     private String description;
-    private double quantity;
+    private int quantity;
     private double price;
     private String productImages;
 
@@ -24,7 +24,7 @@ public class Product {
 
     }
 
-    public Product(String productId, String productName, String productPublisher, String category, String description, double quantity, double price, String productImages) {
+    public Product(String productId, String productName, String productPublisher, String category, String description, int quantity, double price, String productImages) {
         this.productId = productId;
         this.productName = productName;
         this.productPublisher = productPublisher;
@@ -92,11 +92,11 @@ public class Product {
         this.productImages = productImages;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
    

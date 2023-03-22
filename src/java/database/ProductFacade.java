@@ -36,7 +36,7 @@ public class ProductFacade {
                     p.setProductPublisher(rs.getString("product_publisher"));
                     p.setCategory(rs.getString("product_category"));
                     p.setDescription(rs.getString("product_description"));
-                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setQuantity(rs.getInt("quantity"));
                     p.setPrice(rs.getDouble("price"));
                     p.setProductImages(rs.getString("product_images"));
                     list.add(p);
@@ -58,7 +58,7 @@ public class ProductFacade {
                     p.setProductPublisher(rs.getString("product_publisher"));
                     p.setCategory(rs.getString("product_category"));
                     p.setDescription(rs.getString("product_description"));
-                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setQuantity(rs.getInt("quantity"));
                     p.setPrice(rs.getDouble("price"));
                     p.setProductImages(rs.getString("product_images"));
                     list.add(p);
@@ -80,7 +80,7 @@ public class ProductFacade {
                     p.setProductPublisher(rs.getString("product_publisher"));
                     p.setCategory(rs.getString("product_category"));
                     p.setDescription(rs.getString("product_description"));
-                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setQuantity(rs.getInt("quantity"));
                     p.setPrice(rs.getDouble("price"));
                     p.setProductImages(rs.getString("product_images"));
                     list.add(p);
@@ -102,7 +102,7 @@ public class ProductFacade {
                     p.setProductPublisher(rs.getString("product_publisher"));
                     p.setCategory(rs.getString("product_category"));
                     p.setDescription(rs.getString("product_description"));
-                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setQuantity(rs.getInt("quantity"));
                     p.setPrice(rs.getDouble("price"));
                     p.setProductImages(rs.getString("product_images"));
                     list.add(p);
@@ -124,7 +124,7 @@ public class ProductFacade {
                     p.setProductPublisher(rs.getString("product_publisher"));
                     p.setCategory(rs.getString("product_category"));
                     p.setDescription(rs.getString("product_description"));
-                    p.setQuantity(rs.getDouble("quantity"));
+                    p.setQuantity(rs.getInt("quantity"));
                     p.setPrice(rs.getDouble("price"));
                     p.setProductImages(rs.getString("product_images"));
                     list.add(p);
@@ -181,7 +181,7 @@ public class ProductFacade {
             p.setProductPublisher(rs.getString("product_publisher"));
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
-            p.setQuantity(rs.getDouble("quantity"));
+            p.setQuantity(rs.getInt("quantity"));
             p.setPrice(rs.getDouble("price"));
             p.setProductImages(rs.getString("product_images"));
             list.add(p);
@@ -203,7 +203,7 @@ public class ProductFacade {
             p.setProductPublisher(rs.getString("product_publisher"));
             p.setCategory(rs.getString("product_category"));
             p.setDescription(rs.getString("product_description"));
-            p.setQuantity(rs.getDouble("quantity"));
+            p.setQuantity(rs.getInt("quantity"));
             p.setPrice(rs.getDouble("price"));
             p.setProductImages(rs.getString("product_images"));
             list.add(p);
@@ -264,7 +264,7 @@ public class ProductFacade {
             product.setProductPublisher(rs.getString("product_publisher"));
             product.setCategory(rs.getString("product_category"));
             product.setDescription(rs.getString("product_description"));
-            product.setQuantity(rs.getDouble("quantity"));
+            product.setQuantity(rs.getInt("quantity"));
             product.setPrice(rs.getDouble("price"));
             product.setProductImages(rs.getString("product_images"));
         }
@@ -282,5 +282,41 @@ public class ProductFacade {
         }
         con.close();
         return count;
+    }
+    
+    public void sale(Cart cart) throws SQLException{
+        List<Product> list = select();
+        for (int i = 1; i < list.size(); i++){
+            for (int j = 1; j < cart.map.size(); j++){
+                if (list.get(i).getProductId().equals(cart.map.get(j).getProduct().getProductId())){
+                    //get remain quantity
+                    int remain = list.get(i).getQuantity() - cart.map.get(j).getQuantity();
+                    list.get(i).setQuantity(remain);
+                    //get quantity sold
+                    int sold = 100 - remain;
+                    double price = cart.map.get(j).getProduct().getPrice() * sold;
+                    Connection con = Database.getConnection();
+                    PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
+                    stm.setString(1, cart.map.get(j).getProduct().getProductId());
+                    stm.setInt(2, sold);
+                    stm.setDouble(3, price);
+                    int count = stm.executeUpdate();
+                    con.close();
+                } else {
+                    int remain = list.get(i).getQuantity() - cart.map.get(j).getQuantity();
+                    list.get(i).setQuantity(remain);
+                    //get quantity sold
+                    int sold = 100 - remain;
+                    double price = cart.map.get(j).getProduct().getPrice() * sold;
+                    Connection con = Database.getConnection();
+                    PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
+                    stm.setString(1, cart.map.get(j).getProduct().getProductId());
+                    stm.setInt(2, sold);
+                    stm.setDouble(3, price);
+                    int count = stm.executeUpdate();
+                    con.close();
+                }
+            }
+        }
     }
 }

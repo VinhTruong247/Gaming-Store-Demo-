@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class Cart {
 
-    private Map<String, Item> map = null;
+    static Map<String, Item> map = null;
 
     public Cart() {
         map = new HashMap<>();

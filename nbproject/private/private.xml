@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/views/payment/cart.jsp</file>
-            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/PaymentFacade.java</file>
-            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/views/payment/checkout.jsp</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/ProductFacade.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/Cart.java</file>
             <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/PaymentControl.java</file>
-            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/CartControl.java</file>
-            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/web/WEB-INF/views/product/single_product.jsp</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/Item.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/controllers/ProductControl.java</file>
+            <file>file:/C:/Users/VU%20HONG%20ANH/Documents/GitHub/Gaming-Store-Demo-/src/java/database/Product.java</file>
         </group>
     </open-files>
 </project-private>

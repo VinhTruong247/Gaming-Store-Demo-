@@ -172,7 +172,7 @@ public class ProductControl extends HttpServlet {
                     String productPublisher = request.getParameter("productPublisher");
                     String category = request.getParameter("category");
                     String description = request.getParameter("description");
-                    double quantity = Double.parseDouble(request.getParameter("quantity"));
+                    int quantity = Integer.parseInt(request.getParameter("quantity"));
                     double price = Double.parseDouble(request.getParameter("price"));
                     String productImages = request.getParameter("productImages");
                     Product product = new Product(productId, productName, productPublisher, category, description, quantity, price, productImages);
@@ -229,7 +229,7 @@ public class ProductControl extends HttpServlet {
                     String productPublisher = request.getParameter("productPublisher");
                     String category = request.getParameter("category");
                     String description = request.getParameter("description");
-                    double quantity = Double.parseDouble(request.getParameter("quantity"));
+                    int quantity = Integer.parseInt(request.getParameter("quantity"));
                     double price = Double.parseDouble(request.getParameter("price"));
                     String productImages = request.getParameter("productImages");
                     Product product = new Product(productId, productName, productPublisher, category, description, quantity, price, productImages);
