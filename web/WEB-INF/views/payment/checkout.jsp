@@ -97,14 +97,7 @@
                                         <td>${item.product.productName}</td>
                                         <td>${item.quantity}</td>
                                         <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
-                                        <td>
-                                            <form action="<c:url value="/cart"/>">
-                                                <input type="hidden" name="productId" value="${item.product.productId}">
-                                                <button type="submit" name="op" value="delete">Delete</button>
-                                            </form>
-
-                                            <%--<a href="<c:url value="/cart?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a>--%>
-                                        </td>
+                                        <td><a href="<c:url value="/payment/delete.page?productId=${item.product.productId}&op=delete"/>"><i class="bi bi-x-lg"></i></a></td>
                                     </tr>
                                 </c:forEach>
                             <td colspan = "5"><c:if test="${count==0}"><h1 style="text-align: center;">Go get some games now!</h1></c:if></td>
