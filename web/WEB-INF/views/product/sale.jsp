@@ -40,7 +40,7 @@
                                 <td>${product.productQuantity}</td>
                                 <td>${product.productPrice}</td>
                                 <td>
-                                    <fmt:formatNumber value="${product.quantity}" type="number"/>
+                                    <fmt:formatNumber value="100-${product.quantity}" type="number"/>
                                 </td>
                                 <td>
                                     <fmt:formatNumber value="${product.price}" type="number"/>&#8363;

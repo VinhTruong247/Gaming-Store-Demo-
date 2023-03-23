@@ -83,7 +83,7 @@ public class UserControl extends HttpServlet {
                 break;
         }
     }
-    
+
     protected Cart getCart(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         Cart cart = new Cart();
@@ -152,11 +152,12 @@ public class UserControl extends HttpServlet {
                                 response.addCookie(cookRemember);
                             }
                             HttpSession session = request.getSession();
-                            Cart cart = getCart(request);
-                            if (cart != null) {
-                                CartFacade cf = new CartFacade();
+                            int userId = user.getUserId();
+                            CartFacade cf = new CartFacade();
+                            Cart cart = cf.select(userId);
+                            if (cart == null) {
+                                cart = getCart(request);
                                 for (Item item : cart.getItem()) {
-                                    int userId = user.getUserId();
                                     String productId = item.getProduct().getProductId();
                                     int quantity = item.getQuantity();
                                     cf.add(userId, productId, quantity);
@@ -220,11 +221,12 @@ public class UserControl extends HttpServlet {
                                 uf.create(2, username, email, Hasher.hash(password), fullName, address);
                                 User user = new User();
                                 user = uf.getUser(username);
-                                Cart cart = getCart(request);
-                                if (cart != null) {
-                                    CartFacade cf = new CartFacade();
+                                int userId = user.getUserId();
+                                CartFacade cf = new CartFacade();
+                                Cart cart = cf.select(userId);
+                                if (cart == null) {
+                                    cart = getCart(request);
                                     for (Item item : cart.getItem()) {
-                                        int userId = user.getUserId();
                                         String productId = item.getProduct().getProductId();
                                         int quantity = item.getQuantity();
                                         cf.add(userId, productId, quantity);

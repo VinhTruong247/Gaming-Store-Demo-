@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import database.OrderListFacade;
 import database.Product;
 import database.ProductFacade;
 import database.User;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ProductControl", urlPatterns = {"/product"})
 public class ProductControl extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,6 +50,11 @@ public class ProductControl extends HttpServlet {
                 manager(request, response);
                 break;
             case "sale":
+                try {
+                    sale(request, response);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
             case "create":
@@ -84,6 +91,22 @@ public class ProductControl extends HttpServlet {
                 request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
                 break;
         }
+    }
+
+    protected void sale(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        ProductFacade pf = new ProductFacade();
+        OrderListFacade olf = new OrderListFacade();
+        List<String> id = olf.select();
+        System.out.println("Still work");
+        for (String productId : id) {
+            Product product = pf.read(productId);
+            System.out.println("Still work");
+            pf.sale(product);
+            System.out.println("Still work");
+        }
+        List<Product> list = pf.saleList();
+        request.setAttribute("list", list);
     }
 
     protected void search(HttpServletRequest request, HttpServletResponse response)
