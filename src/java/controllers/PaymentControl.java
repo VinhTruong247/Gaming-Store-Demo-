@@ -197,8 +197,7 @@ public class PaymentControl extends HttpServlet {
     }
 
     protected void checkout_handler(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-
+            throws ServletException, IOException{
         String action = request.getParameter("action");
         switch (action) {
             case "purchase":
@@ -213,14 +212,11 @@ public class PaymentControl extends HttpServlet {
                 int expyear = Integer.parseInt(request.getParameter("expyear"));
                 String cvv = request.getParameter("cvv");
                 int index = 0;
-                PaymentFacade pf = new PaymentFacade();
-                boolean checkPaymentCard = pf.checkPaymentCard(cardname, cardnumber, expmonth, expyear, cvv);
-                if (checkPaymentCard = false) {
-                    request.setAttribute("message", "Invalid Payment Info, please check again.");
-                } else {
+                try{
                     HttpSession session = request.getSession();
                     user = (User) session.getAttribute("user");
                     int userId = user.getUserId();
+                    System.out.println(userId);
                     Cart cart = getCart(request);
                     cart = cf.select(userId);
                     OrderListFacade olf = new OrderListFacade();
@@ -230,12 +226,14 @@ public class PaymentControl extends HttpServlet {
                         olf.add(item, user.getUserId(), issueDate);
                         Product product = item.getProduct();
                         int quantity = 100-item.getQuantity();
+                        System.out.println(quantity);
                         product.setQuantity(quantity);
                         prf.update(product);
-                        prf.sale(product);
                         cf.empty(userId);
                     }
                     response.sendRedirect(request.getContextPath() + "/payment/success.page");
+                } catch(Exception e){
+                    System.out.println(e);
                 }
                 break;
             case "cancel":

@@ -23,7 +23,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>No.</th>
                             <th>Product ID</th>
                             <th>Name</th>
                             <th>Quantity</th>
@@ -33,17 +33,20 @@
                     </thead>
                     <tbody>
                         <c:forEach var="product" items="${list}" varStatus="loop">
+                            <c:if test="${loop.count == 1}">
+                                <c:set var = "profit" scope = "session" value = "${total}"/>
+                            </c:if>
                             <tr>
-                                <td>${product.orderID}</td>
-                                <td>${product.productID}</td>
+                                <td>${loop.count}</td>
+                                <td>${product.productId}</td>
                                 <td>${product.productName}</td>
-                                <td>${product.productQuantity}</td>
-                                <td>${product.productPrice}</td>
                                 <td>
-                                    <fmt:formatNumber value="100-${product.quantity}" type="number"/>
+                                    <c:set var = "sold" scope = "session" value = "${100-product.quantity}"/>
+                                    <fmt:formatNumber value="${sold}" type="number"/>
                                 </td>
                                 <td>
-                                    <fmt:formatNumber value="${product.price}" type="number"/>&#8363;
+                                    <c:set var = "total" scope = "session" value = "${sold*product.price}"/>
+                                    <fmt:formatNumber value="${total}" type="number"/>
                                 </td>
                                 <td>
 
@@ -51,10 +54,12 @@
                                     <a href="<c:url value="/product/delete.page?productId=${product.productId}" />">Delete</a>
 
                                 </td>
+                                <c:set var = "profit" scope = "session" value = "${profit+total}"/>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
+                Total profit: <fmt:formatNumber value="${profit}" type="number"/>
             </div>
         </c:if>
     </div>

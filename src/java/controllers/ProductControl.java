@@ -101,11 +101,14 @@ public class ProductControl extends HttpServlet {
         System.out.println("Still work");
         for (String productId : id) {
             Product product = pf.read(productId);
-            System.out.println("Still work");
-            pf.sale(product);
+            if(!pf.checkExist(productId)) pf.saleCreate(product);
             System.out.println("Still work");
         }
-        List<Product> list = pf.saleList();
+        System.out.println("done");
+        List<Product> list = pf.saleSelect();
+        for(Product p : list){
+            System.out.println(p.getProductName());
+        }
         request.setAttribute("list", list);
     }
 

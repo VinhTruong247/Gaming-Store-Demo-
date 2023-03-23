@@ -328,59 +328,55 @@ public class ProductFacade {
         return count;
     }
 
-    public void sale(Product product) throws SQLException {
+    public void saleCreate(Product product) throws SQLException {
         OrderListFacade olf = new OrderListFacade();
         int sold = olf.count(product.getProductId());
         double price = sold * product.getPrice();
-        if(checkExist(product.getProductId())){
-            saleUpdate(product);
+        Connection con = Database.getConnection();
+        System.out.println(sold);
+        System.out.println(price);
+        int count = 0;
+        if (checkExist(product.getProductId())) {
+            PreparedStatement stm = con.prepareStatement("update sale set sold_quantity = ?, price where product_id = ?");
+            stm.setInt(1, sold);
+            stm.setDouble(2, price);
+            stm.setString(3, product.getProductId());
+            count = stm.executeUpdate();
             System.out.println("update success");
+        } else {
+            PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
+            stm.setString(1, product.getProductId());
+            stm.setInt(2, sold);
+            stm.setDouble(3, price);
+            count = stm.executeUpdate();
         }
-        else{
-        Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("insert sale values(?, ?, ?)");
-        stm.setString(1, product.getProductId());
-        stm.setInt(2, sold);
-        stm.setDouble(3, price);
-        int count = stm.executeUpdate();
-        System.out.println(count);
-        con.close();
-        }
+            System.out.println(count);
+            con.close();
     }
 
-    public void saleUpdate(Product product) throws SQLException {
-        OrderListFacade olf = new OrderListFacade();
-        int sold = olf.count(product.getProductId());
-        double price = sold * product.getPrice();
-        Connection con = Database.getConnection();
-        PreparedStatement stm = con.prepareStatement("update sale set sold_quantity = ?, price = ? where product_id = ?");
-        stm.setString(1, product.getProductId());
-        stm.setInt(2, sold);
-        stm.setDouble(3, price);
-        int count = stm.executeUpdate();
-        con.close();
-    }
-
-    public static List<Product> saleList() throws SQLException {
-        List<Product> list = new ArrayList<Product>();
+    public static List<Product> saleSelect() throws SQLException {
+        List<Product> list = null;
         Connection con = Database.getConnection();
         Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("select product_id from sale");
+        ResultSet rs = stm.executeQuery("select * from sale");
+        list = new ArrayList<>();
         while (rs.next()) {
             String p = rs.getString("product_id");
             Product product = read(p);
-            System.out.println(product.getProductId());
             list.add(product);
         }
         con.close();
         return list;
     }
-    public static boolean checkExist(String productId) throws SQLException {
+
+    public boolean checkExist(String productId) throws SQLException {
         Connection con = Database.getConnection();
         PreparedStatement stm = con.prepareStatement("select product_id from sale where product_id = ?");
         stm.setString(1, productId);
         ResultSet rs = stm.executeQuery();
-        if(rs.next()) return true;
+        if (rs.next()) {
+            return true;
+        }
         con.close();
         return false;
     }
