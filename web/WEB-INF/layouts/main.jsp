@@ -73,7 +73,7 @@
                                     </c:if>
 
                                 <c:if test="${sessionScope.user!=null}">
-                                    <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.fullName}</li>
+                                    <li class="scroll-to-section" style="margin-top: 10px">Welcome ${user.username}</li>
                                     <li class="submenu">
                                         <img style="width:40px; height:40px; overflow: hidden; border-radius: 55%; border: 1px solid black;" src="<c:url value="/images/face.jpg" />" class="img-circle" alt="">
                                         <ul>

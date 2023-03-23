@@ -230,10 +230,10 @@ public class PaymentControl extends HttpServlet {
                         olf.add(item, user.getUserId(), issueDate);
                         Product product = item.getProduct();
                         int quantity = 100-item.getQuantity();
-                        System.out.println(quantity);
                         product.setQuantity(quantity);
                         prf.update(product);
                         prf.sale(product);
+                        cf.empty(userId);
                     }
                     response.sendRedirect(request.getContextPath() + "/payment/success.page");
                 }
