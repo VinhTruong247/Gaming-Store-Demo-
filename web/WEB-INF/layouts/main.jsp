@@ -60,7 +60,7 @@
                                     <a href="<c:url value="/product/page.page?currentPage=1"/>">Games</a>
                                     <ul>
                                         <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Featured Page</a></li>
-                                        <li><a href="<c:url value="/product/page.page?currentPage=1"/>">Game List</a></li>
+                                        <li><a href="<c:url value="/product/search.page?searchPhrase=&option=default"/>">Game List</a></li>
                                             <c:if test="${sessionScope.user!=null && sessionScope.user.role=='ADMIN'}">
                                             <li><a href="<c:url value="/product/manager.page"/>">Product Manager</a></li>
                                             <li><a href="<c:url value="/product/sale.page"/>">Sale Data</a></li>

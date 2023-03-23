@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-4">
                 <c:if test="${count==0}">
-                    <a href="<c:url value="/product/page.page?currentPage=1"/>" class="btn btn-outline-primary">Go get more games!</a>
+                    <a href="<c:url value="/product/page.page?currentPage=1"/>" class="btn btn-outline-primary" style="width: 60%; padding: 10px;">Go get more games!</a>
                 </c:if>     
                 <c:if test="${count>0}">
                     <c:if test="${sessionScope.user==null}">You need to login in order to buy<a href="<c:url value="/user/login.page"/>" class="btn btn-outline-primary">Login here</a></c:if>
