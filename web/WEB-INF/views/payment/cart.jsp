@@ -35,7 +35,7 @@
                             <td style="width: 220px;"><img src="<c:url value="${item.product.productImages}"/>" style="width:100%; height:100%" alt=""></td>
                             <td>${item.product.productName}</td>
                             <td><input type="number" name="addQuantity" min ="1" max="${item.product.quantity}" step="1" required value="${item.quantity}"/>
-                                       <p>Left in stock: <fmt:parseNumber value="${item.product.quantity - item.quantity}"/></p>
+                                       <p>Left in stock: <fmt:parseNumber value="${item.product.quantity}"/></p>
                             </td>
                             <td><fmt:formatNumber value="${item.product.price}" type="number"/>&#8363;</td>
                             <td>
