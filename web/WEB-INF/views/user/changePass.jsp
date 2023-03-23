@@ -7,12 +7,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h2>changePass Page</h2>
 
-<div class="changePass">
+<div class="edit">
     <div class="container">
         <div class="row">
-            <h2>Changing Password</h2>
+            <h2>Change Password</h2>
             <div class="col">   
             </div>
             <div class="col">
