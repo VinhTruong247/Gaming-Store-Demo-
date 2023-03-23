@@ -5,6 +5,11 @@
  */
 package controllers;
 
+import database.Cart;
+import database.CartFacade;
+import database.Item;
+import database.Product;
+import database.ProductFacade;
 import database.User;
 import database.UserFacade;
 import java.io.IOException;
@@ -47,7 +52,7 @@ public class UserControl extends HttpServlet {
         String action = (String) request.getAttribute("action");
         switch (action) {
             case "login":
-                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+                login(request, response);
                 break;
             case "login_handler":
                 login_handler(request, response);
@@ -77,6 +82,38 @@ public class UserControl extends HttpServlet {
                 changePass_handler(request, response);
                 break;
         }
+    }
+    
+    protected Cart getCart(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        Cart cart = new Cart();
+        String list = "";
+        for (Cookie cook : cookies) {
+            if (cook.getName().equals("cart")) {
+                list = cook.getValue();
+            }
+        }
+        if (!list.isEmpty()) {
+            String[] listOfProduct = list.split(",");
+            for (String word : listOfProduct) {
+                String[] p = word.split("-");
+                ProductFacade pf = new ProductFacade();
+                try {
+                    Product product = pf.read(p[0]);
+                    int quantity = Integer.parseInt(p[1]);
+                    cart.update(product, quantity);
+                } catch (Exception e) {
+                    System.out.println("Can't get the product with Id: " + p[0]);
+                }
+            }
+        }
+        return cart;
+    }
+
+    protected void login(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
     protected void login_handler(HttpServletRequest request, HttpServletResponse response)
@@ -115,6 +152,16 @@ public class UserControl extends HttpServlet {
                                 response.addCookie(cookRemember);
                             }
                             HttpSession session = request.getSession();
+                            Cart cart = getCart(request);
+                            if (cart != null) {
+                                CartFacade cf = new CartFacade();
+                                for (Item item : cart.getItem()) {
+                                    int userId = user.getUserId();
+                                    String productId = item.getProduct().getProductId();
+                                    int quantity = item.getQuantity();
+                                    cf.add(userId, productId, quantity);
+                                }
+                            }
                             session.setAttribute("user", user);
                             response.sendRedirect(request.getContextPath() + "/home/index.page");
                         }
@@ -173,6 +220,16 @@ public class UserControl extends HttpServlet {
                                 uf.create(2, username, email, Hasher.hash(password), fullName, address);
                                 User user = new User();
                                 user = uf.getUser(username);
+                                Cart cart = getCart(request);
+                                if (cart != null) {
+                                    CartFacade cf = new CartFacade();
+                                    for (Item item : cart.getItem()) {
+                                        int userId = user.getUserId();
+                                        String productId = item.getProduct().getProductId();
+                                        int quantity = item.getQuantity();
+                                        cf.add(userId, productId, quantity);
+                                    }
+                                }
                                 session.setAttribute("user", user);
                                 response.sendRedirect(request.getContextPath() + "/home/index.page");
                             } else {
